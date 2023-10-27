@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Contains ys_links.module functions.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ys_links_page_attachments(array &$attachments) {
+  /* I believe order matters here:
+   *   - ys_links depends on link_renderer
+   *   - link_renderer depends on the link_types
+   */
+
+  // Link types.
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/relative';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/mailto';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/anchor';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/download';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/external';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/internal';
+  $attachments["#attached"]['library'][] = 'ys_links/link_types/mailto';
+  // Utility methods.
+  $attachments["#attached"]['library'][] = 'ys_links/icon_creator';
+  $attachments["#attached"]['library'][] = 'ys_links/copy_button_creator';
+  $attachments["#attached"]['library'][] = 'ys_links/link_renderer';
+
+  // Main file.
+  $attachments["#attached"]['library'][] = 'ys_links/ys_links';
+}

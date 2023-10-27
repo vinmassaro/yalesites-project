@@ -1,0 +1,5 @@
+name: YaleSites Links
+type: module
+description: Modifies treatment of links on render
+package: YaleSites
+core_version_requirement: ^9 || ^10

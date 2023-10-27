@@ -1,0 +1,17 @@
+ys_links:
+  version: VERSION
+  js:
+    js/link_types/relative.js: {}
+    js/link_types/anchor.js: {}
+    js/link_types/download.js: {}
+    js/link_types/external.js: {}
+    js/link_types/internal.js: {}
+    js/link_types/mailto.js: {}
+    js/icon_creator.js: {}
+    js/copy_button_creator.js: {}
+    js/link_renderer.js: {}
+    js/ys_links.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

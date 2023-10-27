@@ -1,0 +1,41 @@
+/**
+ * @file
+ * Mailto link definition.
+ */
+
+(function (_$, Drupal, _drupalSettings) {
+
+    'use strict';
+
+    Drupal.ys_links = Drupal.ys_links || {};
+    Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
+
+    Drupal.ys_links.linkTypes.download = {
+        evaluator: (link) => {
+            const url=link.getAttribute('href');
+            const fileExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'zip', 'csv'];
+            const urlParts = url.split('.');
+            const lastPart = urlParts[urlParts.length - 1];
+            return fileExtensions.includes(lastPart) || link.dataset.linkType === "download"
+        },
+        render: (link) => {
+            [
+                'link',
+                'link--with-icon',
+                'external-link',
+            ].forEach((className) => link.classList.add(className));
+            link.dataset.linkType = 'download';
+            link.innerHTML = link.innerHTML.trim();
+            link.appendChild(Drupal.ys_links.createIcon([
+                'fa-icon',
+                'fa-regular',
+                'fa-circle-down'
+            ],
+                { hidden: true, labelledBy: 'title-circle-down-181881481' }
+            ));
+            console.log(`${link.getAttribute('href')} is download`);
+        },
+    };
+
+})(jQuery, Drupal, drupalSettings);
+
