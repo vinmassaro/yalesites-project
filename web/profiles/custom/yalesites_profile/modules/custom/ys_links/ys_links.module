@@ -23,6 +23,7 @@ function ys_links_page_attachments(array &$attachments) {
   $attachments["#attached"]['library'][] = 'ys_links/link_types/internal';
   $attachments["#attached"]['library'][] = 'ys_links/link_types/mailto';
   // Utility methods.
+  $attachments["#attached"]['library'][] = 'ys_links/sr_only_creator';
   $attachments["#attached"]['library'][] = 'ys_links/icon_creator';
   $attachments["#attached"]['library'][] = 'ys_links/copy_button_creator';
   $attachments["#attached"]['library'][] = 'ys_links/link_renderer';
