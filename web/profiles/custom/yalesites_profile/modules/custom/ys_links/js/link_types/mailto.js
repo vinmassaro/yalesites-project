@@ -13,6 +13,10 @@
     Drupal.ys_links.linkTypes.mailto = {
         evaluator: (link) => link.getAttribute('href').startsWith('mailto:'),
         render: (link) => {
+            if (link.classList.contains('ys_linked')) {
+                return;
+            }
+
             const span = document.createElement('span');
             span.innerHTML = link.innerHTML;
             link.classList.add('ys_linked');
@@ -20,6 +24,7 @@
             link.insertAdjacentElement('afterend', span);
             span.insertAdjacentElement('afterend', Drupal.ys_links.copyButton());
             link.remove();
+
             if (Drupal.ys_links.debugging) {
                 console.log(`${link.getAttribute('href')} is mailto`);
             }

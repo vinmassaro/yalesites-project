@@ -13,6 +13,10 @@
     Drupal.ys_links.linkTypes.anchor = {
         evaluator: (link) => link.getAttribute('href').startsWith('#'),
         render: (link) => {
+            if (link.classList.contains('ys_linked')) {
+                return;
+            }
+
             if (Drupal.ys_links.debugging) {
                 console.log(`${link.getAttribute('href')} is anchor`);
             }

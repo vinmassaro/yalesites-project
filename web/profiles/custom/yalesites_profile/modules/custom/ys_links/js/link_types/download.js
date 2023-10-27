@@ -18,6 +18,10 @@
             return fileExtensions.includes(extension) || link.dataset.linkType === "download"
         },
         render: (link) => {
+            if (link.classList.contains('ys_linked')) {
+                return;
+            }
+
             const fileExtension = link.getAttribute('href').split('.').pop().toUpperCase();
             [
                 'link',
@@ -35,12 +39,13 @@
 
             // if the icon has not already been applied, apply it.
             if (link.querySelectorAll('.fa-icon').length === 0) {
-                link.appendChild(Drupal.ys_links.createIcon([
-                    'fa-icon',
-                    'fa-regular',
-                    'fa-circle-down'
-                ],
-                    { hidden: true, labelledBy: 'title-circle-down-181881481' }
+                link.appendChild(Drupal.ys_links.createIcon(
+                    [
+                        'fa-icon',
+                        'fa-regular',
+                        'fa-circle-down'
+                    ],
+                    { hidden: true, labelledby: `title-circle-down-${new Date().valueOf()}` }
                 ));
                 link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
             }

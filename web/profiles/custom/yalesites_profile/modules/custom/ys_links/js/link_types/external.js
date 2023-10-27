@@ -29,6 +29,10 @@
                 notAnotherEvaluator(dependentEvaluators, link)
         },
         render: function (link) { 
+            if (link.classList.contains('ys_linked')) {
+                return;
+            }
+
             [
                 'link',
                 'link--with-icon',
@@ -39,11 +43,12 @@
             link.dataset.linkStyle = 'underline-with-icon';
             link.innerHTML = link.innerHTML.trim();
             if (link.querySelectorAll('.fa-icon').length === 0) {
-                link.appendChild(Drupal.ys_links.createIcon([
-                    'fa-icon',
-                    'fa-solid',
-                    'fa-arrow-up-right'
-                ]));
+                link.appendChild(Drupal.ys_links.createIcon(
+                    [
+                        'fa-icon',
+                        'fa-solid',
+                        'fa-arrow-up-right'
+                    ]));
                 link.appendChild(Drupal.ys_links.srOnlySpan('(link is external)'));
             }
             if (Drupal.ys_links.debugging) {

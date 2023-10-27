@@ -10,7 +10,7 @@
     Drupal.ys_links = Drupal.ys_links || {};
 
     // Labelledby seems dirty; this is what was in storybook.
-    Drupal.ys_links.createIcon = (classes = [], aria = { hidden: true, labelledby: 'title-arrow-up-right-1031352735' }, role = 'img') => {
+    Drupal.ys_links.createIcon = (classes = [], aria = { hidden: true }, role = 'img') => {
         const faicon = document.createElement('i');
         classes.forEach((c) => faicon.classList.add(c));
         for (const [key, value] of Object.entries(aria)) {
