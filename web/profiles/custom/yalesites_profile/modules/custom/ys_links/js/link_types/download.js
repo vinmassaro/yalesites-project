@@ -25,6 +25,7 @@
                 'external-link',
             ].forEach((className) => link.classList.add(className));
             link.dataset.linkType = 'download';
+            link.dataset.linkStyle = 'underline-with-icon';
             link.innerHTML = link.innerHTML.trim();
 
             if (!link.innerHTML.toUpperCase().includes(fileExtension)) {

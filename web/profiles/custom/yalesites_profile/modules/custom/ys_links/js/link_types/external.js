@@ -35,6 +35,7 @@
                 'external-link'
             ].forEach((className) => link.classList.add(className));
             link.dataset.linkType = 'external';
+            link.dataset.linkStyle = 'underline-with-icon';
             link.innerHTML = link.innerHTML.trim();
             link.appendChild(Drupal.ys_links.createIcon([
                 'fa-icon',
