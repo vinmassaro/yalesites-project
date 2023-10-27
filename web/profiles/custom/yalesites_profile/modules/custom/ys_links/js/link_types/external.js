@@ -45,7 +45,9 @@
                 ]));
                 link.appendChild(Drupal.ys_links.srOnlySpan('(link is external)'));
             }
-            console.log(`${link.getAttribute('href')} is external`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is external`);
+            }
         },
     };
 

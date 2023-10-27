@@ -8,6 +8,7 @@
     'use strict';
 
     Drupal.ys_links = Drupal.ys_links || {};
+    Drupal.ys_links.debugging = true;
 
     Drupal.ys_links.attach = function(context, _drupalSettings) {
         const pageContext = context.querySelector('#main-content');

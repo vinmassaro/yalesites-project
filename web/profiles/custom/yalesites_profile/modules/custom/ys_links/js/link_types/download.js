@@ -43,7 +43,9 @@
                 ));
                 link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
             }
-            console.log(`${link.getAttribute('href')} is download`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is download`);
+            }
         },
     };
 

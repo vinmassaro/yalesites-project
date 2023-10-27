@@ -19,7 +19,9 @@
             link.insertAdjacentElement('afterend', span);
             span.insertAdjacentElement('afterend', Drupal.ys_links.copyButton());
             link.remove();
-            console.log(`${link.getAttribute('href')} is mailto`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is mailto`);
+            }
         }
     };
 

@@ -15,7 +15,9 @@
     Drupal.ys_links.linkTypes.internal = {
         evaluator: (link) => urlHasCurrentDomain(link.getAttribute('href')),
         render: (link) => {
-            console.log(`${link.getAttribute('href')} is internal`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is internal`);
+            }
         },
     };
 

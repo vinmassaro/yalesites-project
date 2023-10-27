@@ -13,7 +13,9 @@
     Drupal.ys_links.linkTypes.anchor = {
         evaluator: (link) => link.getAttribute('href').startsWith('#'),
         render: (link) => {
-            console.log(`${link.getAttribute('href')} is anchor`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is anchor`);
+            }
         },
     };
 

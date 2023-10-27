@@ -19,7 +19,9 @@
             return hasBlankTarget(link) || linkTypeIsTarget(link)
         },
         render: (link) => {
-            console.log(`${link.getAttribute('href')} is anchor`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is target blank`);
+            }
         },
     };
 

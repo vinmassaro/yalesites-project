@@ -13,7 +13,9 @@
     Drupal.ys_links.linkTypes.relative = {
         evaluator: (link) => link.getAttribute('href').startsWith('/'),
         render: (link) => {
-            console.log(`${link.getAttribute('href')} is relative`);
+            if (Drupal.ys_links.debugging) {
+                console.log(`${link.getAttribute('href')} is relative`);
+            }
         },
     };
 
