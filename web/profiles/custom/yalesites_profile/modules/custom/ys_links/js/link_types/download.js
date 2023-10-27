@@ -32,14 +32,17 @@
                 link.innerHTML += ` (${fileExtension})`;
             }
 
-            link.appendChild(Drupal.ys_links.createIcon([
-                'fa-icon',
-                'fa-regular',
-                'fa-circle-down'
-            ],
-                { hidden: true, labelledBy: 'title-circle-down-181881481' }
-            ));
-            link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
+            // if the icon has not already been applied, apply it.
+            if (link.querySelectorAll('.fa-icon').length === 0) {
+                link.appendChild(Drupal.ys_links.createIcon([
+                    'fa-icon',
+                    'fa-regular',
+                    'fa-circle-down'
+                ],
+                    { hidden: true, labelledBy: 'title-circle-down-181881481' }
+                ));
+                link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
+            }
             console.log(`${link.getAttribute('href')} is download`);
         },
     };

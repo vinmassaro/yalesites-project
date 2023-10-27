@@ -37,12 +37,14 @@
             link.dataset.linkType = 'external';
             link.dataset.linkStyle = 'underline-with-icon';
             link.innerHTML = link.innerHTML.trim();
-            link.appendChild(Drupal.ys_links.createIcon([
-                'fa-icon',
-                'fa-solid',
-                'fa-arrow-up-right'
-            ]));
-            link.appendChild(Drupal.ys_links.srOnlySpan('(link is external)'));
+            if (link.querySelectorAll('.fa-icon').length === 0) {
+                link.appendChild(Drupal.ys_links.createIcon([
+                    'fa-icon',
+                    'fa-solid',
+                    'fa-arrow-up-right'
+                ]));
+                link.appendChild(Drupal.ys_links.srOnlySpan('(link is external)'));
+            }
             console.log(`${link.getAttribute('href')} is external`);
         },
     };
