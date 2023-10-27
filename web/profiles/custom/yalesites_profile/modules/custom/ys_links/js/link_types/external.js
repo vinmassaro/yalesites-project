@@ -49,7 +49,7 @@
                         'fa-solid',
                         'fa-arrow-up-right'
                     ]));
-                link.appendChild(Drupal.ys_links.srOnlySpan('(link is external)'));
+                link.appendChild(Drupal.ys_links.createSrOnlySpan('(link is external)'));
             }
             if (Drupal.ys_links.debugging) {
                 console.log(`${link.getAttribute('href')} is external`);

@@ -11,7 +11,7 @@
 
     Drupal.ys_links.createIcon = (classes = [], aria = { hidden: true }, role = 'img') => {
         const faicon = document.createElement('i');
-        classes.forEach((c) => faicon.classList.add(c));
+        classes.forEach((className) => faicon.classList.add(className));
         for (const [key, value] of Object.entries(aria)) {
             faicon.setAttribute(`aria-${key}`, value);
         };

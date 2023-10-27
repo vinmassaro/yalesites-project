@@ -17,6 +17,8 @@
                 return linkDefinitions.render;
             }
         }
+        // When I ran into this issue, it was due to not returning the renderer.
+        // Hope you don't get here.  ;)
         console.error("No link renderer found for link--are you missing a return in a custom link definition?", link);
         // Catch-all don't modify the link
         return (link) => link;

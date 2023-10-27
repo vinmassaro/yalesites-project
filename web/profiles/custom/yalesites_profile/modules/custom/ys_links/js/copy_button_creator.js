@@ -10,16 +10,8 @@
     Drupal.ys_links = Drupal.ys_links || {};
     Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
-    Drupal.ys_links.copyButton = () => {
-        const button = document.createElement('button');
-        button.classList.add('text-copy-button__button');
-        button.innerHTML = "&nbsp;(copy)";
-        button.addEventListener('click', Drupal.ys_links.copyButtonFunctionality);
-        return button;
-    };
-
     // How can I get this from compoenent-library-twig????
-    Drupal.ys_links.copyButtonFunctionality = (event) => {
+    const copyButtonFunctionality = (event) => {
         // Only fire if the target has id copy
         if (!event.target.matches('.text-copy-button__button')) return;
 
@@ -42,4 +34,13 @@
             triggerValue.innerHTML = '(error)';
         }
     };
+
+    Drupal.ys_links.createCopyButton = (clickEventHandler = copyButtonFunctionality) => {
+        const button = document.createElement('button');
+        button.classList.add('text-copy-button__button');
+        button.innerHTML = "&nbsp;(copy)";
+        button.addEventListener('click', clickEventHandler);
+        return button;
+    };
+
 })(jQuery, Drupal, drupalSettings);

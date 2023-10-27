@@ -47,7 +47,7 @@
                     ],
                     { hidden: true, labelledby: `title-circle-down-${new Date().valueOf()}` }
                 ));
-                link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
+                link.appendChild(Drupal.ys_links.createSrOnlySpan('(file download)'));
             }
             if (Drupal.ys_links.debugging) {
                 console.log(`${link.getAttribute('href')} is download`);

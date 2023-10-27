@@ -22,7 +22,7 @@
             link.classList.add('ys_linked');
             span.classList.add('pre-text__text');
             link.insertAdjacentElement('afterend', span);
-            span.insertAdjacentElement('afterend', Drupal.ys_links.copyButton());
+            span.insertAdjacentElement('afterend', Drupal.ys_links.createCopyButton());
             link.remove();
 
             if (Drupal.ys_links.debugging) {
