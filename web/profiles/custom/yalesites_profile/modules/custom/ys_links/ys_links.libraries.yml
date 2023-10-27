@@ -12,6 +12,9 @@ ys_links:
     js/copy_button_creator.js: {}
     js/link_renderer.js: {}
     js/ys_links.js: {}
+  css:
+    theme:
+      css/ys_links.css: {}
   dependencies:
     - core/jquery
     - core/drupal

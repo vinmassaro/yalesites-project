@@ -1,0 +1,7 @@
+/**
+ * @file
+ * Styles for ys_links
+ */
+a.ys_linked {
+  display: inline-block !important;
+}

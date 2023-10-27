@@ -15,6 +15,7 @@
         render: (link) => {
             const span = document.createElement('span');
             span.innerHTML = link.innerHTML;
+            link.classList.add('ys_linked');
             span.classList.add('pre-text__text');
             link.insertAdjacentElement('afterend', span);
             span.insertAdjacentElement('afterend', Drupal.ys_links.copyButton());

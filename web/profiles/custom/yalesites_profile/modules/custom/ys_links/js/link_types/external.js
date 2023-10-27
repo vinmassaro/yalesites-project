@@ -32,7 +32,8 @@
             [
                 'link',
                 'link--with-icon',
-                'external-link'
+                'external-link',
+                'ys_linked',
             ].forEach((className) => link.classList.add(className));
             link.dataset.linkType = 'external';
             link.dataset.linkStyle = 'underline-with-icon';
