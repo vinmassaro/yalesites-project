@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * External link definition.
  */
 
 (function (_$, Drupal, _drupalSettings) {
@@ -41,6 +41,7 @@
                 'fa-solid',
                 'fa-arrow-up-right'
             ]));
+            link.appendChild(Drupal.ys_links.srOnlySpan('This is an external link'));
             console.log(`${link.getAttribute('href')} is external`);
         },
     };

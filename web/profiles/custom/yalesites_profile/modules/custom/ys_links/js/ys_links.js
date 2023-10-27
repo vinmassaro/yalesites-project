@@ -1,6 +1,6 @@
 /**
  * @file
- * Yalesites link treatment js file.
+ * Yalesites link treatment js main entry point.
  */
 
 (function (_$, Drupal, _drupalSettings) {

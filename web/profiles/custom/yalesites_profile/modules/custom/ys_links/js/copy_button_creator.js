@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * Copy button link definition for mailto (and probably more later).
  */
 
 (function (_$, Drupal, _drupalSettings) {

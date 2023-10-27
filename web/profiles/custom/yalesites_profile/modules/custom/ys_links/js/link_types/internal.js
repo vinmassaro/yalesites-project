@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * Internal (same domain) link definition.
  */
 
 (function (_$, Drupal, _drupalSettings) {

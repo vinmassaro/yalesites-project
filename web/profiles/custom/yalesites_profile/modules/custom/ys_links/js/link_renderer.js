@@ -1,6 +1,6 @@
 /**
  * @file
- * Link type definitions and renderings.
+ * Link type render finder.
  */
 
 (function (_$, Drupal, _drupalSettings) {

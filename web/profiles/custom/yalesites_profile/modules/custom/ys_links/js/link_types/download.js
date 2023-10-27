@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * Download link definition.
  */
 
 (function (_$, Drupal, _drupalSettings) {
@@ -38,6 +38,7 @@
             ],
                 { hidden: true, labelledBy: 'title-circle-down-181881481' }
             ));
+            link.appendChild(Drupal.ys_links.srOnlySpan('(file download)'));
             console.log(`${link.getAttribute('href')} is download`);
         },
     };

@@ -3,15 +3,6 @@
  * Yalesites link icon generation.
  */
 
-/* Main entrypoint
- *
-* Other files used:
-*   - link_types.js: 
-*     - Defines the types of links, evaluators, and rendrers.
-*     - Allows you to retrieve the right link renderer for a link.
-*   - icon_creator.js:
-*     - Defines a function to create an icon element.
-*/
 (function (_$, Drupal, _drupalSettings) {
 
     'use strict';

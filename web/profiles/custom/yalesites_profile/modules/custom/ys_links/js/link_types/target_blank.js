@@ -1,6 +1,7 @@
 /**
  * @file
- * Mailto link definition.
+ * Blank target link definition.
+ * Note: Not really used, but in storybook.
  */
 
 (function (_$, Drupal, _drupalSettings) {

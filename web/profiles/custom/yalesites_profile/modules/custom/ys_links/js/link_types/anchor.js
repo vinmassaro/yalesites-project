@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * Anchor link definition.
  */
 
 (function (_$, Drupal, _drupalSettings) {

@@ -1,6 +1,6 @@
 /**
  * @file
- * Mailto link definition.
+ * Relative (/node/2) link definition.
  */
 
 (function (_$, Drupal, _drupalSettings) {
