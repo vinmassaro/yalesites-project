@@ -30,7 +30,4 @@ function ys_links_page_attachments(array &$attachments) {
 
   // Main file.
   $attachments["#attached"]['library'][] = 'ys_links/ys_links';
-
-  // Settings override.
-  $attachments["#attached"]['drupalSettings']['ys_links']['debug'] = FALSE;
 }
