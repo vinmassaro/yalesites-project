@@ -5,5 +5,8 @@
 
 a.ys_linked {
   display: inline-block !important;
-  margin-right: 15px;
+}
+
+a.ys_linked.link--with-icon i {
+  padding-right: 13px;
 }
