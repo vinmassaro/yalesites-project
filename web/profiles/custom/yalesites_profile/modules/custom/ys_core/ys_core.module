@@ -275,6 +275,12 @@ function ys_core_page_attachments(array &$page) {
     '.site-footer__site-branding',
     // CTA Banners.
     '.cta-banner__cta',
+    // CTA Button.
+    '.cta',
+    // Callout CTA.
+    '.callout__cta',
+    // Custom cards.
+    '.custom-card__heading-link',
     // quick-links.
     '.quick-links__cta',
   ];
