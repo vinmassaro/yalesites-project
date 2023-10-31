@@ -11,11 +11,15 @@
     Drupal.ys_links.debugging = false;
 
     const getExclusionParams = (excludedClasses) => {
+        let queryParams = 'a';
         if (excludedClasses.length > 0) {
-            return `a:not(${excludedClasses})`;
+            queryParams = `a:not(${excludedClasses})`;
         }
 
-        return 'a';
+        // Ensure we only get links that have hrefs on the tag.
+        queryParams += ':not(:not([href]))';
+
+        return queryParams;
     };
 
     Drupal.ys_links.attach = function(context, drupalSettings) {
