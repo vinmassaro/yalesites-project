@@ -273,6 +273,10 @@ function ys_core_page_attachments(array &$page) {
     '.site-header__yale-branding',
     // Footer branding.
     '.site-footer__site-branding',
+    // CTA Banners.
+    '.cta-banner__cta',
+    // quick-links.
+    '.quick-links__cta',
   ];
 }
 
