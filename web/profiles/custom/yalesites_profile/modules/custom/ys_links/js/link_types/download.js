@@ -29,8 +29,15 @@
                 'external-link',
                 'ys_linked',
             ].forEach((className) => link.classList.add(className));
-            link.dataset.linkType = 'download';
-            link.dataset.linkStyle = 'underline-with-icon';
+
+            if (!link.dataset.linkType) {
+                link.dataset.linkType = 'download';
+            }
+
+            if (!link.dataset.linkStyle) {
+                link.dataset.linkStyle = 'underline-with-icon';
+            }
+
             link.innerHTML = link.innerHTML.trim();
 
             if (!link.innerHTML.toUpperCase().includes(fileExtension)) {
@@ -45,7 +52,7 @@
                         'fa-regular',
                         'fa-circle-down'
                     ],
-                    { hidden: true, labelledby: `title-circle-down-${new Date().valueOf()}` }
+                    { hidden: true }
                 ));
                 link.appendChild(Drupal.ys_links.createSrOnlySpan('(file download)'));
             }
