@@ -13,13 +13,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class YsLinksAdminSettingsForm extends ConfigFormBase {
 
   /**
-   * Class constructor.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    parent::__construct($config_factory);
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
