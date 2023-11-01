@@ -20,6 +20,15 @@
         return link;
     };
 
+    const createMailtoLinkHrefSpan = (link) => {
+        const span = document.createElement('span');
+        span.classList.add('pre-text__text');
+        span.classList.add('visually-hidden');
+        span.setAttribute('aria-hidden', true);
+        span.innerHTML = sanitizeEmailAddress(link.getAttribute('href'));
+        return span;
+    }
+
     Drupal.ys_links.linkTypes.mailto = {
         evaluator: (link) => link.getAttribute('href').startsWith('mailto:'),
         render: (link) => {
@@ -30,12 +39,8 @@
             const span = document.createElement('span');
             span.innerHTML = link.innerHTML;
 
-            const linkSpan = document.createElement('span');
-            linkSpan.classList.add('pre-text__text');
-            linkSpan.classList.add('visually-hidden');
-            linkSpan.setAttribute('aria-hidden', true);
-            linkSpan.innerHTML = sanitizeEmailAddress(link.getAttribute('href'));
-            span.appendChild(linkSpan);
+            span.appendChild(createMailtoLinkHrefSpan(link));
+
             link.classList.add('ys_linked');
             link.insertAdjacentElement('afterend', span);
             span.insertAdjacentElement('afterend', Drupal.ys_links.createCopyButton());
