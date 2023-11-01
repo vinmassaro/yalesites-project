@@ -3,3 +3,4 @@ type: module
 description: Modifies treatment of links on render
 package: YaleSites
 core_version_requirement: ^9 || ^10
+configure: ys_links_admin.settings

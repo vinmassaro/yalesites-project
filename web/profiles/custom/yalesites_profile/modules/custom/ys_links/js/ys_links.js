@@ -33,6 +33,10 @@
         drupalSettings.ys_links = Object.assign(defaultDrupalSettings, drupalSettings.ys_links);
         Drupal.ys_links.debugging = drupalSettings.ys_links.debug;
 
+        if (Drupal.ys_links.debugging) {
+            console.log(drupalSettings.ys_links);
+        };
+
         const contextStart = drupalSettings.ys_links.contextStart;
         const pageContext = context.querySelector(contextStart);
         const excludedClasses = drupalSettings.ys_links.excludedClasses.join(', ');

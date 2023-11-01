@@ -1,0 +1,7 @@
+ys_links_admin.settings:
+  path: '/admin/yalesites/links'
+  defaults:
+    _form: 'Drupal\ys_links\Form\YsLinksAdminSettingsForm'
+    _title: 'YaleSites Links'
+  requirements:
+    _permission: 'administer ys_links'

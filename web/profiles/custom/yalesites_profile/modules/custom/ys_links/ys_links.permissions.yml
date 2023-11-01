@@ -1,0 +1,4 @@
+admnister ys_links:
+  title: 'Administer YaleSites Links'
+  description: 'Administer YaleSites Link Treatments'
+  restrict access: TRUE

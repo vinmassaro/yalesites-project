@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_theme().
+ */
+function ys_links_theme($existing, $type, $theme, $path) {
+  return [
+    'ys_links' => [
+      'variables' => [
+        'id' => '',
+        'type' => '',
+        'ys_links_excluded_classes' => [],
+        'ys_links_starting_context' => '',
+      ],
+    ],
+  ];
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function ys_links_page_attachments(array &$attachments) {
@@ -13,6 +29,13 @@ function ys_links_page_attachments(array &$attachments) {
    *   - ys_links depends on link_renderer
    *   - link_renderer depends on the link_types
    */
+
+  // Get the configuration.
+  $config = \Drupal::config('ys_links.settings');
+
+  $attachments["#attached"]['drupalSettings']['ys_links']['debug'] = $config->get('ys_links_debug');
+  $attachments["#attached"]['drupalSettings']['ys_links']['contextStart'] = $config->get('ys_links_starting_context');
+  $attachments["#attached"]['drupalSettings']['ys_links']['excludedClasses'] = $config->get('ys_links_excluded_classes');
 
   // Link types.
   $attachments["#attached"]['library'][] = 'ys_links/link_types/relative';

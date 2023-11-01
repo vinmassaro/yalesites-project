@@ -1,0 +1,5 @@
+ys_links.settings:
+  title: 'YaleSites Links Settings'
+  base_route_name: ys_links_admin.settings
+  names:
+    - ys_links.settings

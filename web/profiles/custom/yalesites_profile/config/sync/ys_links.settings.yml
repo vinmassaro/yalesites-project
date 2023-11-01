@@ -1,0 +1,10 @@
+ys_links_excluded_classes:
+  - .site-header__yale-branding
+  - .site-footer__site-branding
+  - .cta-banner__cta
+  - .cta
+  - .callout__cta
+  - .custom-card__heading-link
+  - .quick-links__cta
+ys_links_starting_context: '#main-content'
+ys_links_debug: 0

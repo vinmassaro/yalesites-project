@@ -1,0 +1,5 @@
+ys_links_admin.settings:
+  title: YaleSites Links
+  description: 'YaleSites Links treatment administration page.'
+  route_name: ys_links_admin.settings
+  parent: system.admin_config_ui

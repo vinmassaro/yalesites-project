@@ -1,0 +1,13 @@
+ys_links.settings:
+  type: config_object
+  label: 'YaleSites Links Settings'
+  mapping:
+    ys_links_excluded_classes:
+      type: array
+      label: 'Excluded classes'
+    ys_links_starting_context:
+      type: string
+      label: 'Starting context selector'
+    ys_links_debug:
+      type: boolean
+      label: 'Enable debugging'
