@@ -3,21 +3,21 @@
  * Yalesites link icon generation.
  */
 
-(function (_$, Drupal, _drupalSettings) {
+(function iconCreator(Drupal) {
+  Drupal.ys_links = Drupal.ys_links || {};
 
-    'use strict';
+  Drupal.ys_links.createIcon = (
+    classes = [],
+    aria = { hidden: true },
+    role = "img"
+  ) => {
+    const faicon = document.createElement("i");
+    classes.forEach((className) => faicon.classList.add(className));
+    Object.entries(aria).forEach(([key, value]) =>
+      faicon.setAttribute(`aria-${key}`, value)
+    );
+    faicon.setAttribute("role", role);
 
-    Drupal.ys_links = Drupal.ys_links || {};
-
-    Drupal.ys_links.createIcon = (classes = [], aria = { hidden: true }, role = 'img') => {
-        const faicon = document.createElement('i');
-        classes.forEach((className) => faicon.classList.add(className));
-        for (const [key, value] of Object.entries(aria)) {
-            faicon.setAttribute(`aria-${key}`, value);
-        };
-        faicon.setAttribute('role', role);
-
-        return faicon;
-    };
-
-})(jQuery, Drupal, drupalSettings);
+    return faicon;
+  };
+})(Drupal, drupalSettings);

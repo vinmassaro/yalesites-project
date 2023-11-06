@@ -16,6 +16,5 @@ ys_links:
     theme:
       css/ys_links.css: {}
   dependencies:
-    - core/jquery
     - core/drupal
     - core/drupalSettings
