@@ -33,6 +33,10 @@
         return;
       }
 
+      if (!navigator.clipboard) {
+        return;
+      }
+
       const span = document.createElement("span");
       span.innerHTML = link.innerHTML;
 
