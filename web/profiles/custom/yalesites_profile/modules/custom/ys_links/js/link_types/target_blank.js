@@ -4,7 +4,7 @@
  * Note: Not really used, but in storybook.
  */
 
-(function targetBlank(Drupal, _drupalSettings) {
+(function targetBlank(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
@@ -17,8 +17,9 @@
     },
     render: (link) => {
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is target blank`);
       }
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);

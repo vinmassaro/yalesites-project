@@ -3,7 +3,7 @@
  * Mailto link definition.
  */
 
-(function mailto(Drupal, _drupalSettings) {
+(function mailto(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
@@ -52,8 +52,9 @@
       link.remove();
 
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is mailto`);
       }
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);

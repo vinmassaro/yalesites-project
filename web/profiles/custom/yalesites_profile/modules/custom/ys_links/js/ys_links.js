@@ -34,6 +34,7 @@
     Drupal.ys_links.debugging = drupalSettings.ys_links.debug;
 
     if (Drupal.ys_links.debugging) {
+      // eslint-disable-next-line no-console
       console.log(drupalSettings.ys_links);
     }
 

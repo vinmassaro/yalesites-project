@@ -15,6 +15,7 @@
       }
 
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is anchor`);
       }
     },

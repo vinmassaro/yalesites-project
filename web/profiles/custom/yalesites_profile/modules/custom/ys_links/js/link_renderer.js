@@ -20,11 +20,12 @@
 
     // When I ran into this issue, it was due to not returning the renderer.
     // Hope you don't get here.  ;)
+    // eslint-disable-next-line no-console
     console.error(
       "No link renderer found for link--are you missing a return in a custom link definition?",
       link
     );
     // Catch-all don't modify the link
-    return (_) => link;
+    return (aLink) => aLink;
   };
 })(Drupal, drupalSettings);

@@ -3,7 +3,7 @@
  * External link definition.
  */
 
-(function external(Drupal, _drupalSettings) {
+(function external(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
@@ -53,8 +53,9 @@
         );
       }
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is external`);
       }
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);

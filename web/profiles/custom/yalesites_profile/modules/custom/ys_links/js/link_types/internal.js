@@ -3,7 +3,7 @@
  * Internal (same domain) link definition.
  */
 
-(function internal(Drupal, _drupalSettings) {
+(function internal(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
@@ -14,8 +14,9 @@
     evaluator: (link) => urlHasCurrentDomain(link.getAttribute("href")),
     render: (link) => {
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is internal`);
       }
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);

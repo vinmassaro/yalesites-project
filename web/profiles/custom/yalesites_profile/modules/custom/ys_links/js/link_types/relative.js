@@ -3,7 +3,7 @@
  * Relative (/node/2) link definition.
  */
 
-(function relative(Drupal, _drupalSettings) {
+(function relative(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
@@ -11,8 +11,9 @@
     evaluator: (link) => link.getAttribute("href").startsWith("/"),
     render: (link) => {
       if (Drupal.ys_links.debugging) {
+        // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is relative`);
       }
     },
   };
-})(Drupal, drupalSettings);
+})(Drupal);
