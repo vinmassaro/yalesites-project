@@ -34,6 +34,7 @@
       }
 
       if (!navigator.clipboard) {
+        link.classList.add("ys_linked");
         return;
       }
 
