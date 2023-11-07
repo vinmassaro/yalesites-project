@@ -20,6 +20,7 @@
         "pptx",
         "zip",
         "csv",
+        "xml",
       ];
       const extension = url.split(".").pop();
       return (
