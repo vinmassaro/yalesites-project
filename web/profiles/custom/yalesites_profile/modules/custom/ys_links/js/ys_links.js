@@ -5,7 +5,7 @@
 
 (function init(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
-  Drupal.ys_links.debugging = false;
+  Drupal.ys_links.debug = false;
 
   const getExclusionParams = (excludedClasses) => {
     let queryParams = "a";
@@ -19,23 +19,23 @@
     return queryParams;
   };
 
+  const defaultConfiguration = () => ({
+    contextStart: "#main-content",
+    excludedClasses: [],
+    debug: false,
+  });
+
+  const setConfiguration = (newSettings) => {
+    const settings = newSettings || defaultConfiguration();
+    return Object.assign(defaultConfiguration(), settings);
+  };
+
   Drupal.ys_links.attach = function attach(context, drupalSettings) {
-    const defaultDrupalSettings = {
-      contextStart: "#main-content",
-      excludedClasses: [],
-      debug: false,
-    };
+    drupalSettings.ys_links = setConfiguration(drupalSettings.ys_links || {});
 
-    drupalSettings.ys_links = drupalSettings.ys_links || defaultDrupalSettings;
-    drupalSettings.ys_links = Object.assign(
-      defaultDrupalSettings,
-      drupalSettings.ys_links
-    );
-    Drupal.ys_links.debugging = drupalSettings.ys_links.debug;
-
-    if (Drupal.ys_links.debugging) {
+    if (drupalSettings.ys_links.debug) {
       // eslint-disable-next-line no-console
-      console.log(drupalSettings.ys_links);
+      console.log("Drupal settings: ", drupalSettings.ys_links);
     }
 
     const { contextStart } = drupalSettings.ys_links;

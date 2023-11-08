@@ -52,7 +52,7 @@
           Drupal.ys_links.createSrOnlySpan("(link is external)")
         );
       }
-      if (Drupal.ys_links.debugging) {
+      if (drupalSettings.ys_links.debug) {
         // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is external`);
       }

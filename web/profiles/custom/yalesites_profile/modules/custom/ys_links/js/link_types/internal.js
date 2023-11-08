@@ -13,7 +13,7 @@
   Drupal.ys_links.linkTypes.internal = {
     evaluator: (link) => urlHasCurrentDomain(link.getAttribute("href")),
     render: (link) => {
-      if (Drupal.ys_links.debugging) {
+      if (drupalSettings.ys_links.debug) {
         // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is internal`);
       }

@@ -66,7 +66,8 @@
         );
         link.appendChild(Drupal.ys_links.createSrOnlySpan("(file download)"));
       }
-      if (Drupal.ys_links.debugging) {
+
+      if (drupalSettings.ys_links.debug) {
         // eslint-disable-next-line no-console
         console.log(`${link.getAttribute("href")} is download`);
       }
