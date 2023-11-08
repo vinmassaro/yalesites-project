@@ -6,5 +6,7 @@ ys_links_excluded_classes:
   - .callout__cta
   - .custom-card__heading-link
   - .quick-links__cta
+  - .layout-builder__link
+  - .glb-button
 ys_links_starting_context: '#main-content'
 ys_links_debug: 0
