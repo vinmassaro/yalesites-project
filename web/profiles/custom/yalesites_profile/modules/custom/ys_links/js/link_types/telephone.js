@@ -16,13 +16,13 @@
     return span;
   };
 
+  const TELEPHONE_REGEX =
+    /^(?:(?:\+|00)\d{1,3}\s?)?[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}$/;
+
   Drupal.ys_links.linkTypes.telephone = {
     evaluator: (link) => {
       const url = link.getAttribute("href");
-      // https://ihateregex.io/expr/phone/
-      return url.match(
-        /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
-      );
+      return url.match(TELEPHONE_REGEX);
     },
     render: (link) => {
       if (link.classList.contains("ys_linked")) {
@@ -31,7 +31,7 @@
 
       if (!navigator.clipboard) {
         link.setAttribute("href", `tel:${link.getAttribute("href")}`);
-        link.classList.add('ys_linked');
+        link.classList.add("ys_linked");
         return;
       }
 
