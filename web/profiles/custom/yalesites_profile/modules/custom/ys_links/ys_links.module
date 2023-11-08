@@ -8,8 +8,7 @@
 /**
  * Implements hook_theme().
  */
-function ys_links_theme($existing, $type, $theme, $path)
-{
+function ys_links_theme($existing, $type, $theme, $path) {
   return [
     'ys_links' => [
       'variables' => [
@@ -25,8 +24,7 @@ function ys_links_theme($existing, $type, $theme, $path)
 /**
  * Implements hook_page_attachments().
  */
-function ys_links_page_attachments(array &$attachments)
-{
+function ys_links_page_attachments(array &$attachments) {
   /* I believe order matters here:
    *   - ys_links depends on link_renderer
    *   - link_renderer depends on the link_types
@@ -53,7 +51,7 @@ function ys_links_page_attachments(array &$attachments)
   $attachments["#attached"]['library'][] = 'ys_links/builders/icon_creator';
   $attachments["#attached"]['library'][] = 'ys_links/builders/copy_button_creator';
 
-  // The main renderer logic
+  // The main renderer logic.
   $attachments["#attached"]['library'][] = 'ys_links/link_renderer';
 
   // Main file.
