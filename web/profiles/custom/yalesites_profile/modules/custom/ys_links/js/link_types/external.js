@@ -22,6 +22,7 @@
         Drupal.ys_links.linkTypes.mailto.evaluator,
         Drupal.ys_links.linkTypes.relative.evaluator,
         Drupal.ys_links.linkTypes.download.evaluator,
+        Drupal.ys_links.linkTypes.telephone.evaluator,
       ];
 
       return (
