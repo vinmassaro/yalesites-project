@@ -17,7 +17,7 @@
   };
 
   const TELEPHONE_REGEX =
-    /^(?:(?:\+|00)\d{1,3}\s?)?[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}$/;
+    /^(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}$/;
 
   Drupal.ys_links.linkTypes.telephone = {
     evaluator: (link) => link.getAttribute("href").match(TELEPHONE_REGEX),
