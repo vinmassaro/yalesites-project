@@ -8,5 +8,6 @@ ys_links_excluded_classes:
   - .quick-links__cta
   - .layout-builder__link
   - .glb-button
+  - '.glb-messages__content a'
 ys_links_starting_context: '#main-content'
 ys_links_debug: 0
