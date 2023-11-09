@@ -20,10 +20,7 @@
     /^(?:(?:\+|00)\d{1,3}\s?)?[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}[-.()]*\d{1,4}$/;
 
   Drupal.ys_links.linkTypes.telephone = {
-    evaluator: (link) => {
-      const url = link.getAttribute("href");
-      return url.match(TELEPHONE_REGEX);
-    },
+    evaluator: (link) => link.getAttribute("href").match(TELEPHONE_REGEX),
     render: (link) => {
       if (link.classList.contains("ys_linked")) {
         return;
