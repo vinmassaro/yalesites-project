@@ -7,13 +7,13 @@
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
-  const getLinkTypeByWeight = () => {
+  const sortLinkTypesByWeight = () => {
     return Object.values(Drupal.ys_links.linkTypes).sort(
       (a, b) => a.weight - b.weight
     );
   };
 
-  const sortedLinkTypes = getLinkTypeByWeight();
+  const sortedLinkTypes = sortLinkTypesByWeight();
   if (drupalSettings.ys_links.debug) {
     // eslint-disable-next-line no-console
     console.log("The link types being searched are: ", sortedLinkTypes);
