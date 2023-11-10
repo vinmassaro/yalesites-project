@@ -39,6 +39,7 @@ function ys_links_page_attachments(array &$attachments) {
   $attachments['#attached']['drupalSettings']['ys_links']['excludedClasses'] = $config->get('ys_links_excluded_classes');
 
   // Link types.
+  $attachments['#attached']['library'][] = 'ys_links/link_types/target_blank';
   $attachments['#attached']['library'][] = 'ys_links/link_types/relative';
   $attachments['#attached']['library'][] = 'ys_links/link_types/mailto';
   $attachments['#attached']['library'][] = 'ys_links/link_types/anchor';

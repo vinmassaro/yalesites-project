@@ -11,6 +11,9 @@
     url.indexOf(document.location.hostname) > -1;
 
   Drupal.ys_links.linkTypes.internal = {
+    weight: 1000,
+    name: "Internal",
+
     evaluator: (link) => urlHasCurrentDomain(link.getAttribute("href")),
     render: (link) => {
       if (drupalSettings.ys_links.debug) {

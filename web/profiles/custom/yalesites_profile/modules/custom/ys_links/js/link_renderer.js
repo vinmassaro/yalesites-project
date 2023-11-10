@@ -7,10 +7,22 @@
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
+  const getLinkTypeByWeight = () => {
+    return Object.values(Drupal.ys_links.linkTypes).sort(
+      (a, b) => a.weight - b.weight
+    );
+  };
+
+  const sortedLinkTypes = getLinkTypeByWeight();
+  if (drupalSettings.ys_links.debug) {
+    // eslint-disable-next-line no-console
+    console.log("The link types being searched are: ", sortedLinkTypes);
+  }
+
   // Given a link, determines which renderer should be used.
   Drupal.ys_links.getLinkRenderer = function getLinkRenderer(link) {
     // Find the first render whose evalulate returns true.
-    const linkDefinition = Object.values(Drupal.ys_links.linkTypes).find(
+    const linkDefinition = Object.values(sortedLinkTypes).find(
       (linkDefinitions) => linkDefinitions.evaluator(link)
     );
 

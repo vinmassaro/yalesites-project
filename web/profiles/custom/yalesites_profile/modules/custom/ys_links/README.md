@@ -61,6 +61,10 @@ link types must be defined before this.
 This is a folder containing each link type that a link could be in order to
 produce a renderer.  These all have the same interface:
 
+- weight: an integer determining when it should be evaluated (lower numbers are
+  evaluated first)
+- name: A name for the link type; useful when debugging to see which link type
+  is being evaluated
 - `evaluator(link)`: evaluates a link to see if it is this type to render.
 - `render(link`: the rendering method defining what to do to the link to
   decorate it.
@@ -118,8 +122,12 @@ To add a new link type, you'll perform the following steps:
 1. Copy the boilerplate code from one of the previously defined ones, ensuring
    to define `Drupal.ys_links` and `Drupal.ys_links.link_types` if they don't
    already exist.
-1. Define an object implementing the evaluator and render methods on the
-   `Drupal.ys_links.linkTypes` object.
+1. Define an object implementing the following  methods on the
+   `Drupal.ys_links.linkTypes` object:
+   - weight: integer
+   - name: string
+   - evaulator: fn(link)
+   - render: fn(link)
 1. Define the new link type in the `ys_links.libraries` file along side the
    other link types defined.
 1. Attach the new link type library in the `ys_links.module` file inside of the

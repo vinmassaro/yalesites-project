@@ -27,6 +27,9 @@
   };
 
   Drupal.ys_links.linkTypes.mailto = {
+    weight: 30,
+    name: "Mailto",
+
     evaluator: (link) => link.getAttribute("href").startsWith("mailto:"),
     render: (link) => {
       if (link.classList.contains("ys_linked")) {

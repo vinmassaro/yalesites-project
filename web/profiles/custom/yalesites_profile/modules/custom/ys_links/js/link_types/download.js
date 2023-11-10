@@ -8,6 +8,9 @@
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
   Drupal.ys_links.linkTypes.download = {
+    weight: 10,
+    name: "Download",
+
     evaluator: (link) => {
       const url = link.getAttribute("href");
       const fileExtensions = [

@@ -9,26 +9,14 @@
 
   const urlHasCurrentDomain = (url) =>
     url.indexOf(document.location.hostname) > -1;
-  const notAnotherEvaluator = (evaluators, link) =>
-    evaluators.filter((fn) => fn(link)).length === 0;
 
   Drupal.ys_links.linkTypes.external = {
+    weight: 900,
+    name: "External",
+
     evaluator: (link) => {
       const url = link.getAttribute("href");
-      // External links could be other evaluators, so we need to be
-      // careful that it is not one of those.  This is a guard in case we
-      // have an evaluation that is out of order.
-      const dependentEvaluators = [
-        Drupal.ys_links.linkTypes.mailto.evaluator,
-        Drupal.ys_links.linkTypes.relative.evaluator,
-        Drupal.ys_links.linkTypes.download.evaluator,
-        Drupal.ys_links.linkTypes.telephone.evaluator,
-      ];
-
-      return (
-        !urlHasCurrentDomain(url) &&
-        notAnotherEvaluator(dependentEvaluators, link)
-      );
+      return !urlHasCurrentDomain(url);
     },
     render: (link) => {
       if (link.classList.contains("ys_linked")) {
@@ -38,8 +26,15 @@
       ["link", "link--with-icon", "external-link", "ys_linked"].forEach(
         (className) => link.classList.add(className)
       );
-      link.dataset.linkType = "external";
-      link.dataset.linkStyle = "underline-with-icon";
+
+      if (!link.dataset.linkType) {
+        link.dataset.linkType = "external";
+      }
+
+      if (!link.dataset.linkStyle) {
+        link.dataset.linkStyle = "underline-with-icon";
+      }
+
       link.innerHTML = link.innerHTML.trim();
       if (link.querySelectorAll(".fa-icon").length === 0) {
         link.appendChild(
