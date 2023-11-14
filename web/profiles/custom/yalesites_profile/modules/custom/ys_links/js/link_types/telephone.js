@@ -17,7 +17,7 @@
   };
 
   const TELEPHONE_REGEX =
-    /^(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}$/;
+    /^(?:(?:tel:)?(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4})$/;
 
   Drupal.ys_links.linkTypes.telephone = {
     weight: 20,
@@ -29,10 +29,21 @@
         return;
       }
 
+      const hasTel = link.getAttribute("href").match(/^tel:/);
+
       if (!navigator.clipboard) {
-        link.setAttribute("href", `tel:${link.getAttribute("href")}`);
+        if (!hasTel) {
+          link.setAttribute("href", `tel:${link.getAttribute("href")}`);
+        }
         link.classList.add("ys_linked");
         return;
+      }
+
+      if (hasTel) {
+        link.setAttribute(
+          "href",
+          link.getAttribute("href").replace(/^tel:/, "")
+        );
       }
 
       const span = document.createElement("span");
