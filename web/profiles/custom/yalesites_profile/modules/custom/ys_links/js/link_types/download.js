@@ -41,9 +41,13 @@
         .split(".")
         .pop()
         .toUpperCase();
-      ["link", "link--with-icon", "external-link", "ys_linked"].forEach(
-        (className) => link.classList.add(className)
-      );
+      [
+        "link",
+        "link--with-icon",
+        "external-link",
+        "ys_download",
+        "ys_linked",
+      ].forEach((className) => link.classList.add(className));
 
       if (!link.dataset.linkType) {
         link.dataset.linkType = "download";

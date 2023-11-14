@@ -16,9 +16,14 @@
         return;
       }
 
-      ["link", "link--with-icon", "external-link", "ys_linked"].forEach(
-        (className) => link.classList.add(className)
-      );
+      [
+        "link",
+        "link--with-icon",
+        "external-link",
+        "ys_anchor",
+        "ys_linked",
+      ].forEach((className) => link.classList.add(className));
+
       if (!link.dataset.linkType) {
         link.dataset.linkType = "with-chevron";
       }

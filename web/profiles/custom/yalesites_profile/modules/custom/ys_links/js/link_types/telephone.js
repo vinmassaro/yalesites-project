@@ -40,6 +40,7 @@
 
       span.appendChild(createTelephoneLinkHrefSpan(link));
 
+      link.classList.add("ys_telephone");
       link.classList.add("ys_linked");
       link.insertAdjacentElement("afterend", span);
       span.insertAdjacentElement(

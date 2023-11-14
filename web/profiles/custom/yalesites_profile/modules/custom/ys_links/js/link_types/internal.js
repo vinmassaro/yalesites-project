@@ -21,6 +21,7 @@
         console.log(`${link.getAttribute("href")} is internal`);
       }
 
+      link.classList.add("ys_internal");
       link.classList.add("ys_linked");
       link.classList.add("link");
 

@@ -17,6 +17,7 @@
         return;
       }
 
+      link.classList.add("ys_relative");
       link.classList.add("ys_linked");
       link.classList.add("link");
 

@@ -37,6 +37,7 @@
       }
 
       if (!navigator.clipboard) {
+        link.classList.add("ys_skipped");
         link.classList.add("ys_linked");
         return;
       }
@@ -46,6 +47,7 @@
 
       span.appendChild(createMailtoLinkHrefSpan(link));
 
+      link.classList.add("ys_mailto");
       link.classList.add("ys_linked");
       link.insertAdjacentElement("afterend", span);
       span.insertAdjacentElement(

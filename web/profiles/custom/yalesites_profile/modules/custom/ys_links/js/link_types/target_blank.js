@@ -22,14 +22,13 @@
         return;
       }
 
-      if (drupalSettings.ys_links.debug) {
-        // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is target blank`);
-      }
-
-      ["link", "link--with-icon", "external-link", "ys_linked"].forEach(
-        (className) => link.classList.add(className)
-      );
+      [
+        "link",
+        "link--with-icon",
+        "external-link",
+        "ys_target-blank",
+        "ys_linked",
+      ].forEach((className) => link.classList.add(className));
 
       if (!link.dataset.linkType) {
         link.dataset.linkType = "target-blank";
@@ -51,6 +50,11 @@
         link.appendChild(
           Drupal.ys_links.createSrOnlySpan("(opens in a new window/tab)")
         );
+      }
+
+      if (drupalSettings.ys_links.debug) {
+        // eslint-disable-next-line no-console
+        console.log(`${link.getAttribute("href")} is target blank`);
       }
     },
   };
