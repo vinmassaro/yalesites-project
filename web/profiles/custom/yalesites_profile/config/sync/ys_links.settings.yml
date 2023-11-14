@@ -9,5 +9,7 @@ ys_links_excluded_classes:
   - .layout-builder__link
   - .glb-button
   - '.glb-messages__content a'
+  - '.grand-hero-banner__content-inner a'
+  - '.tabs__item a'
 ys_links_starting_context: '#main-content'
 ys_links_debug: 0
