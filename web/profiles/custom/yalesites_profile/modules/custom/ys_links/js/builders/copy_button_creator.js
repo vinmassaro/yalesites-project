@@ -11,6 +11,11 @@
   const copyButtonFunctionality = (event) => {
     const elem = event.target;
 
+    if (drupalSettings.ys_links.debug) {
+      // eslint-disable-next-line
+      console.log("elem: ", elem);
+    }
+
     // Only fire if the target has id copy
     if (!elem.matches(".text-copy-button__button")) return;
 
@@ -18,7 +23,16 @@
       // Clipboard API not available
       return;
     }
-    const text = event.target.parentNode
+
+    if (drupalSettings.ys_links.debug) {
+      // eslint-disable-next-line no-console
+      console.log(
+        ".pre-text__text found: ",
+        event.target.previousElementSibling.querySelector(".pre-text__text")
+      );
+    }
+
+    const text = event.target.previousElementSibling
       .querySelector(".pre-text__text")
       .textContent.trim();
     try {
