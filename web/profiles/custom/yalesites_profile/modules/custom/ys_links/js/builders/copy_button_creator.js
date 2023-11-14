@@ -9,7 +9,6 @@
 
   // How can I get this from compoenent-library-twig????
   const copyButtonFunctionality = (event) => {
-    const copiedText = "&nbsp;(Copied to clipboard; select to copy again)";
     const elem = event.target;
 
     // Only fire if the target has id copy
@@ -25,7 +24,10 @@
     try {
       navigator.clipboard.writeText(text);
       const triggerValue = event.target;
-      triggerValue.innerHTML = copiedText;
+      triggerValue.innerHTML = "&nbsp;Copied to clipboard";
+      setTimeout(() => {
+        triggerValue.innerHTML = "&nbsp;(copy)";
+      }, 1200);
     } catch (error) {
       const triggerValue = elem;
       triggerValue.innerHTML = "(error)";
