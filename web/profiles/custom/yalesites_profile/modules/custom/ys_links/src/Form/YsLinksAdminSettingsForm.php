@@ -34,7 +34,13 @@ class YsLinksAdminSettingsForm extends ConfigFormBase {
     $config = $this->config('ys_links.settings');
 
     $ys_links_excluded_classes = implode("\n", $config->get('ys_links_excluded_classes'));
-    $ys_links_starting_context = implode("\n", $config->get('ys_links_starting_context'));
+
+    $ys_links_starting_context_config = $config->get('ys_links_starting_context');
+    $ys_links_starting_context = $ys_links_starting_context_config;
+
+    if (is_array($ys_links_starting_context_config)) {
+      $ys_links_starting_context = implode("\n", $config->get('ys_links_starting_context'));
+    }
 
     $form['ys_links_excluded_classes'] = [
       '#type' => 'textarea',
