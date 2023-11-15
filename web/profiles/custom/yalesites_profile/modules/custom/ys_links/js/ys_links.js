@@ -39,12 +39,16 @@
     }
 
     const { contextStart } = drupalSettings.ys_links;
-    const pageContext = context.querySelector(contextStart);
+    const pageContexts = Array.from(context.querySelectorAll(contextStart));
     const excludedClasses = drupalSettings.ys_links.excludedClasses.join(", ");
 
-    const links = pageContext.querySelectorAll(
-      getExclusionParams(excludedClasses)
-    );
+    const links = pageContexts
+      .map(function findLinks(linkContext) {
+        return Array.from(
+          linkContext.querySelectorAll(getExclusionParams(excludedClasses))
+        );
+      })
+      .flat();
 
     links.forEach(function findLinkRenderer(link) {
       const linkRenderer = Drupal.ys_links.getLinkRenderer(link);
