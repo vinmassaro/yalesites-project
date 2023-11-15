@@ -30,6 +30,18 @@
     return Object.assign(defaultConfiguration(), settings);
   };
 
+  const retrieveAllLinksFromContexts = (contexts, excludedClasses) => {
+    return (
+      contexts
+        .map(function findLinks(linkContext) {
+          return Array.from(
+            linkContext.querySelectorAll(getExclusionParams(excludedClasses))
+          );
+        })
+        .flat() || []
+    );
+  };
+
   Drupal.ys_links.attach = function attach(context, drupalSettings) {
     drupalSettings.ys_links = setConfiguration(drupalSettings.ys_links || {});
 
@@ -42,13 +54,7 @@
     const pageContexts = Array.from(context.querySelectorAll(contextStart));
     const excludedClasses = drupalSettings.ys_links.excludedClasses.join(", ");
 
-    const links = pageContexts
-      .map(function findLinks(linkContext) {
-        return Array.from(
-          linkContext.querySelectorAll(getExclusionParams(excludedClasses))
-        );
-      })
-      .flat();
+    const links = retrieveAllLinksFromContexts(pageContexts, excludedClasses);
 
     links.forEach(function findLinkRenderer(link) {
       const linkRenderer = Drupal.ys_links.getLinkRenderer(link);
