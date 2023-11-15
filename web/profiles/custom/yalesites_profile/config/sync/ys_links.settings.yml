@@ -12,5 +12,6 @@ ys_links_excluded_classes:
   - '.grand-hero-banner__content-inner a'
   - '.tabs__item a'
   - .breadcrumbs__link
-ys_links_starting_context: '#main-content'
+  - '.contextual-links a'
+ys_links_starting_context: 'div.text, div.contextual-region, div.wrapped-image__text'
 ys_links_debug: 0
