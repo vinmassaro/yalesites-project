@@ -20,9 +20,10 @@ Settings you can override:
   - Default: TRUE
   - This will output debugging information to the console.
 - contextStart
-  - Default: #main-content
-  - This is the context in which the links will be converted.  This is a CSS
-    selector. (i.e. `#idName` or `div.mainContent`)
+  - Default: [ #main-content ]
+  - This is the context in which the links will be converted.  This is a list
+    of CSS selectors to target links inside of. (i.e. `#idName` or
+    `div.mainContent`)
 - excludedClasses
   - Default: [ ]
   - This is an array of classes that will be excluded from the conversion.

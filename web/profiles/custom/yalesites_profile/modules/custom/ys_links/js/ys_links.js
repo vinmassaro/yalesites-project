@@ -24,7 +24,7 @@
   };
 
   const defaultConfiguration = () => ({
-    contextStart: "#main-content",
+    contextStart: ["#main-content"],
     excludedClasses: [],
     debug: false,
   });
