@@ -54,7 +54,9 @@
       console.log("Drupal settings: ", drupalSettings.ys_links);
     }
 
-    const contextStart = getContextParams(drupalSettings.ys_links.contextStart);
+    const contextStart = getContextParams(
+      [drupalSettings.ys_links.contextStart].flat()
+    );
     const pageContexts = Array.from(context.querySelectorAll(contextStart));
     const excludedClasses = drupalSettings.ys_links.excludedClasses.join(", ");
 
