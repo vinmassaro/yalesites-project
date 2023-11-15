@@ -11,5 +11,6 @@ ys_links_excluded_classes:
   - '.glb-messages__content a'
   - '.grand-hero-banner__content-inner a'
   - '.tabs__item a'
+  - .breadcrumbs__link
 ys_links_starting_context: '#main-content'
 ys_links_debug: 0
