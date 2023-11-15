@@ -6,7 +6,7 @@ ys_links.settings:
       type: array
       label: 'Excluded classes'
     ys_links_starting_context:
-      type: string
+      type: array
       label: 'Starting context selector'
     ys_links_debug:
       type: boolean

@@ -15,7 +15,7 @@ function ys_links_theme($existing, $type, $theme, $path) {
         'id' => '',
         'type' => '',
         'ys_links_excluded_classes' => [],
-        'ys_links_starting_context' => '',
+        'ys_links_starting_context' => [],
         'ys_links_debug' => FALSE,
       ],
     ],

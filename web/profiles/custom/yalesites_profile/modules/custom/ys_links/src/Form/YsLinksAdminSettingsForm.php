@@ -34,6 +34,7 @@ class YsLinksAdminSettingsForm extends ConfigFormBase {
     $config = $this->config('ys_links.settings');
 
     $ys_links_excluded_classes = implode("\n", $config->get('ys_links_excluded_classes'));
+    $ys_links_starting_context = implode("\n", $config->get('ys_links_starting_context'));
 
     $form['ys_links_excluded_classes'] = [
       '#type' => 'textarea',
@@ -43,10 +44,10 @@ class YsLinksAdminSettingsForm extends ConfigFormBase {
     ];
 
     $form['ys_links_starting_context'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => $this->t('Starting context selector (id/class)'),
-      '#default_value' => $config->get('ys_links_starting_context'),
-      '#description' => $this->t('Enter a selector to use as the starting context for the link renderer. This is used to limit the scope of the link renderer. For example, if you only want to render links within a specific div, you could enter "#my-div-id" here.'),
+      '#default_value' => $ys_links_starting_context,
+      '#description' => $this->t('Enter a list of selectors to use as the starting contexts for the link renderer. This is used to limit the scope of the link renderer. For example, if you only want to render links within a specific div, you could enter "#my-div-id" here.  One class per line.'),
     ];
 
     $form['ys_links_debug'] = [
@@ -64,10 +65,11 @@ class YsLinksAdminSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $ys_links_excluded_classes = array_filter(array_map('trim', explode("\n", $form_state->getValue('ys_links_excluded_classes'))));
+    $ys_links_starting_context = array_filter(array_map('trim', explode("\n", $form_state->getValue('ys_links_starting_context'))));
 
     $this->config('ys_links.settings')
       ->set('ys_links_excluded_classes', $ys_links_excluded_classes)
-      ->set('ys_links_starting_context', $form_state->getValue('ys_links_starting_context'))
+      ->set('ys_links_starting_context', $ys_links_starting_context)
       ->set('ys_links_debug', $form_state->getValue('ys_links_debug'))
       ->save();
     parent::submitForm($form, $form_state);

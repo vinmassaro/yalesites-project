@@ -19,6 +19,10 @@
     return queryParams;
   };
 
+  const getContextParams = (contexts) => {
+    return contexts.join(", ");
+  };
+
   const defaultConfiguration = () => ({
     contextStart: "#main-content",
     excludedClasses: [],
@@ -50,7 +54,7 @@
       console.log("Drupal settings: ", drupalSettings.ys_links);
     }
 
-    const { contextStart } = drupalSettings.ys_links;
+    const contextStart = getContextParams(drupalSettings.ys_links.contextStart);
     const pageContexts = Array.from(context.querySelectorAll(contextStart));
     const excludedClasses = drupalSettings.ys_links.excludedClasses.join(", ");
 
