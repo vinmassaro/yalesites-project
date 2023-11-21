@@ -42,7 +42,7 @@ function ys_links_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'ys_links/link_types/target_blank';
   $attachments['#attached']['library'][] = 'ys_links/link_types/relative';
   $attachments['#attached']['library'][] = 'ys_links/link_types/mailto';
-  $attachments['#attached']['library'][] = 'ys_links/link_types/anchor';
+  $attachments['#attached']['library'][] = 'ys_links/link_types/internal_anchor';
   $attachments['#attached']['library'][] = 'ys_links/link_types/download';
   $attachments['#attached']['library'][] = 'ys_links/link_types/external';
   $attachments['#attached']['library'][] = 'ys_links/link_types/internal';

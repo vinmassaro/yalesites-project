@@ -40,7 +40,7 @@
 
       if (drupalSettings.ys_links.debug) {
         // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is anchor`);
+        console.log(`${link.getAttribute("href")} is an internal anchor`);
       }
     },
   };
