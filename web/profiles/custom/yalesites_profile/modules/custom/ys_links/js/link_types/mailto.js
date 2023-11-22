@@ -48,6 +48,7 @@
       clonedLink.classList.add("ys_linked");
       span.appendChild(clonedLink);
 
+      span.appendChild(document.createTextNode(" "));
       span.appendChild(createMailtoLinkHrefSpan(link));
 
       link.insertAdjacentElement("afterend", span);

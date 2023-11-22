@@ -60,6 +60,7 @@
       clonedLink.setAttribute("href", prependProtocol(clonedLink));
       span.appendChild(clonedLink);
 
+      span.appendChild(document.createTextNode(" "));
       span.appendChild(createTelephoneLinkHrefSpan(link));
 
       link.insertAdjacentElement("afterend", span);
