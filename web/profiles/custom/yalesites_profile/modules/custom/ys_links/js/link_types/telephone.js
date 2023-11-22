@@ -16,6 +16,13 @@
     return span;
   };
 
+  const prependProtocol = (link) => {
+    if (link.getAttribute("href").match(/^tel:/)) {
+      return link.getAttribute("href");
+    }
+    return `tel:${link.getAttribute("href")}`;
+  }
+
   const TELEPHONE_REGEX =
     /^(?:(?:tel:)?(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4})$/;
 
@@ -47,12 +54,14 @@
       }
 
       const span = document.createElement("span");
-      span.innerHTML = link.innerHTML;
+      const clonedLink = link.cloneNode(true);
+      clonedLink.classList.add("ys_telephone");
+      clonedLink.classList.add("ys_linked");
+      clonedLink.setAttribute("href", prependProtocol(clonedLink));
+      span.appendChild(clonedLink);
 
       span.appendChild(createTelephoneLinkHrefSpan(link));
 
-      link.classList.add("ys_telephone");
-      link.classList.add("ys_linked");
       link.insertAdjacentElement("afterend", span);
       span.insertAdjacentElement(
         "afterend",
