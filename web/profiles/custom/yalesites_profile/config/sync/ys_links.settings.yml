@@ -13,5 +13,12 @@ ys_links_excluded_classes:
   - '.tabs__item a'
   - .breadcrumbs__link
   - '.contextual-links a'
-ys_links_starting_context: '#main-content'
+  - .social-links__link
+  - .toolbar-icon
+  - .gin-breadcrumb__link
+  - .utility-nav__link
+  - .site-header__site-branding
+  - .primary-nav__link
+ys_links_starting_context:
+  - body
 ys_links_debug: 0
