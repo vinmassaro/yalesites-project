@@ -43,12 +43,13 @@
       }
 
       const span = document.createElement("span");
-      span.innerHTML = link.innerHTML;
+      const clonedLink = link.cloneNode(true);
+      clonedLink.classList.add("ys_mailto");
+      clonedLink.classList.add("ys_linked");
+      span.appendChild(clonedLink);
 
       span.appendChild(createMailtoLinkHrefSpan(link));
 
-      link.classList.add("ys_mailto");
-      link.classList.add("ys_linked");
       link.insertAdjacentElement("afterend", span);
       span.insertAdjacentElement(
         "afterend",
