@@ -9,6 +9,7 @@
 
   // How can I get this from compoenent-library-twig????
   const copyButtonFunctionality = (event) => {
+    const copiedText = "&nbsp;(Copied to clipboard; select to copy again)";
     const elem = event.target;
 
     if (drupalSettings.ys_links.debug) {
@@ -38,10 +39,7 @@
     try {
       navigator.clipboard.writeText(text);
       const triggerValue = event.target;
-      triggerValue.innerHTML = "&nbsp;Copied to clipboard";
-      setTimeout(() => {
-        triggerValue.innerHTML = "&nbsp;(copy)";
-      }, 1200);
+      triggerValue.innerHTML = copiedText;
     } catch (error) {
       const triggerValue = elem;
       triggerValue.innerHTML = "(error)";
