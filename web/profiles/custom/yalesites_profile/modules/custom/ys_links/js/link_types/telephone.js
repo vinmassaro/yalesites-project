@@ -21,7 +21,7 @@
       return link.getAttribute("href");
     }
     return `tel:${link.getAttribute("href")}`;
-  }
+  };
 
   const TELEPHONE_REGEX =
     /^(?:(?:tel:)?(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4})$/;
