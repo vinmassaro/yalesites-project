@@ -16,11 +16,18 @@ a.link--with-icon.ys_linked {
 
 /* Handles most icons */
 a.ys_linked.link--with-icon {
-  padding-right: 1.0rem;
+  padding-right: 1rem;
 }
 
 /* download and target-blank links have an icon that is slightly wider than
 * most. */
-a.ys_linked.link--with-icon.ys_download, a.ys_linked.link--with-icon.ys_target-blank {
+a.ys_linked.link--with-icon.ys_download,
+a.ys_linked.link--with-icon.ys_target-blank {
   padding-right: 1.5rem;
+}
+
+/* Due to links inside of tables being newlined, we change their display to
+* accomodate the decoration */
+table a.link--with-icon.ys_linked {
+  display: inline;
 }
