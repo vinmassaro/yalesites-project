@@ -36,9 +36,12 @@
       );
     }
 
-    const text = event.target.previousElementSibling
-      .querySelector(".pre-text__text")
-      .textContent.trim();
+    // Always of the form: <span>text</span><button>copy</button>
+    // So attempt to get any hidden layer with the .pre-text__text or assume the
+    // previous sibling is the text.
+    const previousSibling = event.target.previousElementSibling;
+    const preTextText = previousSibling.querySelector(".pre-text__text");
+    const text = (preTextText || previousSibling).textContent.trim();
     try {
       navigator.clipboard.writeText(text);
       const triggerValue = event.target;
