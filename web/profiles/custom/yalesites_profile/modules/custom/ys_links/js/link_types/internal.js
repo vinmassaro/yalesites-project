@@ -15,7 +15,7 @@
   const isRelative = (url) => url.startsWith("/");
 
   Drupal.ys_links.linkTypes.internal = {
-    weight: 1,
+    weight: 1000,
     name: "Internal",
 
     evaluator: (link) => {
