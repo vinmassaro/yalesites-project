@@ -7,6 +7,64 @@
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.debug = false;
 
+  // Global way to handle debugging logs
+  Drupal.ys_links.debugLog = (message) => {
+    if (drupalSettings.ys_links.debug) {
+      // eslint-disable-next-line no-console
+      console.log(message);
+    }
+  };
+
+  // Attempts to detect if a link is inside of a component or not.
+  // Based on this, we will determine whether to decorate it or not.
+  Drupal.ys_links.isInComponent = (link) => {
+    const component = link.closest(
+      ".component-wrapper, [data-component-theme], [data-menu-variation]"
+    );
+
+    return component !== null;
+  };
+
+  // Runs a function on a link element and determines whether it has change or not.
+  Drupal.ys_links.ifDidChange = (link, fn) => {
+    link = fn(link);
+
+    return link.changed;
+  };
+
+  // Adds a link class if the element was changed by our function.
+  // This is a way to conditionally update the linkStyle and linkType
+  // attributes and know if they were changed.  If they were, we probably want
+  // the link class.  Otherwise, the link class messes up a lot of different
+  // controls, which we might want to fix in the future.
+  Drupal.ys_links.addLinkClassIfChanged = (link, fn) => {
+    if (Drupal.ys_links.ifDidChange(link, fn)) {
+      link.classList.add("link");
+      link.changed = true;
+    }
+
+    return link;
+  };
+
+  // Applies the linkStyle if it isn't set and if it's not in a component
+  Drupal.ys_links.applyLinkStyle = (link, style) => {
+    if (!link.dataset.linkStyle && !Drupal.ys_links.isInComponent(link)) {
+      link.dataset.linkStyle = style;
+      link.changed = true;
+    }
+
+    return link;
+  };
+
+  // Applies the linkType if it isn't set and if it's not in a component
+  Drupal.ys_links.applyLinkType = (link, type) => {
+    if (!link.dataset.linkType && !Drupal.ys_links.isInComponent(link)) {
+      link.dataset.linkType = type;
+    }
+
+    return link;
+  };
+
   const getExclusionParams = (excludedClasses) => {
     let queryParams = "a";
     if (excludedClasses.length > 0) {
@@ -49,10 +107,7 @@
   Drupal.ys_links.attach = function attach(context, drupalSettings) {
     drupalSettings.ys_links = setConfiguration(drupalSettings.ys_links || {});
 
-    if (drupalSettings.ys_links.debug) {
-      // eslint-disable-next-line no-console
-      console.log("Drupal settings: ", drupalSettings.ys_links);
-    }
+    Drupal.ys_links.debugLog("Drupal settings: ", drupalSettings.ys_links);
 
     const contextStart = getContextParams(
       [drupalSettings.ys_links.contextStart].flat()

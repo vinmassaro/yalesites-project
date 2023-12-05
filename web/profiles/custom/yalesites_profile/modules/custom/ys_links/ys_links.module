@@ -40,7 +40,6 @@ function ys_links_page_attachments(array &$attachments) {
 
   // Link types.
   $attachments['#attached']['library'][] = 'ys_links/link_types/target_blank';
-  $attachments['#attached']['library'][] = 'ys_links/link_types/relative';
   $attachments['#attached']['library'][] = 'ys_links/link_types/mailto';
   $attachments['#attached']['library'][] = 'ys_links/link_types/download';
   $attachments['#attached']['library'][] = 'ys_links/link_types/external';

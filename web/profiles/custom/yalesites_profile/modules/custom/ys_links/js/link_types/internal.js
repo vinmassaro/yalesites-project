@@ -12,30 +12,30 @@
 
   const isAnchor = (url) => url.startsWith("#");
 
+  const isRelative = (url) => url.startsWith("/");
+
   Drupal.ys_links.linkTypes.internal = {
-    weight: 1000,
+    weight: 1,
     name: "Internal",
 
-    evaluator: (link) =>
-      urlHasCurrentDomain(link.getAttribute("href")) ||
-      isAnchor(link.getAttribute("href")),
+    evaluator: (link) => {
+      const href = link.getAttribute("href");
+
+      return urlHasCurrentDomain(href) || isAnchor(href) || isRelative(href);
+    },
     render: (link) => {
-      if (drupalSettings.ys_links.debug) {
-        // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is internal`);
-      }
+      Drupal.ys_links.debugLog(`${link.getAttribute("href")} is internal`);
 
       link.classList.add("ys_internal");
       link.classList.add("ys_linked");
-      link.classList.add("link");
 
-      if (!link.dataset.linkStyle) {
-        link.dataset.linkStyle = "underline";
-      }
+      link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {
+        aLink = Drupal.ys_links.applyLinkStyle(aLink, "underline");
+        aLink = Drupal.ys_links.applyLinkType(aLink, "normal");
+        return aLink;
+      });
 
-      if (!link.dataset.linkType) {
-        link.dataset.linkType = "normal";
-      }
+      return link;
     },
   };
 })(Drupal);

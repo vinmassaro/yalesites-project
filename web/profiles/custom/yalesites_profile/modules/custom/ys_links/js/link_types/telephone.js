@@ -70,10 +70,7 @@
       );
       link.remove();
 
-      if (drupalSettings.ys_links.debug) {
-        // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is a telephone`);
-      }
+      Drupal.ys_links.debugLog(`${link.getAttribute("href")} is a telephone`);
     },
   };
 })(Drupal, drupalSettings);

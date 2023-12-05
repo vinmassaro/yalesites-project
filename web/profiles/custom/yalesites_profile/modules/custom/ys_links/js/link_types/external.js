@@ -8,7 +8,9 @@
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
   const urlHasCurrentDomain = (url) =>
-    url.indexOf(document.location.hostname) > -1;
+    url.indexOf(document.location.hostname) > -1 ||
+    url.startsWith("/") ||
+    url.startsWith("#");
 
   Drupal.ys_links.linkTypes.external = {
     weight: 900,
@@ -23,21 +25,15 @@
         return;
       }
 
-      [
-        "link",
-        "link--with-icon",
-        "external-link",
-        "ys_external",
-        "ys_linked",
-      ].forEach((className) => link.classList.add(className));
+      ["link--with-icon", "external-link", "ys_external", "ys_linked"].forEach(
+        (className) => link.classList.add(className)
+      );
 
-      if (!link.dataset.linkType) {
-        link.dataset.linkType = "external";
-      }
-
-      if (!link.dataset.linkStyle) {
-        link.dataset.linkStyle = "underline-with-icon";
-      }
+      link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {
+        aLink = Drupal.ys_links.applyLinkStyle(aLink, "underline-with-icon");
+        aLink = Drupal.ys_links.applyLinkType(aLink, "external");
+        return aLink;
+      });
 
       link.innerHTML = link.innerHTML.trim();
       if (link.querySelectorAll(".fa-icon").length === 0) {
@@ -52,10 +48,7 @@
           Drupal.ys_links.createSrOnlySpan("(link is external)")
         );
       }
-      if (drupalSettings.ys_links.debug) {
-        // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is external`);
-      }
+      Drupal.ys_links.debugLog(`${link.getAttribute("href")} is external`);
     },
   };
 })(Drupal);

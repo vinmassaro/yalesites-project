@@ -41,21 +41,15 @@
         .split(".")
         .pop()
         .toUpperCase();
-      [
-        "link",
-        "link--with-icon",
-        "external-link",
-        "ys_download",
-        "ys_linked",
-      ].forEach((className) => link.classList.add(className));
+      ["link--with-icon", "external-link", "ys_download", "ys_linked"].forEach(
+        (className) => link.classList.add(className)
+      );
 
-      if (!link.dataset.linkType) {
-        link.dataset.linkType = "download";
-      }
-
-      if (!link.dataset.linkStyle) {
-        link.dataset.linkStyle = "underline-with-icon";
-      }
+      link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {
+        aLink = Drupal.ys_links.applyLinkStyle(aLink, "underline-with-icon");
+        aLink = Drupal.ys_links.applyLinkType(aLink, "download");
+        return aLink;
+      });
 
       link.innerHTML = link.innerHTML.trim();
 
@@ -74,10 +68,7 @@
         link.appendChild(Drupal.ys_links.createSrOnlySpan("(file download)"));
       }
 
-      if (drupalSettings.ys_links.debug) {
-        // eslint-disable-next-line no-console
-        console.log(`${link.getAttribute("href")} is download`);
-      }
+      Drupal.ys_links.debugLog(`${link.getAttribute("href")} is download`);
     },
   };
 })(Drupal, drupalSettings);
