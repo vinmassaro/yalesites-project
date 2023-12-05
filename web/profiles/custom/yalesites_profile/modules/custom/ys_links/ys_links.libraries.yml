@@ -2,7 +2,6 @@ ys_links:
   version: VERSION
   js:
     js/link_types/target_blank.js: {}
-    js/link_types/relative.js: {}
     js/link_types/download.js: {}
     js/link_types/external.js: {}
     js/link_types/internal.js: {}
