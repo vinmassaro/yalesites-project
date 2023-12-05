@@ -1,24 +1,14 @@
 ys_links_excluded_classes:
   - .site-header__yale-branding
   - .site-footer__site-branding
-  - .cta-banner__cta
-  - .cta
-  - .callout__cta
-  - .custom-card__heading-link
-  - .quick-links__cta
-  - .layout-builder__link
-  - .glb-button
-  - '.glb-messages__content a'
-  - '.grand-hero-banner__content-inner a'
-  - '.tabs__item a'
-  - .breadcrumbs__link
-  - '.contextual-links a'
   - .social-links__link
   - .toolbar-icon
-  - .gin-breadcrumb__link
-  - .utility-nav__link
   - .site-header__site-branding
-  - .primary-nav__link
+  - .gin-breadcrumb__link
+  - .glb-button
+  - .meta-sidebar__trigger
+  - '.node-page-layout-builder-form a'
+  - .layout-builder__link
 ys_links_starting_context:
   - body
 ys_links_debug: 0
