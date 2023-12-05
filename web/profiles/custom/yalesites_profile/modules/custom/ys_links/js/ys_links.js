@@ -104,8 +104,30 @@
     );
   };
 
+  class ExecutionTimer {
+    constructor() {
+      this.start = new Date().getTime();
+    }
+
+    end() {
+      const end = new Date().getTime();
+      const time = end - this.start;
+      Drupal.ys_links.debugLog(`Execution time: ${time}ms`);
+    }
+  }
+
+  const getExecutionTimer = () => {
+    if (drupalSettings.ys_links.debug) {
+      return new ExecutionTimer();
+    }
+
+    return { end: () => {} };
+  };
+
   Drupal.ys_links.attach = function attach(context, drupalSettings) {
     drupalSettings.ys_links = setConfiguration(drupalSettings.ys_links || {});
+
+    const executionTimer = getExecutionTimer();
 
     Drupal.ys_links.debugLog("Drupal settings: ", drupalSettings.ys_links);
 
@@ -121,6 +143,8 @@
       const linkRenderer = Drupal.ys_links.getLinkRenderer(link);
       linkRenderer(link);
     });
+
+    executionTimer.end();
   };
 
   Drupal.behaviors.ys_links = Drupal.behaviors.ys_links || {};
