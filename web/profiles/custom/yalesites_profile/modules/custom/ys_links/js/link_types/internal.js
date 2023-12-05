@@ -10,11 +10,15 @@
   const urlHasCurrentDomain = (url) =>
     url.indexOf(document.location.hostname) > -1;
 
+  const isAnchor = (url) => url.startsWith("#");
+
   Drupal.ys_links.linkTypes.internal = {
     weight: 1000,
     name: "Internal",
 
-    evaluator: (link) => urlHasCurrentDomain(link.getAttribute("href")),
+    evaluator: (link) =>
+      urlHasCurrentDomain(link.getAttribute("href")) ||
+      isAnchor(link.getAttribute("href")),
     render: (link) => {
       if (drupalSettings.ys_links.debug) {
         // eslint-disable-next-line no-console
