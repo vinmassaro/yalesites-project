@@ -32,6 +32,22 @@ table a.link--with-icon.ys_linked {
   display: inline;
 }
 
+/** Copy Pill **/
+[data-component-theme] button.text-copy-button__button {
+  background-color: var(--color-slot-four);
+  font: var(--font-style-body-default);
+  border: 1px solid var(--color-slot-four);
+  color: var(--color-slot-two);
+  padding: var(--size-spacing-2) var(--size-spacing-4);
+  text-align: center;
+  min-height: var(--size-click-target-minimum);
+  text-decoration: none;
+  display: inline-block;
+  margin: 2px 1px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
 /* to still have the surrounding parens in a CKE link */
 p button.text-copy-button__button:before {
   content: "(";
