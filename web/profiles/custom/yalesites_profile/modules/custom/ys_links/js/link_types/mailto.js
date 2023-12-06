@@ -33,7 +33,8 @@
 
   // Moving the button inside the span so things like grand hero will behave
   const renderCopyInsideOfSpan = (span) => {
-    span.appendChild(Drupal.ys_links.createCopyButton());
+    span.innerHTML += " ";
+    span.appendChild(Drupal.ys_links.createCopyButtonAlt());
   };
 
   // Playing with the idea that there are some links that should still be
@@ -74,11 +75,11 @@
       span.appendChild(clonedLink);
 
       span.appendChild(document.createTextNode(" "));
-      span.appendChild(createMailtoLinkHrefSpan(link));
+      clonedLink.appendChild(createMailtoLinkHrefSpan(link));
 
       link.insertAdjacentElement("afterend", span);
       // renderCopyOutsideOfSpan(span);
-      renderCopyInsideOfSpan(span);
+      renderCopyInsideOfSpan(clonedLink);
       // span.insertAdjacentElement(
       //   "afterend",
       //   Drupal.ys_links.createCopyButton()
