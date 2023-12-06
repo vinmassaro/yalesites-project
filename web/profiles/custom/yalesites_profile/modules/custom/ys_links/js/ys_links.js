@@ -124,6 +124,11 @@
     return { end: () => {} };
   };
 
+  const linkHasNoDecoration = (link) => {
+    const linkContainsAnITag = link.querySelector("i") !== null;
+    return !link.classList.contains("ys_linked") && !linkContainsAnITag;
+  };
+
   Drupal.ys_links.attach = function attach(context, drupalSettings) {
     drupalSettings.ys_links = setConfiguration(drupalSettings.ys_links || {});
 
@@ -140,8 +145,10 @@
     const links = retrieveAllLinksFromContexts(pageContexts, excludedClasses);
 
     links.forEach(function findLinkRenderer(link) {
-      const linkRenderer = Drupal.ys_links.getLinkRenderer(link);
-      linkRenderer(link);
+      if (linkHasNoDecoration(link)) {
+        const linkRenderer = Drupal.ys_links.getLinkRenderer(link);
+        linkRenderer(link);
+      }
     });
 
     executionTimer.end();
