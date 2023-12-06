@@ -31,3 +31,12 @@ a.ys_linked.link--with-icon.ys_target-blank {
 table a.link--with-icon.ys_linked {
   display: inline;
 }
+
+/* to still have the surrounding parens in a CKE link */
+p button.text-copy-button__button:before {
+  content: "(";
+}
+
+p button.text-copy-button__button:after {
+  content: ")";
+}

@@ -10,8 +10,8 @@
   // How can I get this from compoenent-library-twig????
   const copyButtonFunctionality = (event) => {
     const copyText = [
-      "(Copied again to clipboard; select to copy again)",
-      "(Copied to clipboard; select to copy again)",
+      "Copied again to clipboard; select to copy again",
+      "Copied to clipboard; select to copy again",
     ];
     const elem = event.target;
 
@@ -63,7 +63,7 @@
   ) => {
     const button = document.createElement("button");
     button.classList.add("text-copy-button__button");
-    button.innerHTML = "(copy)";
+    button.innerHTML = "copy";
     button.addEventListener("click", clickEventHandler);
     return button;
   };
