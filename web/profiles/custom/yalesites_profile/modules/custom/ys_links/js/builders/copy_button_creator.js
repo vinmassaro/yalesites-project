@@ -52,6 +52,7 @@
       // triggerValue.dataset.copyIndex = copyIndex;
 
       // triggerValue.innerHTML = copyText[copyIndex];
+      alert("Copied to clipboard");
     } catch (error) {
       const triggerValue = elem;
       triggerValue.innerHTML = "(error)";
@@ -68,12 +69,28 @@
     return button;
   };
 
-  Drupal.ys_links.createCopyButtonAlt = (
-  clickEventHandler = copyButtonFunctionality
+  Drupal.ys_links.createCopyButtonWithIcon = (
+    clickEventHandler = copyButtonFunctionality
   ) => {
     const button = document.createElement("button");
     button.classList.add("text-copy-button__button");
-    button.appendChild(Drupal.ys_links.createIcon(["fa-solid", "fa-copy", "text-copy-button__button"]));
+    button.appendChild(
+      Drupal.ys_links.createIcon([
+        "fa-solid",
+        "fa-copy",
+        "text-copy-button__button",
+      ])
+    );
+    button.addEventListener("click", clickEventHandler);
+    return button;
+  };
+
+  Drupal.ys_links.createCopyButtonAlt = (
+    clickEventHandler = copyButtonFunctionality
+  ) => {
+    const button = document.createElement("button");
+    button.classList.add("text-copy-button__button");
+    button.innerHTML = "copy";
     button.addEventListener("click", clickEventHandler);
     return button;
   };
