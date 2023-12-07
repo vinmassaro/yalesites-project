@@ -50,9 +50,14 @@ a.ys_linked.ys_mailto:hover i.fa-copy {
 /*   content: ")"; */
 /* } */
 
-a.ys_linked.ys_mailto:hover button.text-copy-button__button {
+a.ys_linked.ys_mailto:hover i.text-copy-button__button {
   background-color: var(--color-action);
   color: var(--color-action-secondary);
+}
+
+.text a.ys_linked.ys_mailto:hover i.text-copy-button__button {
+  background-color: inherit;
+  color: inherit;
 }
 
 /*/1** Copy Pill **/ */
