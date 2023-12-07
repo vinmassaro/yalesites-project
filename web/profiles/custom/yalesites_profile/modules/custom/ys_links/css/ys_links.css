@@ -38,17 +38,17 @@ a.ys_linked.ys_mailto:hover i.fa-copy {
 }
 
 /*/1* to still have the surrounding parens in a CKE link *1/ */
-button.text-copy-button__button:before {
-  content: "(";
-  padding-left: 5px;
-  text-align: center;
-  min-height: var(--size-click-target-minimum);
-  font: var(--font-style-body-default);
-}
+/* button.text-copy-button__button:before { */
+/*   content: "("; */
+/*   padding-left: 5px; */
+/*   text-align: center; */
+/*   min-height: var(--size-click-target-minimum); */
+/*   font: var(--font-style-body-default); */
+/* } */
 
-button.text-copy-button__button:after {
-  content: ")";
-}
+/* button.text-copy-button__button:after { */
+/*   content: ")"; */
+/* } */
 
 a.ys_linked.ys_mailto:hover button.text-copy-button__button {
   background-color: var(--color-action);

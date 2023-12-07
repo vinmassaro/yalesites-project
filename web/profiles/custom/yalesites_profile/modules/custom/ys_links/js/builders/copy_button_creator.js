@@ -52,7 +52,7 @@
       // triggerValue.dataset.copyIndex = copyIndex;
 
       // triggerValue.innerHTML = copyText[copyIndex];
-      alert("Copied to clipboard");
+      // alert("Copied to clipboard");
     } catch (error) {
       const triggerValue = elem;
       triggerValue.innerHTML = "(error)";

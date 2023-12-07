@@ -34,7 +34,7 @@
   // Moving the button inside the span so things like grand hero will behave
   const renderCopyInsideOfSpan = (span) => {
     span.innerHTML += " ";
-    span.appendChild(Drupal.ys_links.createCopyButtonAlt());
+    span.appendChild(Drupal.ys_links.createCopyButtonWithIcon());
   };
 
   // Playing with the idea that there are some links that should still be
