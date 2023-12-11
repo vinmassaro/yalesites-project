@@ -41,7 +41,12 @@
         .split(".")
         .pop()
         .toUpperCase();
-      link.classList.add("link--with-icon", "external-link", "ys_download", "ys_linked");
+      link.classList.add(
+        "link--with-icon",
+        "external-link",
+        "ys_download",
+        "ys_linked"
+      );
 
       link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {
         aLink = Drupal.ys_links.applyLinkStyle(aLink, "underline-with-icon");
