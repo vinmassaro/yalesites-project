@@ -6,17 +6,27 @@
 (function iconCreator(Drupal) {
   Drupal.ys_links = Drupal.ys_links || {};
 
-  Drupal.ys_links.createIcon = (
-    classes = [],
-    aria = { hidden: true },
-    role = "img"
-  ) => {
+  const defaultOptions = {
+    classes: [],
+    aria: { hidden: true },
+    role: "img",
+    title: "",
+  };
+
+  Drupal.ys_links.createIcon = (options = {}) => {
+    // Merge options with defaultOptions.
+    const { classes, aria, role, title } = {
+      ...defaultOptions,
+      ...options,
+    };
+
     const faicon = document.createElement("i");
-    classes.forEach((className) => faicon.classList.add(className));
+    faicon.classList.add(...classes);
     Object.entries(aria).forEach(([key, value]) =>
       faicon.setAttribute(`aria-${key}`, value)
     );
     faicon.setAttribute("role", role);
+    faicon.setAttribute("title", title);
 
     return faicon;
   };
