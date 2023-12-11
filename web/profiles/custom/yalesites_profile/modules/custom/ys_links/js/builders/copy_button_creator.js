@@ -11,10 +11,9 @@
   const copyButtonFunctionality = (event) => {
     event.preventDefault();
 
-    const copyText = [
-      "Copied again to clipboard; select to copy again",
-      "Copied to clipboard; select to copy again",
-    ];
+    const defaultCopyIcon = "fa-copy";
+    const selectedCopyIcon = "fa-check";
+
     const elem = event.target;
 
     if (drupalSettings.ys_links.debug) {
@@ -39,34 +38,26 @@
     }
 
     // Assumption: .pre-text__text is somewhere within the link itself
-    const previousSibling = event.target.closest("a");
-    const preTextText = previousSibling.querySelector(".pre-text__text");
-    const text = (preTextText || previousSibling).textContent.trim();
+    const link = event.target.closest("a");
+    const icon = link.querySelector("i.fa-copy");
+    const preTextText = link.querySelector(".pre-text__text");
+    const text = (preTextText || link).textContent.trim();
+    const oldTitle = icon.getAttribute("title");
+    const newTitle = "Copied.  Select to copy again.";
     try {
       navigator.clipboard.writeText(text);
-      // const triggerValue = event.target;
-
-      // Update the copyIndex used for toggling.
-      // let copyIndex = parseInt(triggerValue.dataset.copyIndex, 10) || 0;
-      // copyIndex = copyIndex === 1 ? 0 : 1;
-      // triggerValue.dataset.copyIndex = copyIndex;
-
-      // triggerValue.innerHTML = copyText[copyIndex];
-      // alert("Copied to clipboard");
+      icon.classList.remove(defaultCopyIcon);
+      icon.classList.add(selectedCopyIcon);
+      icon.setAttribute("title", newTitle);
+      setTimeout(() => {
+        icon.classList.remove(selectedCopyIcon);
+        icon.classList.add(defaultCopyIcon);
+        icon.setAttribute("title", oldTitle);
+      }, 1000);
     } catch (error) {
       const triggerValue = elem;
       triggerValue.innerHTML = "(error)";
     }
-  };
-
-  Drupal.ys_links.createCopyButton = (
-    clickEventHandler = copyButtonFunctionality
-  ) => {
-    const button = document.createElement("button");
-    button.classList.add("text-copy-button__button");
-    button.innerHTML = "copy";
-    button.addEventListener("click", clickEventHandler);
-    return button;
   };
 
   Drupal.ys_links.createCopyButtonWithIcon = (
@@ -75,11 +66,10 @@
     const button = document.createElement("button");
     button.classList.add("text-copy-button__button");
     button.appendChild(
-      Drupal.ys_links.createIcon([
-        "fa-solid",
-        "fa-copy",
-        "text-copy-button__button",
-      ])
+      Drupal.ys_links.createIcon({
+        classes: ["fa-solid", "fa-copy", "text-copy-button__button"],
+        title: "Copy to clipboard",
+      })
     );
     button.addEventListener("click", clickEventHandler);
     return button;
