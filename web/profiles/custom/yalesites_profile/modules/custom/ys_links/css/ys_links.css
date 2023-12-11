@@ -6,72 +6,41 @@
 /* Default style for a decorated link is to flex, causing a newline look.
 * Inside of inline text like a CKEditor message, this is not good.  We utilize
 * inline-flex in order to keep that from happening in these situations. */
-a.link--with-icon.ys_linked {
+p a.link--with-icon.ys_linked {
   display: inline-flex;
 }
 
-/* The below padding allows the text to the right of a font icon attached to a
-* link to be shown, as well as provide the animation underline to extend
-* underneath the icon completely. */
-
-/* Handles most icons */
-a.ys_linked.link--with-icon {
-  padding-right: 1rem;
+/* Except for those that have buttons with links, extend the padding
+* so that the underline captures the icon as well. */
+p a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(.ys_download):not(.ys_target-blank) {
+  padding-right: 1.0rem;
 }
 
-/* download and target-blank links have an icon that is slightly wider than
-* most. */
-a.ys_linked.link--with-icon.ys_download,
-a.ys_linked.link--with-icon.ys_target-blank {
+/* The download breaks in the middle of the icon, so let's extend it a
+* little more */
+p a.link--with-icon.ys_linked.ys_download,
+p a.link--with-icon.ys_linked.ys_target-blank {
   padding-right: 1.5rem;
 }
 
-/* Due to links inside of tables being newlined, we change their display to
-* accomodate the decoration */
-table a.link--with-icon.ys_linked {
-  display: inline;
+/* For those with a button, we move the button right so that it looks
+* like the other decorations. */
+a.link--with-icon.ys_linked > button.text-copy-button__button {
+  padding-left: 0.5rem;
 }
 
-a.ys_linked.ys_mailto:hover i.fa-copy {
-  background-color: var(--color-action);
-  color: var(--color-action-secondary);
-}
-
-/*/1* to still have the surrounding parens in a CKE link *1/ */
-/* button.text-copy-button__button:before { */
-/*   content: "("; */
-/*   padding-left: 5px; */
-/*   text-align: center; */
-/*   min-height: var(--size-click-target-minimum); */
-/*   font: var(--font-style-body-default); */
-/* } */
-
-/* button.text-copy-button__button:after { */
-/*   content: ")"; */
-/* } */
-
+/* Make the copy button inside of hovers the same as the buttons we
+* use the link in. */
+a.ys_linked.ys_mailto:hover i.fa-copy,
 a.ys_linked.ys_mailto:hover i.text-copy-button__button {
   background-color: var(--color-action);
   color: var(--color-action-secondary);
 }
 
-.text a.ys_linked.ys_mailto:hover i.text-copy-button__button {
-  background-color: inherit;
-  color: inherit;
+/* Sync the transition with the links in CTAs and the like */
+@media (prefers-reduced-motion: no-preference) {
+  a.ys_linked.ys_mailto:hover i.fa-copy,
+  a.ys_linked.ys_mailto:hover i.text-copy-button__button {
+    transition: color, background-color var(--animation-speed-default) ease-in-out 0ms;
+  }
 }
-
-/*/1** Copy Pill **/ */
-/*div > :not(div.text) > button.text-copy-button__button, li > :not(div.text) > button.text-copy-button__button { */
-/*  background-color: var(--color-slot-four); */
-/*  font: var(--font-style-body-default); */
-/*  border: 1px solid var(--color-slot-four); */
-/*  color: var(--color-slot-two); */
-/*  padding: var(--size-spacing-2) var(--size-spacing-4); */
-/*  text-align: center; */
-/*  min-height: var(--size-click-target-minimum); */
-/*  text-decoration: none; */
-/*  display: inline-block; */
-/*  margin: 2px 1px; */
-/*  cursor: pointer; */
-/*  border-radius: 16px; */
-/*} */
