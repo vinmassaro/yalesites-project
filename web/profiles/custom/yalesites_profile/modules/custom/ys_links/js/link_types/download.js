@@ -58,10 +58,10 @@
       // if the icon has not already been applied, apply it.
       if (link.querySelectorAll(".fa-icon").length === 0) {
         link.appendChild(
-          Drupal.ys_links.createIcon(
-            ["fa-icon", "fa-regular", "fa-circle-down"],
-            { hidden: true }
-          )
+          Drupal.ys_links.createIcon({
+            classes: ["fa-icon", "fa-regular", "fa-circle-down"],
+            aria: { hidden: true },
+          })
         );
         link.appendChild(Drupal.ys_links.createSrOnlySpan("(file download)"));
       }

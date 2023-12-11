@@ -41,11 +41,9 @@
       link.innerHTML = link.innerHTML.trim();
       if (link.querySelectorAll(".fa-icon").length === 0) {
         link.appendChild(
-          Drupal.ys_links.createIcon([
-            "fa-icon",
-            "fa-solid",
-            "fa-arrow-up-right",
-          ])
+          Drupal.ys_links.createIcon({
+            classes: ["fa-icon", "fa-solid", "fa-arrow-up-right"],
+          })
         );
         link.appendChild(
           Drupal.ys_links.createSrOnlySpan("(link is external)")

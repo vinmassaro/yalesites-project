@@ -25,30 +25,14 @@
     return span;
   };
 
-  // Original design
-  const renderCopyOutsideOfSpan = (span) => {
-    span.insertAdjacentElement("afterend", Drupal.ys_links.createCopyButton());
-  };
-
   // Moving the button inside the span so things like grand hero will behave
-  const renderCopyInsideOfSpan = (span) => {
-    span.innerHTML += " ";
-    span.appendChild(Drupal.ys_links.createCopyButtonWithIcon());
-  };
-
-  // Playing with the idea that there are some links that should still be
-  // treated, but not with the mailto, e.g. the grand-hero-banner__link
-  // That class of link has a chevron already and would be problematic to add
-  // a copy?
-  const isNotSpecialLink = (link) => {
-    // return !link.classList.includes("grand-hero-banner__link");
-    return true;
+  const renderCopyInsideOfElement = (element) => {
+    element.innerHTML += " ";
+    element.appendChild(Drupal.ys_links.createCopyButtonWithIcon());
   };
 
   const isMailToLink = (link) => {
-    return (
-      link.getAttribute("href").startsWith("mailto:") && isNotSpecialLink(link)
-    );
+    return link.getAttribute("href").startsWith("mailto:");
   };
 
   Drupal.ys_links.linkTypes.mailto = {
@@ -66,20 +50,14 @@
         return;
       }
 
-      const span = document.createElement("span");
       const clonedLink = link.cloneNode(true);
       clonedLink.classList.add("ys_mailto", "ys_linked", "link--with-icon");
 
       clonedLink.appendChild(document.createTextNode(" "));
+      renderCopyInsideOfElement(clonedLink);
       clonedLink.appendChild(createMailtoLinkHrefSpan(link));
 
-      link.insertAdjacentElement("afterend", span);
-      // renderCopyOutsideOfSpan(span);
-      renderCopyInsideOfSpan(clonedLink);
-      // span.insertAdjacentElement(
-      //   "afterend",
-      //   Drupal.ys_links.createCopyButton()
-      // );
+      link.insertAdjacentElement("afterend", clonedLink);
       link.remove();
 
       Drupal.ys_links.debugLog(`${link.getAttribute("href")} is mailto`);

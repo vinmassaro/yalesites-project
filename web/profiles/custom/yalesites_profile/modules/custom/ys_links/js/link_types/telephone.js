@@ -27,9 +27,9 @@
     /^(?:(?:tel:)?(?:(?:\+|00)\d{1,3}\s?)?[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4}[ -.()]*\d{1,4})$/;
 
   // Moving the button inside the span so things like grand hero will behave
-  const renderCopyInsideOfSpan = (span) => {
-    span.innerHTML += " ";
-    span.appendChild(Drupal.ys_links.createCopyButton());
+  const renderCopyInsideOfElement = (element) => {
+    element.innerHTML += " ";
+    element.appendChild(Drupal.ys_links.createCopyButtonWithIcon());
   };
 
   Drupal.ys_links.linkTypes.telephone = {
@@ -59,18 +59,15 @@
         );
       }
 
-      const span = document.createElement("span");
       const clonedLink = link.cloneNode(true);
       clonedLink.classList.add("ys_telephone", "ys_linked", "link--with-icon");
       clonedLink.setAttribute("href", prependProtocol(clonedLink));
-      span.appendChild(clonedLink);
 
       clonedLink.appendChild(document.createTextNode(" "));
+      renderCopyInsideOfElement(clonedLink);
       clonedLink.appendChild(createTelephoneLinkHrefSpan(link));
 
-      link.insertAdjacentElement("afterend", span);
-      renderCopyInsideOfSpan(clonedLink);
-
+      link.insertAdjacentElement("afterend", clonedLink);
       link.remove();
 
       Drupal.ys_links.debugLog(`${link.getAttribute("href")} is a telephone`);
