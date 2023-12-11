@@ -9,6 +9,7 @@ ys_links_excluded_classes:
   - .meta-sidebar__trigger
   - '.node-page-layout-builder-form a'
   - .layout-builder__link
+  - '.toolbar-menu a'
 ys_links_starting_context:
   - body
 ys_links_debug: 0
