@@ -25,8 +25,11 @@
         return;
       }
 
-      ["link--with-icon", "external-link", "ys_external", "ys_linked"].forEach(
-        (className) => link.classList.add(className)
+      link.classList.add(
+        "link--with-icon",
+        "external-link",
+        "ys_external",
+        "ys_linked"
       );
 
       link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {

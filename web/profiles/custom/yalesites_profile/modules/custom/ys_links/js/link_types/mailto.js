@@ -19,8 +19,7 @@
 
   const createMailtoLinkHrefSpan = (link) => {
     const span = document.createElement("span");
-    span.classList.add("pre-text__text");
-    span.classList.add("visually-hidden");
+    span.classList.add("pre-text__text", "visually-hidden");
     span.setAttribute("aria-hidden", true);
     span.innerHTML = sanitizeEmailAddress(link.getAttribute("href"));
     return span;
@@ -63,16 +62,13 @@
       }
 
       if (!navigator.clipboard) {
-        link.classList.add("ys_skipped");
-        link.classList.add("ys_linked");
+        link.classList.add("ys_skipped", "ys_linked", "link--with-icon");
         return;
       }
 
       const span = document.createElement("span");
       const clonedLink = link.cloneNode(true);
-      clonedLink.classList.add("ys_mailto");
-      clonedLink.classList.add("ys_linked");
-      span.appendChild(clonedLink);
+      clonedLink.classList.add("ys_mailto", "ys_linked", "link--with-icon");
 
       clonedLink.appendChild(document.createTextNode(" "));
       clonedLink.appendChild(createMailtoLinkHrefSpan(link));

@@ -61,8 +61,7 @@
 
       const span = document.createElement("span");
       const clonedLink = link.cloneNode(true);
-      clonedLink.classList.add("ys_telephone");
-      clonedLink.classList.add("ys_linked");
+      clonedLink.classList.add("ys_telephone", "ys_linked", "link--with-icon");
       clonedLink.setAttribute("href", prependProtocol(clonedLink));
       span.appendChild(clonedLink);
 

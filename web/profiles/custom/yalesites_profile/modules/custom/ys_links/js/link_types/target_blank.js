@@ -20,12 +20,12 @@
         return;
       }
 
-      [
+      link.classList.add(
         "link--with-icon",
         "external-link",
         "ys_target-blank",
-        "ys_linked",
-      ].forEach((className) => link.classList.add(className));
+        "ys_linked"
+      );
 
       link = Drupal.ys_links.addLinkClassIfChanged(link, (aLink) => {
         aLink = Drupal.ys_links.applyLinkStyle(aLink, "underline-with-icon");

@@ -11,7 +11,7 @@
     classes = ["sr-only"]
   ) => {
     const span = document.createElement("span");
-    classes.forEach((className) => span.classList.add(className));
+    span.classList.add(...classes);
     span.innerHTML = content;
 
     return span;
