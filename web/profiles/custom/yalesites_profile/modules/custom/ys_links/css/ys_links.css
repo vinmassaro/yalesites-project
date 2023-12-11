@@ -12,8 +12,15 @@ p a.link--with-icon.ys_linked {
 
 /* Except for those that have buttons with links, extend the padding
 * so that the underline captures the icon as well. */
-p a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(.ys_download):not(.ys_target-blank) {
-  padding-right: 1.0rem;
+p
+  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
+    .ys_download
+  ):not(.ys_target-blank),
+table
+  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
+    .ys_download
+  ):not(.ys_target-blank) {
+  padding-right: 1rem;
 }
 
 /* The download breaks in the middle of the icon, so let's extend it a
@@ -41,6 +48,11 @@ a.ys_linked.ys_mailto:hover i.text-copy-button__button {
 @media (prefers-reduced-motion: no-preference) {
   a.ys_linked.ys_mailto:hover i.fa-copy,
   a.ys_linked.ys_mailto:hover i.text-copy-button__button {
-    transition: color, background-color var(--animation-speed-default) ease-in-out 0ms;
+    transition: color,
+      background-color var(--animation-speed-default) ease-in-out 0ms;
   }
+}
+
+table a.link--with-icon.ys_linked {
+  display: inline;
 }
