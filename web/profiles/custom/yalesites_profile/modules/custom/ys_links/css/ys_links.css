@@ -22,7 +22,7 @@ p
   a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
     .ys_download
   ):not(.ys_target-blank),
-li
+li:not(.utility-nav__item)
   a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
     .ys_download
   ):not(.ys_target-blank),
@@ -30,24 +30,24 @@ table
   a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
     .ys_download
   ):not(.ys_target-blank) {
-  padding-right: 1rem;
+  padding-right: var(--size-spacing-5);
 }
 
 a.link--footer-link.ys_linked.link--with-icon {
-  padding-right: 0.7rem;
+  padding-right: var(--size-spacing-4);
 }
 
 /* The download breaks in the middle of the icon, so let's extend it a
 * little more */
 p a.link--with-icon.ys_linked.ys_download,
 p a.link--with-icon.ys_linked.ys_target-blank {
-  padding-right: 1.5rem;
+  padding-right: var(--size-spacing-6);
 }
 
 /* For those with a button, we move the button right so that it looks
 * like the other decorations. */
 a.link--with-icon.ys_linked > button.text-copy-button__button {
-  padding-left: 0.5rem;
+  padding-left: var(--size-spacing-3);
 }
 
 /* Make the copy button inside of hovers the same as the buttons we
