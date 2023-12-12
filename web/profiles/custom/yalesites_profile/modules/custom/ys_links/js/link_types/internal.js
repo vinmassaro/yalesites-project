@@ -14,6 +14,8 @@
 
   const isRelative = (url) => url.startsWith("/");
 
+  const isData = (url) => url.startsWith("data:");
+
   Drupal.ys_links.linkTypes.internal = {
     weight: 1000,
     name: "Internal",
@@ -21,7 +23,12 @@
     evaluator: (link) => {
       const href = link.getAttribute("href");
 
-      return urlHasCurrentDomain(href) || isAnchor(href) || isRelative(href);
+      return (
+        urlHasCurrentDomain(href) ||
+        isAnchor(href) ||
+        isRelative(href) ||
+        isData(href)
+      );
     },
     render: (link) => {
       Drupal.ys_links.debugLog(`${link.getAttribute("href")} is internal`);

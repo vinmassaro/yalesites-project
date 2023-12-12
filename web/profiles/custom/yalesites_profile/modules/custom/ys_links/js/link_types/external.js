@@ -10,7 +10,8 @@
   const urlHasCurrentDomain = (url) =>
     url.indexOf(document.location.hostname) > -1 ||
     url.startsWith("/") ||
-    url.startsWith("#");
+    url.startsWith("#") ||
+    url.startsWith("data:");
 
   Drupal.ys_links.linkTypes.external = {
     weight: 900,
