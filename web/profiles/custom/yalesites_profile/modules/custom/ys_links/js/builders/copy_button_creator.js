@@ -74,14 +74,4 @@
     button.addEventListener("click", clickEventHandler);
     return button;
   };
-
-  Drupal.ys_links.createCopyButtonAlt = (
-    clickEventHandler = copyButtonFunctionality
-  ) => {
-    const button = document.createElement("button");
-    button.classList.add("text-copy-button__button");
-    button.innerHTML = "copy";
-    button.addEventListener("click", clickEventHandler);
-    return button;
-  };
 })(Drupal, drupalSettings);
