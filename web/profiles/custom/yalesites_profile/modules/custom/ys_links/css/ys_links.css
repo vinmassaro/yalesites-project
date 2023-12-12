@@ -6,13 +6,23 @@
 /* Default style for a decorated link is to flex, causing a newline look.
 * Inside of inline text like a CKEditor message, this is not good.  We utilize
 * inline-flex in order to keep that from happening in these situations. */
-p a.link--with-icon.ys_linked {
+p a.link--with-icon.ys_linked,
+li a.link--with-icon.ys_linked {
   display: inline-flex;
+}
+
+/* Tables were not rendering inline either */
+table a.link--with-icon.ys_linked {
+  display: inline;
 }
 
 /* Except for those that have buttons with links, extend the padding
 * so that the underline captures the icon as well. */
 p
+  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
+    .ys_download
+  ):not(.ys_target-blank),
+li
   a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
     .ys_download
   ):not(.ys_target-blank),
@@ -51,8 +61,4 @@ a.ys_linked.ys_mailto:hover i.text-copy-button__button {
     transition: color,
       background-color var(--animation-speed-default) ease-in-out 0ms;
   }
-}
-
-table a.link--with-icon.ys_linked {
-  display: inline;
 }
