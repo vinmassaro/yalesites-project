@@ -33,6 +33,10 @@ table
   padding-right: 1rem;
 }
 
+a.link--footer-link.ys_linked.link--with-icon {
+  padding-right: 0.7rem;
+}
+
 /* The download breaks in the middle of the icon, so let's extend it a
 * little more */
 p a.link--with-icon.ys_linked.ys_download,
