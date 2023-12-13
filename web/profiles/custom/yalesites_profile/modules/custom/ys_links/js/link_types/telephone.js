@@ -59,6 +59,13 @@
         );
       }
 
+      // Remove this block when ready to use
+      if (!hasTel) {
+        link.setAttribute("href", `tel:${link.getAttribute("href")}`);
+      }
+      link.classList.add("ys_skipped");
+      return;
+
       const clonedLink = link.cloneNode(true);
       clonedLink.classList.add("ys_telephone", "ys_linked", "link--with-icon");
       clonedLink.setAttribute("href", prependProtocol(clonedLink));

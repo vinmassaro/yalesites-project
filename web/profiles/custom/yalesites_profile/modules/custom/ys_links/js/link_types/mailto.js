@@ -45,6 +45,10 @@
         return;
       }
 
+      // Remove these two lines when we're ready to actually use.
+      link.classList.add("ys_skipped");
+      return;
+
       if (!navigator.clipboard) {
         link.classList.add("ys_skipped", "ys_linked", "link--with-icon");
         return;
