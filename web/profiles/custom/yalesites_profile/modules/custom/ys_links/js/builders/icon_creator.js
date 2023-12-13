@@ -26,7 +26,9 @@
       faicon.setAttribute(`aria-${key}`, value)
     );
     faicon.setAttribute("role", role);
-    faicon.setAttribute("title", title);
+    if (title.length > 0) {
+      faicon.setAttribute("title", title);
+    }
 
     return faicon;
   };
