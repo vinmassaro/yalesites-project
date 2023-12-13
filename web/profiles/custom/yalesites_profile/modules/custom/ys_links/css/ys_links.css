@@ -9,6 +9,7 @@
 p a.link--with-icon.ys_linked,
 li a.link--with-icon.ys_linked {
   display: inline-flex;
+  padding-right: var(--size-spacing-5);
 }
 
 /* Tables were not rendering inline either */
@@ -16,53 +17,16 @@ table a.link--with-icon.ys_linked {
   display: inline;
 }
 
-/* Except for those that have buttons with links, extend the padding
-* so that the underline captures the icon as well. */
-p
-  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
-    .ys_download
-  ):not(.ys_target-blank),
-li:not(.utility-nav__item)
-  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
-    .ys_download
-  ):not(.ys_target-blank),
-table
-  a.link--with-icon.ys_linked:not(.ys_mailto):not(.ys_telephone):not(
-    .ys_download
-  ):not(.ys_target-blank) {
+/* The height of the icon was too high, so we moved it down */
+a.link--with-icon.ys_linked i {
+  line-height: var(--size-spacing-6);
+}
+
+figcaption.caption a.link--with-icon.ys_linked {
+  text-decoration: none;
+}
+
+div.text-with-image__content a.link--with-icon.ys_linked {
   padding-right: var(--size-spacing-5);
-}
-
-a.link--footer-link.ys_linked.link--with-icon {
-  padding-right: var(--size-spacing-4);
-}
-
-/* The download breaks in the middle of the icon, so let's extend it a
-* little more */
-p a.link--with-icon.ys_linked.ys_download,
-p a.link--with-icon.ys_linked.ys_target-blank {
-  padding-right: var(--size-spacing-5);
-}
-
-/* For those with a button, we move the button right so that it looks
-* like the other decorations. */
-a.link--with-icon.ys_linked > button.text-copy-button__button {
-  padding-left: var(--size-spacing-3);
-}
-
-/* Make the copy button inside of hovers the same as the buttons we
-* use the link in. */
-a.ys_linked.ys_mailto:hover i.fa-copy,
-a.ys_linked.ys_mailto:hover i.text-copy-button__button {
-  background-color: var(--color-action);
-  color: var(--color-action-secondary);
-}
-
-/* Sync the transition with the links in CTAs and the like */
-@media (prefers-reduced-motion: no-preference) {
-  a.ys_linked.ys_mailto:hover i.fa-copy,
-  a.ys_linked.ys_mailto:hover i.text-copy-button__button {
-    transition: color,
-      background-color var(--animation-speed-default) ease-in-out 0ms;
-  }
+  display: inline-flex;
 }
