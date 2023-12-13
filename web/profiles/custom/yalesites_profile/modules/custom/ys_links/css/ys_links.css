@@ -41,7 +41,7 @@ a.link--footer-link.ys_linked.link--with-icon {
 * little more */
 p a.link--with-icon.ys_linked.ys_download,
 p a.link--with-icon.ys_linked.ys_target-blank {
-  padding-right: var(--size-spacing-6);
+  padding-right: var(--size-spacing-5);
 }
 
 /* For those with a button, we move the button right so that it looks
