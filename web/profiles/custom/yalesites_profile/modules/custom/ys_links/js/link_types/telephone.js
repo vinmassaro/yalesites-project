@@ -30,13 +30,6 @@
         return;
       }
 
-      if (hasTel) {
-        link.setAttribute(
-          "href",
-          link.getAttribute("href").replace(/^tel:/, "")
-        );
-      }
-
       if (!hasTel) {
         link.setAttribute("href", `tel:${link.getAttribute("href")}`);
       }
