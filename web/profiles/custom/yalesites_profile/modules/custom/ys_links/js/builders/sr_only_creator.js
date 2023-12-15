@@ -8,7 +8,7 @@
 
   Drupal.ys_links.createSrOnlySpan = (
     content = "(unknown link--please let us know so we can add one)",
-    classes = ["sr-only"]
+    classes = ["sr-only", "visually-hidden"]
   ) => {
     const span = document.createElement("span");
     span.classList.add(...classes);
