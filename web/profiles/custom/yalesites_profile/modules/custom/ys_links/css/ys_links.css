@@ -29,12 +29,14 @@ figcaption.caption a.link--with-icon.ys_linked {
 }
 
 /* The footer link icons blend in with the pipe separator; this allows them to
-* have some breating room. */
+* have some breathing room. */
 footer div.site-footer__meta a.link--with-icon.ys_linked {
   padding-right: var(--size-spacing-4);
   font: var(--font-style-body-xs);
 }
 
+/* The fa icon's line height makes the text actually raise; when comparing to
+* the Copyright portion, they are not aligned.  This helps align them. */
 footer div.site-footer__meta a.link--with-icon.ys_linked i {
-  font-family: inherit;
+  line-height: 0.9;
 }
