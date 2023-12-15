@@ -8,6 +8,7 @@
 * inline-flex in order to keep that from happening in these situations. */
 p a.link--with-icon.ys_linked,
 div.text-with-image__content a.link--with-icon.ys_linked,
+div.layout--centered a.link--with-icon.ys_linked,
 li a.link--with-icon.ys_linked {
   display: inline-flex;
   padding-right: var(--size-spacing-5);
