@@ -7,6 +7,10 @@
   Drupal.ys_links = Drupal.ys_links || {};
   Drupal.ys_links.linkTypes = Drupal.ys_links.linkTypes || {};
 
+  const textHasExtension = (text, extension) => {
+    return text.toLowerCase().includes(extension.toLowerCase());
+  };
+
   Drupal.ys_links.linkTypes.download = {
     weight: 10,
     name: "Download",
@@ -56,7 +60,7 @@
 
       link.innerHTML = link.innerHTML.trim();
 
-      if (!link.innerHTML.toUpperCase().includes(fileExtension)) {
+      if (!textHasExtension(link.innerHTML, fileExtension)) {
         link.innerHTML += ` (${fileExtension})`;
       }
 
