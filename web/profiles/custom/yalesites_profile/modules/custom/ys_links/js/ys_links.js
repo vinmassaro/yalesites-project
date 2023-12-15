@@ -15,6 +15,11 @@
     }
   };
 
+  // Tests if the link has no icons already.
+  Drupal.ys_links.hasNoIcon = (link) => {
+    return link.querySelectorAll(".fa-icon").length === 0;
+  };
+
   // Attempts to detect if a link is inside of a component or not.
   // Based on this, we will determine whether to decorate it or not.
   Drupal.ys_links.isInComponent = (link) => {
