@@ -28,8 +28,8 @@
         "zip",
         "csv",
         "xml",
-      ];
-      const extension = url.split(".").pop();
+      ].map((ext) => ext.toLowerCase());
+      const extension = url.split(".").pop()?.toLowerCase();
       return (
         fileExtensions.includes(extension) ||
         link.dataset.linkType === "download"
