@@ -61,14 +61,22 @@
   };
 
   Drupal.ys_links.createCopyButtonWithIcon = (
-    clickEventHandler = copyButtonFunctionality
+    clickEventHandler = copyButtonFunctionality,
+    options = {}
   ) => {
-    const button = document.createElement("button");
-    button.classList.add("text-copy-button__button");
-    button.appendChild(
-      Drupal.ys_links.createIcon({
+    const {
+      copyButtonClass = "text-copy-button__button",
+      icon = {
         classes: ["fa-solid", "fa-copy", "text-copy-button__button"],
         title: "Copy to clipboard",
+      },
+    } = options;
+    const button = document.createElement("button");
+    button.classList.add(copyButtonClass);
+    button.appendChild(
+      Drupal.ys_links.createIcon({
+        classes: icon.classes,
+        title: icon.title,
       })
     );
     button.addEventListener("click", clickEventHandler);
