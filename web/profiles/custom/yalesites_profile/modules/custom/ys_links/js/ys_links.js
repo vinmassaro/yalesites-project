@@ -24,7 +24,12 @@
   // Based on this, we will determine whether to decorate it or not.
   Drupal.ys_links.isInComponent = (link) => {
     const component = link.closest(
-      ".component-wrapper, [data-component-theme], [data-menu-variation], [data-component-width]"
+      [
+        ".component-wrapper",
+        "[data-component-theme]",
+        "[data-menu-variation]",
+        "[data-component-width]",
+      ].join(", ")
     );
 
     return component !== null;
