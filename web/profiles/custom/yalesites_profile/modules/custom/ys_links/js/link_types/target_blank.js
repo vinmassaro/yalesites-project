@@ -34,14 +34,16 @@
       });
 
       link.innerHTML = link.innerHTML.trim();
-      if (link.querySelectorAll(".fa-icon").length === 0) {
+      if (Drupal.ys_links.hasNoIcon(link)) {
         link.appendChild(
           Drupal.ys_links.createIcon({
             classes: ["fa-icon", "fa-solid", "fa-arrow-up-right-from-square"],
           })
         );
         link.appendChild(
-          Drupal.ys_links.createSrOnlySpan("(opens in a new window/tab)")
+          Drupal.ys_links.createSrOnlySpan({
+            content: "(opens in a new window/tab)",
+          })
         );
       }
 

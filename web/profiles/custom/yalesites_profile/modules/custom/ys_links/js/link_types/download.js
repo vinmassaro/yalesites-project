@@ -65,14 +65,15 @@
       }
 
       // if the icon has not already been applied, apply it.
-      if (link.querySelectorAll(".fa-icon").length === 0) {
+      if (Drupal.ys_links.hasNoIcon(link)) {
         link.appendChild(
           Drupal.ys_links.createIcon({
             classes: ["fa-icon", "fa-regular", "fa-circle-down"],
-            aria: { hidden: true },
           })
         );
-        link.appendChild(Drupal.ys_links.createSrOnlySpan("(file download)"));
+        link.appendChild(
+          Drupal.ys_links.createSrOnlySpan({ content: "(file download)" })
+        );
       }
 
       Drupal.ys_links.debugLog(`${link.getAttribute("href")} is download`);
