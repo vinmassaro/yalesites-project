@@ -17,6 +17,7 @@ li a.link--with-icon.ys_linked {
 /* Tables were not rendering inline either */
 table a.link--with-icon.ys_linked {
   display: inline;
+  padding-right: var(--size-spacing-4);
 }
 
 /* The height of the icon was too high, so we moved it down */
