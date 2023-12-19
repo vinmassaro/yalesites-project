@@ -33,16 +33,16 @@ a.link--with-icon.ys_linked {
   padding-right: var(--ys-link--padding);
 }
 
-/* External icons seems to be slightly smaller in width than the others, so we
-* adjust for it to look better */
-a.link--with-icon.ys_linked.ys_external {
-  padding-right: var(--ys-link--external-padding);
-}
-
 a.link--with-icon.ys_linked.ys_download {
   padding-right: var(--ys-link--download-padding);
 }
 
+div[data-component-width] div.text a.link--with-icon.ys_linked.ys_download i,
+div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external i {
+  padding-right: 0px;
+}
+
+a.callout__cta.link--with-icon.external-link.ys_external.ys_linked,
 div[data-component-width] li a.link--with-icon.ys_linked.ys_download i,
 div[data-component-theme] a.link--with-icon.ys_linked.ys_external,
 a.link--with-icon.ys_linked.ys_download.cta {
@@ -52,51 +52,40 @@ a.link--with-icon.ys_linked.ys_download.cta {
   );
 }
 
-a.link--with-icon.ys_linked.ys_download i {
-  line-height: var(--size-spacing-7);
+div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external,
+a.link--with-icon.ys_linked.ys_external {
+  padding-right: var(--ys-link--external-padding);
 }
 
-blockquote.pull-quote__quote p a.ys_linked.link--with-icon.ys_external i {
-  line-height: var(--size-spacing-8);
-}
-
-/* Default style for a decorated link is to flex, causing a newline look.
-* Inside of inline text like a CKEditor message, this is not good.  We utilize
-* inline-flex in order to keep that from happening in these situations. */
 p a.link--with-icon.ys_linked,
 div.text-with-image__content a.link--with-icon.ys_linked,
 div.layout--centered a.link--with-icon.ys_linked,
-li a.link--with-icon.ys_linked {
+li a.link--with-icon.ys_linked,
+table a.link--with-icon.ys_linked {
   display: inline-flex;
 }
 
-/* Tables were not rendering inline either */
-table a.link--with-icon.ys_linked {
-  display: inline;
-  padding-right: var(--size-spacing-4);
-}
-
-/* The height of the icon was too high, so we moved it down */
 div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
 p a.link--with-icon.ys_linked.ys_download i,
 a.link--with-icon.ys_linked i {
   line-height: var(--size-spacing-6);
 }
 
-/* Captions shouldn't have an extra underline */
+a.link--with-icon.ys_linked.ys_download i,
+div.component-wrapper a.cta.link--with-icon.ys_linked.ys_external i,
+blockquote.pull-quote__quote p a.ys_linked.link--with-icon.ys_external i {
+  line-height: var(--size-spacing-7);
+}
+
 figcaption.caption a.link--with-icon.ys_linked {
   text-decoration: none;
 }
 
-/* The footer link icons blend in with the pipe separator; this allows them to
-* have some breathing room. */
 footer div.site-footer__meta a.link--with-icon.ys_linked {
   padding-right: var(--size-spacing-4);
   font: var(--font-style-body-xs);
 }
 
-/* The fa icon's line height makes the text actually raise; when comparing to
-* the Copyright portion, they are not aligned.  This helps align them. */
 footer div.site-footer__meta a.link--with-icon.ys_linked i {
   line-height: 0.9;
 }
