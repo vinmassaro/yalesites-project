@@ -42,12 +42,12 @@
       link.innerHTML = link.innerHTML.trim();
       if (Drupal.ys_links.hasNoIcon(link)) {
         link.appendChild(
+          Drupal.ys_links.createSrOnlySpan({ content: "(link is external)" })
+        );
+        link.appendChild(
           Drupal.ys_links.createIcon({
             classes: ["fa-icon", "fa-solid", "fa-arrow-up-right"],
           })
-        );
-        link.appendChild(
-          Drupal.ys_links.createSrOnlySpan({ content: "(link is external)" })
         );
       }
       Drupal.ys_links.debugLog(`${link.getAttribute("href")} is external`);

@@ -36,13 +36,13 @@
       link.innerHTML = link.innerHTML.trim();
       if (Drupal.ys_links.hasNoIcon(link)) {
         link.appendChild(
-          Drupal.ys_links.createIcon({
-            classes: ["fa-icon", "fa-solid", "fa-arrow-up-right-from-square"],
+          Drupal.ys_links.createSrOnlySpan({
+            content: "(opens in a new window/tab)",
           })
         );
         link.appendChild(
-          Drupal.ys_links.createSrOnlySpan({
-            content: "(opens in a new window/tab)",
+          Drupal.ys_links.createIcon({
+            classes: ["fa-icon", "fa-solid", "fa-arrow-up-right-from-square"],
           })
         );
       }

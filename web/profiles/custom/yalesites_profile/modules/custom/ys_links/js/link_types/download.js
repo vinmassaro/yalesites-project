@@ -67,12 +67,12 @@
       // if the icon has not already been applied, apply it.
       if (Drupal.ys_links.hasNoIcon(link)) {
         link.appendChild(
+          Drupal.ys_links.createSrOnlySpan({ content: "(file download)" })
+        );
+        link.appendChild(
           Drupal.ys_links.createIcon({
             classes: ["fa-icon", "fa-regular", "fa-circle-down"],
           })
-        );
-        link.appendChild(
-          Drupal.ys_links.createSrOnlySpan({ content: "(file download)" })
         );
       }
 
