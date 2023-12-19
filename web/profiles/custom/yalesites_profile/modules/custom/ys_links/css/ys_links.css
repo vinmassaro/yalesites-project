@@ -3,6 +3,63 @@
  * Styles for ys_links
  */
 
+:root {
+  --ys-link--post-text-padding: var(--size-spacing-3);
+  /*
+   * Icons have a padding-left of var(--size-spacing-3) and their max width is
+   * (1rem - var(--size-spacing-3)
+   */
+  --ys-link--padding: calc(1rem + var(--ys-link--post-text-padding));
+  /*
+   * External link icons have a bit less width than usual, so we account for that. */
+  --ys-link--external-padding: calc(
+    1rem - var(--size-spacing-3) + var(--size-spacing-2)
+  );
+  /* Download icons seem to be special as well so we account for it. */
+  --ys-link--download-padding: calc(
+    (1rem - var(--size-spacing-3)) + var(--size-spacing-3)
+  );
+  /* Elements inside of a component needs some extra spacing */
+  --ys-link--padding-inside-component: calc(
+    var(--ys-link--padding) + var(--size-spacing-5)
+  );
+}
+
+/* Default style for a decorated link is to flex, causing a newline look.
+* Inside of inline text like a CKEditor message, this is not good.  We utilize
+* inline-flex in order to keep that from happening in these situations. */
+a.link--with-icon.ys_linked {
+  display: inline-flex;
+  padding-right: var(--ys-link--padding);
+}
+
+/* External icons seems to be slightly smaller in width than the others, so we
+* adjust for it to look better */
+a.link--with-icon.ys_linked.ys_external {
+  padding-right: var(--ys-link--external-padding);
+}
+
+a.link--with-icon.ys_linked.ys_download {
+  padding-right: var(--ys-link--download-padding);
+}
+
+div[data-component-width] li a.link--with-icon.ys_linked.ys_download i,
+div[data-component-theme] a.link--with-icon.ys_linked.ys_external,
+a.link--with-icon.ys_linked.ys_download.cta {
+  padding-right: calc(
+    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
+      var(--size-spacing-3) * 2
+  );
+}
+
+a.link--with-icon.ys_linked.ys_download i {
+  line-height: var(--size-spacing-7);
+}
+
+blockquote.pull-quote__quote p a.ys_linked.link--with-icon.ys_external i {
+  line-height: var(--size-spacing-8);
+}
+
 /* Default style for a decorated link is to flex, causing a newline look.
 * Inside of inline text like a CKEditor message, this is not good.  We utilize
 * inline-flex in order to keep that from happening in these situations. */
@@ -11,7 +68,6 @@ div.text-with-image__content a.link--with-icon.ys_linked,
 div.layout--centered a.link--with-icon.ys_linked,
 li a.link--with-icon.ys_linked {
   display: inline-flex;
-  padding-right: var(--size-spacing-5);
 }
 
 /* Tables were not rendering inline either */
@@ -21,6 +77,8 @@ table a.link--with-icon.ys_linked {
 }
 
 /* The height of the icon was too high, so we moved it down */
+div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
+p a.link--with-icon.ys_linked.ys_download i,
 a.link--with-icon.ys_linked i {
   line-height: var(--size-spacing-6);
 }
@@ -41,4 +99,13 @@ footer div.site-footer__meta a.link--with-icon.ys_linked {
 * the Copyright portion, they are not aligned.  This helps align them. */
 footer div.site-footer__meta a.link--with-icon.ys_linked i {
   line-height: 0.9;
+}
+
+div[data-component-width] a.cta.link--with-icon.ys_linked,
+div.callout a.link--with-icon.ys_linked,
+div.component-wrapper a.cta.link--with-icon.ys_linked {
+  padding-right: calc(
+    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
+      var(--size-spacing-3) * 2
+  );
 }
