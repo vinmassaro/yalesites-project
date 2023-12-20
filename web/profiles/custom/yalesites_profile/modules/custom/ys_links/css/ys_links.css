@@ -52,6 +52,10 @@ a.link--with-icon.ys_linked.ys_download.cta {
   );
 }
 
+table a.link--with-icon.ys_linked.ys_external {
+  display: inline;
+}
+
 div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external,
 a.link--with-icon.ys_linked.ys_external {
   padding-right: var(--ys-link--external-padding);
@@ -60,10 +64,10 @@ a.link--with-icon.ys_linked.ys_external {
 p a.link--with-icon.ys_linked,
 div.text-with-image__content a.link--with-icon.ys_linked,
 div.layout--centered a.link--with-icon.ys_linked,
-li a.link--with-icon.ys_linked,
-table a.link--with-icon.ys_linked {
+li a.link--with-icon.ys_linked {
   display: inline-flex;
 }
+/* table a.link--with-icon.ys_linked */
 
 div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
 p a.link--with-icon.ys_linked.ys_download i,
