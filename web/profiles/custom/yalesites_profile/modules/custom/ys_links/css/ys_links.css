@@ -23,6 +23,16 @@
   --ys-link--padding-inside-component: calc(
     var(--ys-link--padding) + var(--size-spacing-5)
   );
+
+  /* While we can add padding to the link, the buttons and other containers do
+   * not properly space out with the icon.  This allows it to do so. */
+  --ys-link--component-container-padding: calc(
+    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
+      var(--size-spacing-3) * 2
+  );
+
+  /* Extra padding to allow the pipes to show */
+  --ys-link--footer-padding: 0.9;
 }
 
 /* Default style for a decorated link is to flex, causing a newline look.
@@ -42,14 +52,11 @@ div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external i {
   padding-right: 0px;
 }
 
-a.callout__cta.link--with-icon.external-link.ys_external.ys_linked,
 div[data-component-width] li a.link--with-icon.ys_linked.ys_download i,
 div[data-component-theme] a.link--with-icon.ys_linked.ys_external,
+a.callout__cta.link--with-icon.external-link.ys_external.ys_linked,
 a.link--with-icon.ys_linked.ys_download.cta {
-  padding-right: calc(
-    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
-      var(--size-spacing-3) * 2
-  );
+  padding-right: var(--ys-link--component-container-padding);
 }
 
 table li a.link--with-icon.ys_linked,
@@ -92,14 +99,11 @@ footer div.site-footer__meta a.link--with-icon.ys_linked {
 }
 
 footer div.site-footer__meta a.link--with-icon.ys_linked i {
-  line-height: 0.9;
+  line-height: var(--ys-link--footer-padding);
 }
 
 div[data-component-width] a.cta.link--with-icon.ys_linked,
 div.callout a.link--with-icon.ys_linked,
 div.component-wrapper a.cta.link--with-icon.ys_linked {
-  padding-right: calc(
-    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
-      var(--size-spacing-3) * 2
-  );
+  padding-right: var(--ys-link--component-container-padding);
 }
