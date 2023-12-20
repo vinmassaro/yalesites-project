@@ -43,6 +43,7 @@ a.link--with-icon.ys_linked {
   padding-right: var(--ys-link--padding);
 }
 
+a.link--with-icon.ys_linked.ys_target-blank,
 a.link--with-icon.ys_linked.ys_download {
   padding-right: var(--ys-link--download-padding);
 }
