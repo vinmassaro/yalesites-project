@@ -45,9 +45,11 @@
   --ys-link--footer-padding: 0.9;
 }
 
-/* Default style for a decorated link is to flex, causing a newline look.
-* Inside of inline text like a CKEditor message, this is not good.  We utilize
-* inline-flex in order to keep that from happening in these situations. */
+/*
+ * Default style for a decorated link is to flex, causing a newline look.
+ * Inside of inline text like a CKEditor message, this is not good.  We utilize
+ * inline-flex in order to keep that from happening in these situations.
+ */
 a.link--with-icon.ys_linked {
   display: inline-flex;
   padding-right: var(--ys-link--padding);
@@ -58,26 +60,46 @@ a.link--with-icon.ys_linked.ys_download {
   padding-right: var(--ys-link--download-padding);
 }
 
+/*
+ * It seemed that links inside of a div.text block could not have proper
+ * padding applied, so we negate it all together.
+ */
 div[data-component-width] div.text a.link--with-icon.ys_linked.ys_download i,
 div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external i {
   padding-right: 0px;
 }
 
-div[data-component-width] li a.link--with-icon.ys_linked.ys_download i,
-div[data-component-theme] a.link--with-icon.ys_linked.ys_external,
+/* 
+ * Components seem to create a button feel on the link and not on the container,
+ * so we must allow the right to extend such that it looks like the spacing on
+ * each side matches.
+ */
 a.callout__cta.link--with-icon.external-link.ys_external.ys_linked,
-a.link--with-icon.ys_linked.ys_download.cta {
+a.link--with-icon.ys_linked.ys_download.cta, 
+div[data-component-width] li a.link--with-icon.ys_linked.ys_download,
+div[data-component-theme] a.link--with-icon.ys_linked.ys_external,
+div[data-component-width] a.cta.link--with-icon.ys_linked,
+div.callout a.link--with-icon.ys_linked,
+div.component-wrapper a.cta.link--with-icon.ys_linked {
   padding-right: var(--ys-link--component-container-padding);
 }
 
-table li a.link--with-icon.ys_linked,
-table a.link--with-icon.ys_linked {
-  display: inline;
-}
-
+/*
+ * Of course there are some that don't follow the container padding, so we
+ * address it here
+ */
 div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external,
 a.link--with-icon.ys_linked.ys_external {
   padding-right: var(--ys-link--external-padding);
+}
+
+/*
+ * We must adjust the display styles since a flex display newlines the links,
+ * making them look out of place.
+ */
+table li a.link--with-icon.ys_linked,
+table a.link--with-icon.ys_linked {
+  display: inline;
 }
 
 p a.link--with-icon.ys_linked,
@@ -87,6 +109,11 @@ li a.link--with-icon.ys_linked {
   display: inline-flex;
 }
 
+/* 
+ * The following two css blocks address the veritical alignment of the icon
+ * with relation to the rest of the link.  Feedback conveyed that it looked
+ * strange for them to be higher up than the text it was a part of.
+ */
 div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
 p a.link--with-icon.ys_linked.ys_download i,
 a.link--with-icon.ys_linked i {
@@ -99,21 +126,27 @@ blockquote.pull-quote__quote p a.ys_linked.link--with-icon.ys_external i {
   line-height: var(--size-spacing-7);
 }
 
+/*
+ * Figure captions inside of components have an underline even though the icon
+ * does not, so we remove it.
+ */
 figcaption.caption a.link--with-icon.ys_linked {
   text-decoration: none;
 }
 
+/* 
+ * Footer link decorations don't mix well with the pipes it has, so we attempt
+ * to give it more breating room
+ */
 footer div.site-footer__meta a.link--with-icon.ys_linked {
   padding-right: var(--size-spacing-4);
   font: var(--font-style-body-xs);
 }
 
+/* 
+ * Icons must be moved further down to look like they are in line with the rest
+ * of the footer text
+ */
 footer div.site-footer__meta a.link--with-icon.ys_linked i {
   line-height: var(--ys-link--footer-padding);
-}
-
-div[data-component-width] a.cta.link--with-icon.ys_linked,
-div.callout a.link--with-icon.ys_linked,
-div.component-wrapper a.cta.link--with-icon.ys_linked {
-  padding-right: var(--ys-link--component-container-padding);
 }
