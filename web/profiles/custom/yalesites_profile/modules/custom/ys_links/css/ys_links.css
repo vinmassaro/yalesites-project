@@ -55,6 +55,8 @@ a.link--with-icon.ys_linked {
   padding-right: var(--ys-link--padding);
 }
 
+li.custom-card .custom-card__heading a.link--with-icon.ys_linked.ys_download,
+div.wrapped-image[data-component-width] li a.link--with-icon.ys_linked.ys_download,
 a.link--with-icon.ys_linked.ys_target-blank,
 a.link--with-icon.ys_linked.ys_download {
   padding-right: var(--ys-link--download-padding);
@@ -88,6 +90,7 @@ div.component-wrapper a.cta.link--with-icon.ys_linked {
  * Of course there are some that don't follow the container padding, so we
  * address it here
  */
+div.pull-quote blockquote.pull-quote__quote a.link--with-icon.ys_linked,
 div[data-component-width] div.text a.link--with-icon.ys_linked.ys_external,
 a.link--with-icon.ys_linked.ys_external {
   padding-right: var(--ys-link--external-padding);
@@ -115,6 +118,7 @@ li a.link--with-icon.ys_linked {
  * strange for them to be higher up than the text it was a part of.
  */
 div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
+div.callout a.link--with-icon.ys_linked i,
 p a.link--with-icon.ys_linked.ys_download i,
 a.link--with-icon.ys_linked i {
   line-height: var(--size-spacing-6);
@@ -122,6 +126,9 @@ a.link--with-icon.ys_linked i {
 
 a.link--with-icon.ys_linked.ys_download i,
 div.component-wrapper a.cta.link--with-icon.ys_linked.ys_external i,
+div.component-wrapper a.cta.link--with-icon.ys_linked.ys_download i,
+div.callout a.link--with-icon.ys_linked.ys_external i,
+div.callout a.link--with-icon.ys_linked.ys_download i,
 blockquote.pull-quote__quote p a.ys_linked.link--with-icon.ys_external i {
   line-height: var(--size-spacing-7);
 }
