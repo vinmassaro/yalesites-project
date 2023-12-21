@@ -5,11 +5,19 @@
 
 :root {
   --ys-link--post-text-padding: var(--size-spacing-3);
+
+  /* Icons have a left padding of var(--size-spacing-3) */
+  --ys-link--icon-padding: calc(
+    var(--ys-link--post-text-padding) + var(--size-spacing-3)
+  );
   /*
    * Icons have a padding-left of var(--size-spacing-3) and their max width is
-   * (1rem - var(--size-spacing-3)
+   * (1rem - var(--size-spacing-3); since they cancel out, it's really 1rem,
+   * but we want the extra spacing.
    */
-  --ys-link--padding: calc(1rem + var(--ys-link--post-text-padding));
+  --ys-link--padding: calc(
+    var(--ys-link--icon-padding) + var(--ys-link--post-text-padding)
+  );
   /*
    * External link icons have a bit less width than usual, so we account for that. */
   --ys-link--external-padding: calc(
@@ -27,8 +35,10 @@
   /* While we can add padding to the link, the buttons and other containers do
    * not properly space out with the icon.  This allows it to do so. */
   --ys-link--component-container-padding: calc(
-    calc(1rem - var(--size-spacing-3) + var(--ys-link--post-text-padding)) +
-      var(--size-spacing-3) * 2
+    calc(
+      var(--ys-link--icon-padding) + var(--ys-link--post-text-padding) +
+        var(--size-spacing-3) * 2
+    )
   );
 
   /* Extra padding to allow the pipes to show */
@@ -76,7 +86,6 @@ div.layout--centered a.link--with-icon.ys_linked,
 li a.link--with-icon.ys_linked {
   display: inline-flex;
 }
-/* table a.link--with-icon.ys_linked */
 
 div[data-component-width] a.link--with-icon.ys_linked.ys_download i,
 p a.link--with-icon.ys_linked.ys_download i,
