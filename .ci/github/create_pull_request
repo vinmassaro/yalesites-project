@@ -9,8 +9,10 @@ pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
   "https://api.github.com/repos/$REPO/pulls")
 
 # Check if the pull request creation was successful.
-if [ -z "$(echo "$pull_request_response" | jq -r '.html_url')" ]; then
-  echo "Failed to create pull request. Exiting."
+if [ -n "$(echo "$pull_request_response" | jq -r '.html_url')" ]; then
+  message="$(echo "$pull_request_response" | jq -r '.errors.[].message')"
+  echo "Failed to create pull request."
+  echo "Error: $message"
   exit 1
 fi
 
