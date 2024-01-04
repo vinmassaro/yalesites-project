@@ -8,8 +8,6 @@ pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
   -X POST -d '{"title": "Release", "head": "develop", "base": "master"}' \
   "https://api.github.com/repos/$REPO/pulls")
 
-  echo "$pull_request_response" | jq -r
-
 # Check if the pull request creation was successful.
 if [ -n "$(echo "$pull_request_response" | jq -r '.html_url')" ]; then
   message=$(echo "$pull_request_response" | jq -r '.errors[].message')
