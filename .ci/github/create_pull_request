@@ -1,0 +1,75 @@
+#!/bin/bash
+
+set -eo pipefail
+
+# Create a pull request to merge develop into master
+pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token $ACCESS_TOKEN" \
+  -X POST -d '{"title": "Release", "head": "develop", "base": "master"}' \
+  "https://api.github.com/repos/$REPO/pulls")
+
+# Check if the pull request creation was successful.
+if [ -z "$(echo "$pull_request_response" | jq -r '.html_url')" ]; then
+  echo "Failed to create pull request. Exiting."
+  exit 1
+fi
+
+# Extract the pull request number from the response.
+pr_number=$(echo "$pull_request_response" | jq -r '.number')
+
+# Page through the /pulls/#/commits endpoint.
+page=1
+per_page=100
+
+while true; do
+  # Get the list of commits from the pull request and extract commit SHAs.
+  commits_response=$(curl --silent -H "Authorization: token $ACCESS_TOKEN" \
+    "https://api.github.com/repos/$REPO/pulls/$pr_number/commits?per_page=$per_page&page=$page")
+
+  current_commit_shas=$(echo "$commits_response" | jq -r '.[].sha')
+
+  # Append current commit SHAs to the overall list.
+  commit_shas+="$current_commit_shas"
+
+  # Check if there are more pages, otherwise finish.
+  if [[ $(echo "$commits_response" | jq -r '. | length') -lt "$per_page" ]]; then
+    break
+  fi
+
+  # Increment page number for the next API call.
+  ((page++))
+done
+
+# Create a list of unique pull requests based on commit SHAs. Use SHA if PR does not exist.
+unique_pull_requests=()
+for sha in $commit_shas; do
+  pr_url=$(curl -s -H "Authorization: token $ACCESS_TOKEN" \
+    "https://api.github.com/repos/$OWNER/$REPO/commits/$sha/pulls" \
+    | jq -r '.[].html_url')
+
+  if [ -n "$pr_url" ]; then
+    unique_pull_requests+=("$pr_url")
+  else
+    unique_pull_requests+=("$sha")
+  fi
+done
+
+# Dedupe pull request URLs.
+unique_pull_requests=($(printf '%s\n' "${unique_pull_requests[@]}" | sort -u))
+
+# Create pull request description with list of pull requests as a markdown list.
+for element in "${unique_pull_requests[@]}"; do
+    description+="- $element\n"
+done
+
+# Update pull request with new description.
+update_pull_request=$(curl -s -L \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: token $ACCESS_TOKEN" \
+  -X PATCH -d "{\"body\": \"$description\"}" \
+  "https://api.github.com/repos/$REPO/pulls/$pr_number")
+
+if [[ -n "$pull_request_response" || -n "$update_pull_request" ]]; then
+  echo "Pull request created"
+fi
+                      
