@@ -4,7 +4,7 @@ jobs:
   create_pull_request:
     runs-on: ubuntu-latest
     env:
-      ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
       REPO: ${{ github.repository }}
     steps:
     - name: Checkout
