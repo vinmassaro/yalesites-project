@@ -40,27 +40,44 @@ while true; do
   ((page++))
 done
 
-# Create a list of unique pull requests based on commit SHAs. Use SHA if PR does not exist.
-unique_pull_requests=()
+# Create list of unique pull requests based on commit SHAs, and another for changes without PRs.
+pull_requests=()
+changes_without_pr=()
+
 for sha in $commit_shas; do
   pr_url=$(curl -s -H "Authorization: token $ACCESS_TOKEN" \
     "https://api.github.com/repos/$REPO/commits/$sha/pulls" \
     | jq -r '.[].html_url')
 
   if [ -n "$pr_url" ]; then
-    unique_pull_requests+=("$pr_url")
+    pull_requests+=("$pr_url")
   else
-    unique_pull_requests+=("$sha")
+    changes_without_pr+=("$sha")
   fi
 done
 
 # Dedupe pull request URLs.
-unique_pull_requests=($(printf '%s\n' "${unique_pull_requests[@]}" | sort -u))
+pull_requests=($(printf '%s\n' "${pull_requests[@]}" | sort -u))
 
-# Create pull request description with list of pull requests as a markdown list.
-for element in "${unique_pull_requests[@]}"; do
-    description+="- $element\n"
-done
+# Begin outputting description if there are PRs.
+if [[ -n "${pull_requests[*]}" ]]; then
+  description+="## Pull requests\n"
+
+  # Create pull request description with list of pull requests as a markdown list.
+  for pr in "${pull_requests[@]}"; do
+      description+="- $pr\n"
+  done
+
+fi
+
+# Output changes that are not in a pull request.
+if [[ -n "${changes_without_pr[*]}" ]]; then
+  description+="\n## Changes without a pull rqeuest:\n"
+
+  for sha in "${changes_without_pr[@]}"; do
+      description+="- $sha\n"
+  done
+fi
 
 # Update pull request with new description.
 update_pull_request=$(curl -s -L \
@@ -72,4 +89,3 @@ update_pull_request=$(curl -s -L \
 if [[ -n "$pull_request_response" || -n "$update_pull_request" ]]; then
   echo "Pull request created"
 fi
-                      
