@@ -44,7 +44,7 @@ done
 unique_pull_requests=()
 for sha in $commit_shas; do
   pr_url=$(curl -s -H "Authorization: token $ACCESS_TOKEN" \
-    "https://api.github.com/repos/$OWNER/$REPO/commits/$sha/pulls" \
+    "https://api.github.com/repos/$REPO/commits/$sha/pulls" \
     | jq -r '.[].html_url')
 
   if [ -n "$pr_url" ]; then
