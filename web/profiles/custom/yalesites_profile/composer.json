@@ -62,6 +62,7 @@
     "drupal/metatag": "2.0.0",
     "drupal/migrate_plus": "6.0.1",
     "drupal/migrate_tools": "6.0.2",
+    "drupal/multiple_fields_remove_button": "2.2",
     "drupal/multivalue_form_element": "1.0-beta6",
     "drupal/node_revision_delete": "2.0.0-alpha2",
     "drupal/override_node_options": "2.7",
@@ -129,7 +130,8 @@
         "update dark mode localstorage https://www.drupal.org/project/gin/issues/3387653": "https://git.drupalcode.org/project/gin/-/merge_requests/304.diff"
       },
       "drupal/media_library_form_element": {
-        "Order Media items https://www.drupal.org/project/media_library_form_element/issues/3168027":"https://www.drupal.org/files/issues/2022-01-22/order_media_items-3168027-8.patch"
+        "Order Media items https://www.drupal.org/project/media_library_form_element/issues/3168027":"https://www.drupal.org/files/issues/2022-01-22/order_media_items-3168027-8.patch",
+        "Deprecated function: explode(): Passing null to parameter #2 ($string) of type string is deprecated https://www.drupal.org/project/media_library_form_element/issues/3277273": "https://www.drupal.org/files/issues/2023-01-25/deprecated-explode-3277273-11.patch"
       },
       "drupal/redirect": {
         "fix validation issue on adding url redirect": "https://www.drupal.org/files/issues/2023-08-09/3057250-65.patch"
@@ -139,6 +141,12 @@
       },
       "drupal/google_analytics": {
         "Cannot install from existing config https://www.drupal.org/project/google_analytics/issues/3373921": "https://www.drupal.org/files/issues/2023-08-07/google-analytics-issues-3373921-cannot-install-from-existing-config-11.patch"
+      },
+      "drupal/linkit": {
+        "Add phone number matcher https://www.drupal.org/project/linkit/issues/3273630": "https://git.drupalcode.org/project/linkit/-/merge_requests/36.diff"
+      },
+      "drupal/quick_node_clone": {
+        "Fix cloning of inline blocks and paragraphs: https://www.drupal.org/project/quick_node_clone/issues/3100117": "https://www.drupal.org/files/issues/2023-04-25/quick-node-clone--inline-blocks--3100117-32.patch"
       }
     }
   }
