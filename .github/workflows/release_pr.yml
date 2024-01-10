@@ -1,8 +1,6 @@
 name: Create release pull request
 on:
   pull_request:
-    branches:
-      - master
   workflow_dispatch:
 jobs:
   create_pull_request:
