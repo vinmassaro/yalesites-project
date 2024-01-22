@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 jobs:
   create_pull_request:
+    if: github.head_ref == 'develop'
     runs-on: ubuntu-latest
     env:
       ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
