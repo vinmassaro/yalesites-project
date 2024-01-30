@@ -1,16 +1,37 @@
-name: Create release pull request
+name: Create/update release pull request
 on:
   pull_request:
     branches:
       - master
   workflow_dispatch:
+env:
+  ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
+  REPO: ${{ github.repository }}
+  PR_NUMBER: ${{ github.event.number }}
 jobs:
-  create_pull_request:
+  get_next_release_version:
     runs-on: ubuntu-latest
-    env:
-      ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
-      REPO: ${{ github.repository }}
-      PR_NUMBER: ${{ github.event.number }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get next release number
+      run: |
+        npm install
+        next_version=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null | sed -nE 's/.*the next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
+        echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
+
+    - name: Create release branch
+      uses: peterjgrainger/action-create-branch@v2
+      env:
+        GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
+      with:
+        branch: ${{ env.release_branch }}
+
+  create_pull_request:
+    if: github.head_ref == 'develop' ||
+        github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
