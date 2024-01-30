@@ -24,7 +24,7 @@ jobs:
 
     - name: Get next release number
       run: |
-        git merge develop
+        git merge origin/develop --no-edit -X theirs
         npm install
         next_version=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null | sed -nE 's/.*the next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
         echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
