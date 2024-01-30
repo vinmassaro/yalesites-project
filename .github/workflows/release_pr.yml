@@ -30,7 +30,7 @@ jobs:
         echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
 
     - name: Create release branch
-      uses: peterjgrainger/action-create-branch@v2
+      uses: peterjgrainger/action-create-branch@v2.2.0
       env:
         GITHUB_TOKEN: ${{ env.ACCESS_TOKEN }}
       with:
