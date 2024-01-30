@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Install
-        run: npm install
+        run: npm install --force
 
       - name: Release
         run: npx semantic-release
