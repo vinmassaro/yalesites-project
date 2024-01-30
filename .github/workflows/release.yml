@@ -14,9 +14,12 @@ jobs:
 
       - name: Install Node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
       - name: Install
         run: npm install --force
 
       - name: Release
         run: npx semantic-release
+
