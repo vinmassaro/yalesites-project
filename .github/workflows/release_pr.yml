@@ -5,6 +5,7 @@ on:
       - master
   workflow_dispatch:
 env:
+  YALESITES_BUILD_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
