@@ -14,9 +14,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        ref: master
+
+    - name: Setup node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
 
     - name: Get next release number
       run: |
+        git merge develop
         npm install
         next_version=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null | sed -nE 's/.*the next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
         echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
@@ -28,13 +36,13 @@ jobs:
       with:
         branch: ${{ env.release_branch }}
 
-  create_pull_request:
-    if: github.head_ref == 'develop' ||
-        github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+  # create_pull_request:
+  #   if: github.head_ref == 'develop' ||
+  #       github.event_name == 'workflow_dispatch'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
 
-    - name: Create pull request
-      run: ./.ci/github/create_release_pull_request
+  #   - name: Create pull request
+  #     run: ./.ci/github/create_release_pull_request
