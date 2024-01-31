@@ -29,6 +29,10 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
+    - name: Setup tmate session
+      if: ${{ failure() }}
+      uses: mxschmitt/action-tmate@v3
+
     - name: Get next release number
       run: |
         git branch develop origin/develop
