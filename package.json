@@ -50,7 +50,6 @@
   },
   "release": {
     "branches": [
-      "develop",
       "master"
     ],
     "plugins": [
