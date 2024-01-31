@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 env:
   YALESITES_BUILD_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
+  GH_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
@@ -16,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: develop
+        ref: master
         fetch-depth: 0
 
     - name: Setup node
@@ -29,21 +30,17 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-
     - name: Get next release number
       run: |
-        git branch develop origin/develop
-        git merge develop --no-edit -X theirs
-        git status
+        git merge origin/develop --no-edit -X theirs
         npm install --force
-        npx --no-install semantic-release --no-ci --dry-run --branches master
-        next_version=$(npx --no-install semantic-release --no-ci --dry-run --branches master 2>/dev/null | sed -nE 's/.*the next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
+        npx --no-install semantic-release --no-ci --dry-run
+        next_version=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null | sed -nE 's/.*The next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
         echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
 
     - name: Create release branch
       run: |
+        echo "$release_branch"
         git checkout -b "$release_branch"
         git push origin "$release_branch"
 
