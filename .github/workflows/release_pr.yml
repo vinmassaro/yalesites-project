@@ -13,6 +13,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
+    if: ${{ env.PR_NUMBER == '' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -40,19 +41,32 @@ jobs:
         next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+)\.([0-9]+)\.([0-9]+).*/\1\2\3/p')
         
         if [ -z "$next_version" ]; then
-          release_branch="release"
+          exit 1
         else
           release_branch="v${next_version//.}"
         fi
         
         echo release_branch="$release_branch" >> "$GITHUB_ENV"
 
-    - name: Create release branch
+    - name: Create release branch (${{ env.release_branch }})
       run: |
         git checkout -b "$release_branch"
         git push origin "$release_branch"
 
-  # create_pull_request:
+  create_pull_request:
+    if: github.head_ref == 'develop' ||
+        github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Create pull request
+      env:
+        RELEASE_BRANCH: ${{ env.release_branch }}
+      run: ./.ci/github/create_release_pull_request
+
+  # create_multidevs:
   #   if: github.head_ref == 'develop' ||
   #       github.event_name == 'workflow_dispatch'
   #   runs-on: ubuntu-latest
@@ -60,5 +74,7 @@ jobs:
   #   - name: Checkout
   #     uses: actions/checkout@v4
 
-  #   - name: Create pull request
-  #     run: ./.ci/github/create_release_pull_request
+  #   - name: Create multidev environments
+  #     env:
+  #       RELEASE_BRANCH: ${{ env.release_branch }}
+  #     run: ./.ci/github/create_multidevs
