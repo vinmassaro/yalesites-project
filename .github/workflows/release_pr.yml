@@ -13,7 +13,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ env.PR_NUMBER == '' }}
+    if: ${{ github.event.number == '' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
