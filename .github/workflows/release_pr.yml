@@ -14,6 +14,8 @@ jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
     if: ${{ github.event.number == '' }}
+    outputs:
+      release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -32,6 +34,7 @@ jobs:
         git config user.email github-actions@github.com
 
     - name: Get next release number
+      id: get_release_number
       run: |
         git merge origin/develop --no-edit -X theirs
         npm install --force
@@ -46,7 +49,7 @@ jobs:
           release_branch="v${next_version//.}"
         fi
         
-        echo release_branch="$release_branch" >> "$GITHUB_ENV"
+        echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
 
     - name: Create release branch (${{ env.release_branch }})
       run: |
@@ -64,7 +67,7 @@ jobs:
 
     - name: Create pull request
       env:
-        RELEASE_BRANCH: ${{ env.release_branch }}
+        RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}"
       run: ./.ci/github/create_release_pull_request
 
   # create_multidevs:
