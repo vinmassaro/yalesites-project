@@ -51,10 +51,13 @@ jobs:
         
         echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
 
-    - name: Create release branch (${{ env.release_branch }})
+    - name: Create release branch
+      env:
+        RELEASE_BRANCH: ${{ steps.get_release_number.outputs.release_branch }}
       run: |
-        git checkout -b "$release_branch"
-        git push origin "$release_branch"
+        echo "The release branch is: $RELEASE_BRANCH" 
+        git checkout -b "$RELEASE_BRANCH"
+        git push origin "$RELEASE_BRANCH"
 
   create_pull_request:
     if: github.head_ref == 'develop' ||
@@ -67,7 +70,7 @@ jobs:
 
     - name: Create pull request
       env:
-        RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}"
+        RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
       run: ./.ci/github/create_release_pull_request
 
   # create_multidevs:
