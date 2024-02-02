@@ -63,17 +63,16 @@ jobs:
         git push origin "$RELEASE_BRANCH"
 
   create_pull_request:
+    needs: [get_next_release_version]
     env:
       RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
-    if: github.head_ref == ${{ env.RELEASE_BRANCH }} ||
-        github.event_name == 'workflow_dispatch'
-    needs: [get_next_release_version]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
 
     - name: Create pull request
+      if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
       run: ./.ci/github/create_release_pull_request
 
   # create_multidevs:
