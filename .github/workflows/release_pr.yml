@@ -64,7 +64,7 @@ jobs:
 
   create_pull_request:
     env:
-      RELEASE_BRdANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
+      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
     if: github.head_ref == ${{ env.RELEASE_BRANCH }} ||
         github.event_name == 'workflow_dispatch'
     needs: [get_next_release_version]
