@@ -13,7 +13,6 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event.number == '' }}
     outputs:
       release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
@@ -36,22 +35,26 @@ jobs:
     - name: Get next release number
       id: get_release_number
       run: |
-        git merge origin/develop --no-edit -X theirs
-        npm install --force
-        unset GITHUB_ACTIONS
-        unset GITHUB_EVENT_NAME
-        semantic_release=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null)
-        next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+)\.([0-9]+)\.([0-9]+).*/\1\2\3/p')
-        
-        if [ -z "$next_version" ]; then
-          exit 1
+        if [[ "$PR_NUMBER" ]]; then
+          release_branch=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.[]')
         else
-          release_branch="v${next_version//.}"
+          git merge origin/develop --no-edit -X theirs
+          npm install --force
+          unset GITHUB_ACTIONS
+          unset GITHUB_EVENT_NAME
+          semantic_release=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null)
+          next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+)\.([0-9]+)\.([0-9]+).*/\1\2\3/p')
+          
+          if [ -z "$next_version" ]; then
+            exit 1
+          else
+            release_branch="v${next_version//.}"
+          fi
         fi
-        
         echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
 
     - name: Create release branch
+      if: ${{ github.event.number == '' }}
       env:
         RELEASE_BRANCH: ${{ steps.get_release_number.outputs.release_branch }}
       run: |
