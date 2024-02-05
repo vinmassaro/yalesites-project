@@ -78,15 +78,16 @@ jobs:
       if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
       run: ./.ci/github/create_release_pull_request
 
-  # create_multidevs:
-  #   if: github.head_ref == 'develop' ||
-  #       github.event_name == 'workflow_dispatch'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
+  release_sites:
+    needs: [create_pull_request]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.RELEASE_BRANCH }}
 
-  #   - name: Create multidev environments
-  #     env:
-  #       RELEASE_BRANCH: ${{ env.release_branch }}
-  #     run: ./.ci/github/create_multidevs
+    - name: Deploy to environments
+      run: ./.ci/github/deploy_release_sites
