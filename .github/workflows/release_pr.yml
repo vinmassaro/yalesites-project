@@ -1,6 +1,8 @@
 name: Create/update release pull request
 on:
   pull_request:
+    types:
+      - synchronize
     branches:
       - master
   workflow_dispatch:
