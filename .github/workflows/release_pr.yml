@@ -12,7 +12,7 @@ env:
   ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
-  RELEASE_PR_URL: ${{ github.event.pull_request.html.href }}
+  RELEASE_PR_URL: ${{ github.event.pull_request._links.html.href }}
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
