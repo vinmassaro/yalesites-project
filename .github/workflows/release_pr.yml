@@ -1,17 +1,22 @@
 name: Create/update release pull request
 on:
   pull_request:
+    types:
+      - synchronize
     branches:
       - master
   workflow_dispatch:
 env:
   YALESITES_BUILD_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
+  GH_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   ACCESS_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
+    outputs:
+      release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -29,25 +34,50 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
-
     - name: Get next release number
+      id: get_release_number
       run: |
-        git branch develop origin/develop
-        git merge develop --no-edit -X theirs
-        git status
-        npm install --force
-        npx --no-install semantic-release --no-ci --dry-run --branches master
-        next_version=$(npx --no-install semantic-release --no-ci --dry-run --branches master 2>/dev/null | sed -nE 's/.*the next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/\1/p')
-        echo release_branch="rel-${next_version//.}" >> "$GITHUB_ENV"
+        if [[ "$PR_NUMBER" ]]; then
+          release_branch=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.[]')
+        else
+          git merge origin/develop --no-edit -X theirs
+          npm install --force
+          unset GITHUB_ACTIONS
+          unset GITHUB_EVENT_NAME
+          semantic_release=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null)
+          next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+)\.([0-9]+)\.([0-9]+).*/\1\2\3/p')
+          
+          if [ -z "$next_version" ]; then
+            exit 1
+          else
+            release_branch="v${next_version//.}"
+          fi
+        fi
+        echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
 
     - name: Create release branch
+      if: ${{ github.event.number == '' }}
+      env:
+        RELEASE_BRANCH: ${{ steps.get_release_number.outputs.release_branch }}
       run: |
-        git checkout -b "$release_branch"
-        git push origin "$release_branch"
+        echo "The release branch is: $RELEASE_BRANCH" 
+        git checkout -b "$RELEASE_BRANCH"
+        git push origin "$RELEASE_BRANCH"
 
-  # create_pull_request:
+  create_pull_request:
+    needs: [get_next_release_version]
+    env:
+      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Create pull request
+      if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
+      run: ./.ci/github/create_release_pull_request
+
+  # create_multidevs:
   #   if: github.head_ref == 'develop' ||
   #       github.event_name == 'workflow_dispatch'
   #   runs-on: ubuntu-latest
@@ -55,5 +85,7 @@ jobs:
   #   - name: Checkout
   #     uses: actions/checkout@v4
 
-  #   - name: Create pull request
-  #     run: ./.ci/github/create_release_pull_request
+  #   - name: Create multidev environments
+  #     env:
+  #       RELEASE_BRANCH: ${{ env.release_branch }}
+  #     run: ./.ci/github/create_multidevs
