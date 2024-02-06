@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -eo pipefail
 
@@ -15,7 +15,7 @@ if [ "$RELEASE_BRANCH" ]; then
   #gh variable set RELEASE_BRANCH --body "$RELEASE_BRANCH"
 
   # Prepare output file for comment.
-  echo "Environments for review:" >> ${{ runner.temp }}/multidev_output.txt
+  echo "Environments ready for review:" >> ${{ runner.temp }}/multidev_output.txt
 else
   echo "test"
   # Get release branch if already set.
