@@ -56,14 +56,14 @@ jobs:
         fi
         echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
 
-    - name: Create release branch
-      if: ${{ github.event.number == '' }}
-      env:
-        RELEASE_BRANCH: ${{ steps.get_release_number.outputs.release_branch }}
-      run: |
-        echo "The release branch is: $RELEASE_BRANCH" 
-        git checkout -b "$RELEASE_BRANCH"
-        git push origin "$RELEASE_BRANCH"
+    # - name: Create release branch
+    #   if: ${{ github.event.number == '' }}
+    #   env:
+    #     RELEASE_BRANCH: ${{ steps.get_release_number.outputs.release_branch }}
+    #   run: |
+    #     echo "The release branch is: $RELEASE_BRANCH" 
+    #     git checkout -b "$RELEASE_BRANCH"
+    #     git push origin "$RELEASE_BRANCH"
 
   create_pull_request:
     needs: [get_next_release_version]
@@ -79,6 +79,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         branch: ${{ env.RELEASE_BRANCH }}
+        token: ${{ secrets.YALESITES_BUILD_TOKEN }}
 
     - name: Create pull request
       if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
