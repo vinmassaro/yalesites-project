@@ -2,8 +2,7 @@
 
 set -eo pipefail
 
-# Authenticate with Terminus and install Terminus Build Bools.
-terminus -n auth:login --machine-token="$TERMINUS_TOKEN"
+# Install Terminus Build Bools.
 terminus self:plugin:install terminus-build-tools-plugin
 
 # Get release sites and convert to an array.
@@ -16,7 +15,7 @@ if [ "$RELEASE_BRANCH" ]; then
   #gh variable set RELEASE_BRANCH --body "$RELEASE_BRANCH"
 
   # Prepare output file for comment.
-  echo "Environments for review:" >> /tmp/multidev_output.txt
+  echo "Environments for review:" >> ${{ runner.temp }}/multidev_output.txt
 else
   echo "test"
   # Get release branch if already set.
@@ -60,7 +59,7 @@ process_site() {
 
   # Get site URL and output to file
   site_url=$(terminus -n domain:list "$site_machine_name"."$RELEASE_BRANCH" --filter='type=platform' --field=id)
-  echo "- https://$site_url" >> /tmp/multidev_output.txt
+  echo "- https://$site_url" >> ${{ runner.temp }}/multidev_output.txt
 }
 
 # Export functions so that GNU Parallel can access them
@@ -70,7 +69,7 @@ export -f process_site
 parallel --keep-order --line-buffer process_site {} ::: "${sites[@]}"
 
 # If we are creating the PR for the first time, post a comment with the created site URLs.
-gh issue comment "$PR_NUMBER" --body-file /tmp/multidev_output.txt
+gh issue comment "$PR_NUMBER" --body-file ${{ runner.temp }}/multidev_output.txt
 
 # TODO: after PR closed, delete multidevs
 # TODO: support new commits, push new code to multidevs
