@@ -79,16 +79,60 @@ jobs:
     - name: Create pull request
       run: ./.ci/github/create_release_pull_request
 
-  # release_sites:
-  #   needs: [create_pull_request]
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       ref: ${{ env.RELEASE_BRANCH }}
+  release_sites:
+    needs: [create_pull_request]
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ env.RELEASE_BRANCH }}
 
-  #   - name: Deploy to environments
-  #     run: ./.ci/github/deploy_release_sites
+    - name: Determine Terminus version
+      shell: bash
+      run: |
+        TERMINUS_RELEASE=$(
+          curl --silent \
+            --header 'authorization: Bearer ${{ github.token }}' \
+            "https://api.github.com/repos/pantheon-systems/terminus/releases/latest" \
+            | perl -nle'print $& while m#"tag_name": "\K[^"]*#g'
+        )
+        echo "TERMINUS_RELEASE=$TERMINUS_RELEASE" >> $GITHUB_ENV
+
+    - name: Install Terminus
+      shell: bash
+      run: |
+        mkdir ~/terminus && cd ~/terminus
+        echo "Installing Terminus v$TERMINUS_RELEASE"
+        curl -L https://github.com/pantheon-systems/terminus/releases/download/$TERMINUS_RELEASE/terminus.phar -o /usr/local/bin/terminus
+        chmod +x /usr/local/bin/terminus
+
+    - name: Authenticate to Terminus
+      env:
+        TERMINUS_TOKEN: ${{ secrets.TERMINUS_TOKEN }}
+      run: |
+        terminus auth:login --machine-token="${TERMINUS_TOKEN}"
+
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: unnecessary
+        config: ${{ secrets.SSH_CONFIG }}
+
+    - name: Cache terminus
+      uses: actions/cache@v4
+      id: terminus-cache
+      with:
+        path: |
+          /usr/local/bin/terminus
+          ~/.terminus
+          ~/.ssh
+        key: ${{ runner.os }}-terminus-cache-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-terminus-cache-
+
+    - name: Deploy to environments
+      run: ./.ci/github/deploy_release_sites
