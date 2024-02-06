@@ -3,33 +3,33 @@
 set -eo pipefail
 
 # If we aren't updating an existing pull request, create one to merge the release branch into master.
-if [[ -z "$PR_NUMBER" ]]; then
-  pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
-    -H "Authorization: token $ACCESS_TOKEN" \
-    -X POST -d '{"title": "Release", "head": "'"$RELEASE_BRANCH"'", "base": "master"}' \
-    "https://api.github.com/repos/$REPO/pulls")
+# if [[ -z "$PR_NUMBER" ]]; then
+#   pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
+#     -H "Authorization: token $ACCESS_TOKEN" \
+#     -X POST -d '{"title": "Release", "head": "'"$RELEASE_BRANCH"'", "base": "master"}' \
+#     "https://api.github.com/repos/$REPO/pulls")
 
-  message=$(echo "$pull_request_response" | jq -r 'if has("errors") then .errors[].message else empty end')
+#   message=$(echo "$pull_request_response" | jq -r 'if has("errors") then .errors[].message else empty end')
 
-  # Check if the pull request creation was successful.
-  if [[ -n "$message" ]]; then
-    echo "Failed to create pull request."
-    echo "Error: $message"
-    exit 1
-  else
-    pr_url=$(echo "$pull_request_response" | jq -r '.html_url')
-  fi
+#   # Check if the pull request creation was successful.
+#   if [[ -n "$message" ]]; then
+#     echo "Failed to create pull request."
+#     echo "Error: $message"
+#     exit 1
+#   else
+#     pr_url=$(echo "$pull_request_response" | jq -r '.html_url')
+#   fi
 
-  # Extract the pull request number from the response.
-  PR_NUMBER=$(echo "$pull_request_response" | jq -r '.number')
+#   # Extract the pull request number from the response.
+#   PR_NUMBER=$(echo "$pull_request_response" | jq -r '.number')
 
-# If there is an existing PR number, get the PR.
-else
+# # If there is an existing PR number, get the PR.
+# else
   pull_request_response=$(curl --silent -H "Authorization: token $ACCESS_TOKEN" \
     "https://api.github.com/repos/$REPO/pulls/$PR_NUMBER")
 
   pr_url=$(echo "$pull_request_response" | jq -r '.html_url')
-fi
+# fi
 
 # Page through the /pulls/#/commits endpoint.
 page=1
