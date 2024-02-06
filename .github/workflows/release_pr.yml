@@ -79,7 +79,7 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         branch: ${{ env.RELEASE_BRANCH }}
-        token: ${{ secrets.YALESITES_BUILD_TOKEN 
+        token: ${{ secrets.YALESITES_BUILD_TOKEN }}
         base: master
 
     - name: Create pull request
