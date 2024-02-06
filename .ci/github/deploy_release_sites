@@ -1,0 +1,75 @@
+#!/bin/bash -x
+
+set -eo pipefail
+
+# Install Terminus Build Bools.
+terminus self:plugin:install terminus-build-tools-plugin
+
+# Get release sites and convert to an array.
+release_sites=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_SITES") | .value' | cat)
+readarray -t sites_array <<< "$release_sites"
+
+# Release branch variable does not exist, so create multidevs for the first time.
+if [ "$RELEASE_BRANCH" ]; then
+  # Set release branch.
+  #gh variable set RELEASE_BRANCH --body "$RELEASE_BRANCH"
+
+  # Prepare output file for comment.
+  echo "Environments ready for review:" >> output.txt
+else
+  echo "test"
+  # Get release branch if already set.
+  #release_branch=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_BRANCH") | .value')
+fi
+
+push_code() {
+  git_path=$(terminus connection:info "$site_with_env" --field=git_url)
+  git remote add "$site_machine_name" "$git_path"
+  git fetch "$site_machine_name"
+  git push "$site_machine_name" "$RELEASE_BRANCH:$RELEASE_BRANCH" --force
+  terminus workflow:wait "$site_machine_name"."$RELEASE_BRANCH" --max=300
+}
+    
+process_site() {
+  site_with_env="$1"
+  site_machine_name="${site_with_env%.*}"
+
+  echo -e "\nCreating multidev $site_machine_name.$RELEASE_BRANCH from $site_with_env...\n"
+
+  if [ "$site_machine_name" = "yalesites-platform" ]; then
+    terminus multidev:create "$site_with_env" "$RELEASE_BRANCH" --no-db --no-files
+  else
+    terminus multidev:create "$site_with_env" "$RELEASE_BRANCH"
+  fi
+
+  push_code
+
+  # Do a fresh install on yalesites-platform site.
+  if [ "$site_machine_name" = "yalesites-platform" ]; then
+    echo -e "\nInstalling clean site for $site_machine_name.$RELEASE_BRANCH...\n"
+    terminus -n env:wake "$site_machine_name"."$RELEASE_BRANCH"
+    terminus -n drush "$site_machine_name"."$RELEASE_BRANCH" -- si yalesites_profile -y
+    terminus -n drush "$site_machine_name"."$RELEASE_BRANCH" -- cr
+    SITE_MACHINE_NAME="$site_machine_name" env="$RELEASE_BRANCH" ./scripts/shared/content-import.sh
+  fi
+
+  terminus -n env:wake "$site_machine_name"."$RELEASE_BRANCH"
+  echo -e "\nRunning drush deploy...\n"
+  terminus -n drush "$site_machine_name"."$RELEASE_BRANCH" -- deploy -v -y
+
+  # Get site URL and output to file
+  site_url=$(terminus -n domain:list "$site_machine_name"."$RELEASE_BRANCH" --filter='type=platform' --field=id)
+  echo "- https://$site_url" >> output.txt
+}
+
+# Export functions so that GNU Parallel can access them
+export -f push_code
+export -f process_site
+
+parallel --keep-order --line-buffer process_site {} ::: "${sites_array[@]}"
+
+# If we are creating the PR for the first time, post a comment with the created site URLs.
+gh issue comment "$PR_NUMBER" --body-file output.txt
+
+# TODO: after PR closed, delete multidevs
+# TODO: support new commits, push new code to multidevs
