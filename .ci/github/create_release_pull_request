@@ -31,6 +31,10 @@ else
   pr_url=$(echo "$pull_request_response" | jq -r '.html_url')
 fi
 
+if [[ -z "$RELEASE_PR_URL" ]]; then
+  RELEASE_PR_URL="$pr_url"
+fi
+
 # Page through the /pulls/#/commits endpoint.
 page=1
 per_page=100
