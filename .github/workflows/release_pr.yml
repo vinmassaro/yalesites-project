@@ -1,4 +1,4 @@
-name: Create/update release pull request
+name: Release pull request
 on:
   pull_request:
     types:
