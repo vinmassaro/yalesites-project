@@ -120,6 +120,7 @@ jobs:
       with:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         known_hosts: unnecessary
+        config: ${{ secrets.SSH_CONFIG }}
 
     - name: Cache terminus
       uses: actions/cache@v4
