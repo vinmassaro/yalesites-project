@@ -6,8 +6,8 @@ set -eo pipefail
 terminus self:plugin:install terminus-build-tools-plugin
 
 # Get release sites and convert to an array.
-release_sites=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_SITES") | .value')
-readarray -t sites <<< "$release_sites"
+release_sites=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_SITES") | .value' | cat)
+readarray -t sites_array <<< "$release_sites"
 
 # Release branch variable does not exist, so create multidevs for the first time.
 if [ "$RELEASE_BRANCH" ]; then
@@ -66,7 +66,7 @@ process_site() {
 export -f push_code
 export -f process_site
 
-parallel --keep-order --line-buffer process_site {} ::: "${sites[@]}"
+parallel --keep-order --line-buffer process_site {} ::: "${sites_array[@]}"
 
 # If we are creating the PR for the first time, post a comment with the created site URLs.
 gh issue comment "$PR_NUMBER" --body-file output.txt
