@@ -74,8 +74,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Create Pull Request
+      id: create_pr
+      uses: peter-evans/create-pull-request@v6
+
     - name: Create pull request
       if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
+      env:
+        PR_NUMBER: ${{ steps.create_pr.outputs.pull-request-number }}
       run: ./.ci/github/create_release_pull_request
 
   release_sites:
