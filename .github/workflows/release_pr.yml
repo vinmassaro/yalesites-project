@@ -80,7 +80,7 @@ jobs:
       run: ./.ci/github/create_release_pull_request
 
   release_sites:
-    needs: [create_pull_request]
+    needs: [get_next_release_version, create_pull_request]
     runs-on: ubuntu-latest
     env:
       RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch }}
