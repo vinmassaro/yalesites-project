@@ -16,6 +16,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
+    if: ${{ github.event.action != 'synchronize' }}
     outputs:
       release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
@@ -76,8 +77,6 @@ jobs:
 
     - name: Create pull request
       if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
-      env:
-        PR_NUMBER: ${{ steps.create_pr.outputs.pull-request-number }}
       run: ./.ci/github/create_release_pull_request
 
   # release_sites:
