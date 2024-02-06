@@ -79,7 +79,8 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         branch: ${{ env.RELEASE_BRANCH }}
-        token: ${{ secrets.YALESITES_BUILD_TOKEN }}
+        token: ${{ secrets.YALESITES_BUILD_TOKEN 
+        base: master
 
     - name: Create pull request
       if: github.head_ref == env.RELEASE_BRANCH || github.event_name == 'workflow_dispatch'
