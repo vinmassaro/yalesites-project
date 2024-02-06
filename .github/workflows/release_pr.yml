@@ -13,6 +13,7 @@ env:
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
   RELEASE_PR_URL: ${{ github.event.pull_request._links.html.href }}
+  RUNNER_TEMP: ${{ runner.temp }}
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
