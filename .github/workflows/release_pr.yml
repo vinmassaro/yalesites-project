@@ -151,6 +151,18 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
 
+    - name: Restore cache
+      uses: actions/cache@v4
+      id: terminus-cache
+      with:
+        path: |
+          /usr/local/bin/terminus
+          ~/.terminus
+          ~/.ssh
+        key: ${{ runner.os }}-terminus-cache-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-terminus-cache-
+
     - name: Deploy to environments
       run: ./.ci/github/deploy_release_sites
 
