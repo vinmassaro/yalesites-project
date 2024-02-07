@@ -6,7 +6,7 @@ set -eo pipefail
 terminus self:plugin:install terminus-build-tools-plugin
 
 # Get release sites and convert to an array.
-release_sites=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_SITES") | .value' | cat)
+release_sites=$(gh api /repos/"$REPO"/actions/variables --jq '.variables.[] | select(.name=="RELEASE_SITES") | .value' | tr -d '\r')
 readarray -t sites_array <<< "$release_sites"
 
 # Release branch variable does not exist, so create multidevs for the first time.
