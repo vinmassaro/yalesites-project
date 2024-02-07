@@ -14,6 +14,7 @@ env:
   REPO: ${{ github.repository }}
   PR_NUMBER: ${{ github.event.number }}
   RELEASE_PR_URL: ${{ github.event.pull_request._links.html.href }}
+  RELEASE_SITES: ${{ vars.RELEASE_SITES }}
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -139,7 +140,6 @@ jobs:
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       PR_NUMBER: ${{ needs.create_pull_request.outputs.PR_NUMBER }}
-      RELEASE_SITES: ${{ vars.RELEASE_SITES }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -186,12 +186,4 @@ jobs:
           ${{ runner.os }}-terminus-cache-
 
     - name: Clean up
-      run: |
-        process_site() {
-          site_with_env="$1"
-          site_machine_name="${site_with_env%.*}"
-          terminus multidev:delete "$site_with_env"."$RELEASE_BRANCH" --delete-branch -y
-        }
-        export process_site
-        readarray -t release_sites <<< "$(tr -d '\r' <<< "$RELEASE_SITES")"
-        parallel --jobs 0 --keep-order --line-buffer process_site ::: "${release_sites[@]}"
+      run: ./.ci/github/clean_up
