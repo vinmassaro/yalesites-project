@@ -149,7 +149,7 @@ jobs:
 
     - name: Git setup
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         git config user.name github-actions
         git config user.email github-actions@github.com
@@ -194,5 +194,5 @@ jobs:
 
     - name: Clean up
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: ./.ci/github/clean_up
