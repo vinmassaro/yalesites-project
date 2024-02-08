@@ -176,6 +176,10 @@ jobs:
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
     steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+        
     - name: Restore cache
       uses: actions/cache@v4
       id: terminus-cache
