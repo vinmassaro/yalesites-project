@@ -1,0 +1,12 @@
+#!/bin/bash -x
+
+process_site() {
+  site_with_env="$1"
+  site_machine_name="${site_with_env%.*}"
+  terminus multidev:delete "$site_machine_name"."$RELEASE_BRANCH" --delete-branch -y
+}
+export -f process_site
+
+readarray -t release_sites <<< "$(tr -d '\r' <<< "$RELEASE_SITES")"
+
+parallel --jobs 0 --keep-order --line-buffer process_site ::: "${release_sites[@]}"
