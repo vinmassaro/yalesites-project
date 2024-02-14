@@ -20,7 +20,7 @@ process_site() {
   site_with_env="$1"
   site_machine_name="${site_with_env%.*}"
 
-  env_status=$(terminus env:info "$site_machine_name"."$RELEASE_BRANCH" --field=initialized)
+  env_status=$(terminus env:info "$site_machine_name"."$RELEASE_BRANCH" --field=initialized 2>/dev/null)
 
   # If multidev does not exist, create it, otherwise deploy code updates.
   if [ "$env_status" -eq 1 ]; then
