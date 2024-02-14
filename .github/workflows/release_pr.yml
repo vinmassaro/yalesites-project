@@ -169,7 +169,7 @@ jobs:
     - name: Deploy to environments
       run: ./.ci/github/deploy_release_sites
 
-  clean_up:
+  clean_up_multidevs:
     if: ${{ github.event.action == 'closed' }}
     needs: [setup]
     runs-on: ubuntu-latest
@@ -195,4 +195,4 @@ jobs:
     - name: Clean up
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: ./.ci/github/clean_up
+      run: ./.ci/github/clean_up_multidevs
