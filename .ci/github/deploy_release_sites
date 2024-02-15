@@ -37,7 +37,7 @@ process_site() {
     # Do a fresh install on yalesites-platform site.
     if [ "$site_machine_name" = "yalesites-platform" ]; then
       echo -e "\nInstalling clean site for $site_machine_name.$RELEASE_BRANCH...\n"
-      terminus -n env:wake "$site_machine_name"."$RELEASE_BRANCH"
+      terminus -n env:wake "$site_machine_name"."$RELEASE_BRANCH" --delay=20
       terminus -n drush "$site_machine_name"."$RELEASE_BRANCH" -- si yalesites_profile -y
       terminus -n drush "$site_machine_name"."$RELEASE_BRANCH" -- cr
       SITE_MACHINE_NAME="$site_machine_name" env="$RELEASE_BRANCH" ./scripts/shared/content-import.sh
