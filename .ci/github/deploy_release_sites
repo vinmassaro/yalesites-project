@@ -23,7 +23,7 @@ process_site() {
   env_status=$(terminus env:info "$site_machine_name"."$RELEASE_BRANCH" --field=initialized 2>/dev/null)
 
   # If multidev does not exist, create it, otherwise deploy code updates.
-  if [ "$env_status" -eq 1 ]; then
+  if [ "$env_status" != 1 ]; then
     echo -e "\nCreating multidev $site_machine_name.$RELEASE_BRANCH from $site_with_env...\n"
 
     if [ "$site_machine_name" = "yalesites-platform" ]; then
