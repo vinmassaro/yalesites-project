@@ -140,6 +140,7 @@ jobs:
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       PR_NUMBER: ${{ needs.create_pull_request.outputs.PR_NUMBER }}
+      RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
