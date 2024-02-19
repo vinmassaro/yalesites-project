@@ -136,7 +136,7 @@ jobs:
   release_sites:
     needs: [setup, create_pull_request]
     runs-on: ubuntu-latest
-    if: ${{ github.event.action != 'closed' }}
+    if: ${{ always() && github.event.action != 'closed' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       PR_NUMBER: ${{ needs.create_pull_request.outputs.PR_NUMBER }}
