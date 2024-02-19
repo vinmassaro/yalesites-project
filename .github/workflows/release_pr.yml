@@ -63,6 +63,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-terminus-cache-
 
+    - name : machine echo github
+      env : { CONTENT : "${{ toJson(github) }}" }
+      run : "echo $CONTENT"
+
   get_next_release_version:
     runs-on: ubuntu-latest
     needs: [setup]
