@@ -6,7 +6,7 @@ set -eo pipefail
 if [[ -z "$PR_NUMBER" ]]; then
   pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
     -H "Authorization: token $ACCESS_TOKEN" \
-    -X POST -d '{"title": "Release", "head": "'"$RELEASE_BRANCH"'", "base": "master"}' \
+    -X POST -d '{"title": "Release '"$NEXT_VERSION"'", "head": "'"$RELEASE_BRANCH"'", "base": "master"}' \
     "https://api.github.com/repos/$REPO/pulls")
 
   message=$(echo "$pull_request_response" | jq -r 'if has("errors") then .errors[].message else empty end')
