@@ -140,7 +140,7 @@ jobs:
   release_sites:
     needs: [setup, create_pull_request]
     runs-on: ubuntu-latest
-    if: github.event.action != 'closed'
+    # if: github.event.action != 'closed'
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       PR_NUMBER: ${{ needs.create_pull_request.outputs.PR_NUMBER }}
@@ -170,9 +170,19 @@ jobs:
         key: ${{ runner.os }}-terminus-cache-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-terminus-cache-
+          
+    # - name: Deploy to environments
+    #   run: ./.ci/github/deploy_release_sites
 
-    - name: Deploy to environments
-      run: ./.ci/github/deploy_release_sites
+    - name : machine echo github
+      env : { CONTENT : "${{ toJson(github) }}" }
+      run : "echo $CONTENT"
+
+    - name: Debug
+      env:
+        ACTION: ${{ github.event.action }}
+      run: |
+        echo "$ACTION"
 
   clean_up_multidevs:
     if: ${{ github.event.action == 'closed' }}
