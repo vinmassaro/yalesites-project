@@ -63,15 +63,18 @@ terminus self:plugin:install terminus-build-tools-plugin
 # Get release sites and convert to an array.
 readarray -t sites_array <<< "$(tr -d '\r' <<< "$RELEASE_SITES")"
 
-# Release sites don't exist, so create multidevs for the first time.
-if [ "$RELEASE_SITES_DEPLOYED" != 1 ]; then
+if [ "$RELEASE_SITES_DEPLOYED" == 0 ]; then
   # Prepare output file for comment.
   echo "Environments ready for review:" >> output.txt
+fi
 
-  parallel --jobs 0 --keep-order --line-buffer process_site {} ::: "${sites_array[@]}"
+# Process sites with parallel.
+parallel --jobs 0 --keep-order --line-buffer process_site {} ::: "${sites_array[@]}"
 
-  # Post a comment with the created site URLs.
+echo "Environments ready for review:" | cat - output.txt > temp && mv temp output.txt
+
+# If release sites don't exist, post a comment with URLs and set tracking variable to 1.
+if [ "$RELEASE_SITES_DEPLOYED" == 0 ]; then
   gh issue comment "$PR_NUMBER" --body-file output.txt
-else
   gh variable set RELEASE_SITES_DEPLOYED --body "1"
 fi
