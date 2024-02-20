@@ -63,11 +63,6 @@ terminus self:plugin:install terminus-build-tools-plugin
 # Get release sites and convert to an array.
 readarray -t sites_array <<< "$(tr -d '\r' <<< "$RELEASE_SITES")"
 
-if [ "$RELEASE_SITES_DEPLOYED" == 0 ]; then
-  # Prepare output file for comment.
-  echo "Environments ready for review:" >> output.txt
-fi
-
 # Process sites with parallel.
 parallel --jobs 0 --keep-order --line-buffer process_site {} ::: "${sites_array[@]}"
 
