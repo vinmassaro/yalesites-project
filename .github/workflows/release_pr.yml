@@ -141,7 +141,7 @@ jobs:
       run: ./.ci/github/create_release_pull_request
 
   release_sites:
-    needs: [setup, create_pull_request]
+    needs: [setup, get_next_release_version, create_pull_request]
     runs-on: ubuntu-latest
     if: ${{ always() && github.event.action != 'closed' }}
     env:
