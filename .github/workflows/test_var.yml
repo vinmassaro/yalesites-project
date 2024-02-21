@@ -1,4 +1,4 @@
-name: Release pull request
+name: Test variable setting
 on:
   pull_request:
     types:
