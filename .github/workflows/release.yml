@@ -8,8 +8,10 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
     steps:
+      - name: Debug output
+        uses: hmarr/debug-action@v3
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
