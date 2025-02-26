@@ -28,6 +28,7 @@ if [[ -z "$PR_NUMBER" ]]; then
 
   # Set PR_NUMBER for Github Actions.
   echo PR_NUMBER="$PR_NUMBER" >> "$GITHUB_OUTPUT"
+  gh variable set RELEASE_PR_NUMBER --body "$PR_NUMBER"
 
 # If there is an existing PR number, get the PR.
 else
