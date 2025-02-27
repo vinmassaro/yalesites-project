@@ -45,8 +45,8 @@ jobs:
     outputs:
       PR_NUMBER: ${{ steps.create_pull_request.outputs.PR_NUMBER || vars.RELEASE_PR_NUMBER }}
     env:
-      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.RELEASE_BRANCH || vars.RELEASE_BRANCH }}
-      NEXT_VERSION: ${{ needs.get_next_release_version.outputs.NEXT_VERSION }}
+      RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
+      NEXT_VERSION: ${{ vars.RELEASE_BRANCH }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -61,8 +61,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() && github.event_name != 'workflow_run' }}
     env:
-      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.RELEASE_BRANCH || vars.RELEASE_BRANCH }}
-      PR_NUMBER: ${{ needs.create_pull_request.outputs.PR_NUMBER || vars.RELEASE_PR_NUMBER }}
+      RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
+      PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
     - name: Checkout
