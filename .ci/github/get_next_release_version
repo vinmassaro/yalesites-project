@@ -1,27 +1,21 @@
 #!/bin/bash
 
-if [[ "$PR_NUMBER" ]]; then
-  release_branch=$(gh pr view "$PR_NUMBER" --json headRefName --jq '.[]')
+# Merge develop into master and get next version number from semantic-release
+git merge origin/develop --no-edit -X theirs
+npm install --force
+unset GITHUB_ACTIONS
+unset GITHUB_EVENT_NAME
+semantic_release=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null)
+next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/v\1/p')
+
+if [ -z "$next_version" ]; then
+  exit 1
 else
-  git merge origin/develop --no-edit -X theirs
-  npm install --force
-  unset GITHUB_ACTIONS
-  unset GITHUB_EVENT_NAME
-  semantic_release=$(npx --no-install semantic-release --no-ci --dry-run 2>/dev/null)
-  next_version=$(echo "$semantic_release" | sed -nE 's/.*The next release version is ([0-9]+\.[0-9]+\.[0-9]+).*/v\1/p')
-  
-  if [ -z "$next_version" ]; then
-    exit 1
-  else
-    release_branch="${next_version//.}"
-  fi
+  release_branch="${next_version//.}"
 fi
 
-# Set outputs for next steps when running from workflow_dispatch.
-echo next_version="$next_version" >> "$GITHUB_OUTPUT"
-echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
-
-# Set release branch as a variable for access.
+# Set release branch and version as a variables for later access
+gh variable set NEXT_RELEASE_VERSION --body "$next_version"
 gh variable set RELEASE_BRANCH --body "$release_branch"
 
 # Create release branch
