@@ -27,16 +27,14 @@ jobs:
       with:
         ref: master
         fetch-depth: 0
+    - run: |
+        git config --global user.name github-actions
+        git config --global user.email github-actions@github.com
 
     - name: Setup node
       uses: actions/setup-node@v4
       with:
         node-version: 20
-
-    - name: Git setup
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
 
     - name: Get next release number
       id: get_release_number
@@ -72,13 +70,9 @@ jobs:
       with:
         ref: ${{ env.RELEASE_BRANCH }}
         fetch-depth: 0
-
-    - name: Git setup
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: |
-        git config user.name github-actions
-        git config user.email github-actions@github.com
+    - run: |
+        git config --global user.name github-actions
+        git config --global user.email github-actions@github.com
 
     - name: Set up Terminus
       uses: vinmassaro/terminus-github-actions@main
