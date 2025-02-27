@@ -15,24 +15,8 @@ env:
   REPO: ${{ github.repository }}
   RELEASE_SITES: ${{ vars.RELEASE_SITES }}
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Set up Terminus
-      uses: vinmassaro/terminus-github-actions@main
-      with:
-        pantheon-machine-token: ${{ secrets.TERMINUS_TOKEN }}
-
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        known_hosts: unnecessary
-        config: ${{ secrets.SSH_CONFIG }}
-
   get_next_release_version:
     runs-on: ubuntu-latest
-    needs: [setup]
     if: ${{ github.event_name == 'workflow_dispatch' }}
     outputs:
       NEXT_VERSION: ${{ steps.get_release_number.outputs.next_version }}
@@ -59,7 +43,6 @@ jobs:
       run: ./.ci/github/get_next_release_number
 
   create_pull_request:
-    needs: [setup, get_next_release_version]
     if: ${{ always() && github.event_name != 'workflow_run' }}
     outputs:
       PR_NUMBER: ${{ steps.create_pull_request.outputs.PR_NUMBER || vars.RELEASE_PR_NUMBER }}
@@ -76,7 +59,7 @@ jobs:
       run: ./.ci/github/create_release_pull_request
 
   release_sites:
-    needs: [setup, get_next_release_version, create_pull_request]
+    needs: [create_pull_request]
     runs-on: ubuntu-latest
     if: ${{ always() && github.event_name != 'workflow_run' }}
     env:
@@ -107,7 +90,6 @@ jobs:
 
   clean_up_multidevs:
     if: ${{ github.event_name == 'workflow_run' }}
-    needs: [setup]
     runs-on: ubuntu-latest
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
