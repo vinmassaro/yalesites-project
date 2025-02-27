@@ -79,6 +79,13 @@ jobs:
       with:
         pantheon-machine-token: ${{ secrets.TERMINUS_TOKEN }}
 
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: "*.drush.in"
+        config: ${{ secrets.SSH_CONFIG }}
+
     - name: Deploy to environments
       run: ./.ci/github/deploy_release_sites
 
@@ -96,6 +103,13 @@ jobs:
       uses: vinmassaro/terminus-github-actions@main
       with:
         pantheon-machine-token: ${{ secrets.TERMINUS_TOKEN }}
+
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: "*.drush.in"
+        config: ${{ secrets.SSH_CONFIG }}
 
     - name: Clean up
       env:
