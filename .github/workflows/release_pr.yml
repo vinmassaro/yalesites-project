@@ -39,8 +39,6 @@ jobs:
 
   create_pull_request:
     if: ${{ github.event_name == 'workflow_dispatch' }}
-    outputs:
-      PR_NUMBER: ${{ steps.create_pull_request.outputs.PR_NUMBER || vars.RELEASE_PR_NUMBER }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       NEXT_VERSION: ${{ vars.RELEASE_BRANCH }}
