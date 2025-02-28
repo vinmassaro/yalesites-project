@@ -35,7 +35,7 @@ jobs:
 
     - name: Get next release number
       id: get_release_number
-      run: ./.ci/github/get_next_release_number
+      run: ./.ci/github/get_next_release_version
 
   create_pull_request:
     needs: [get_next_release_version]
