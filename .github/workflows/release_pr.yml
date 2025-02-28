@@ -8,6 +8,9 @@ on:
     workflows: [Create a release]
     types:
       - completed
+defaults:
+  run:
+    shell: bash
 env:
   YALESITES_BUILD_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   GH_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
