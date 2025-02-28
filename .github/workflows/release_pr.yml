@@ -21,6 +21,8 @@ jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_run' }}
+    outputs:
+      release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -62,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_run' }}
     env:
-      RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
+      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch || vars.RELEASE_BRANCH }}
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
     - name: Checkout
