@@ -20,7 +20,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' && vars.NEXT_RELEASE_VERSION != '0' }}
+    if: ${{ github.event_name != 'workflow_run' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -38,6 +38,7 @@ jobs:
 
     - name: Get next release number
       id: get_release_number
+      if: ${{ vars.NEXT_RELEASE_VERSION == '0' }}
       run: ./.ci/github/get_next_release_version
 
   create_or_update_pull_request:
