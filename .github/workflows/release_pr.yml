@@ -38,7 +38,7 @@ jobs:
       run: ./.ci/github/get_next_release_number
 
   create_pull_request:
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       NEXT_VERSION: ${{ vars.RELEASE_BRANCH }}
@@ -54,7 +54,7 @@ jobs:
   release_sites:
     needs: [create_pull_request]
     runs-on: ubuntu-latest
-    if: ${{ always() && github.event_name != 'workflow_run' }}
+    if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
