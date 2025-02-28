@@ -47,6 +47,7 @@ jobs:
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       NEXT_VERSION: ${{ vars.NEXT_RELEASE_VERSION }}
+      PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
