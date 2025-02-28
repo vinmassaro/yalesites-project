@@ -64,20 +64,15 @@ jobs:
     env:
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
-    - name: Get release branch name
-      id: get-release-branch
-      run: |
-        release_branch=$(gh variable get RELEASE_BRANCH)
-        echo RELEASE_BRANCH="$release_branch" >> "$GITHUB_OUTPUT"
-
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: ${{ steps.get-release-branch.outputs.RELEASE_BRANCH }}
         fetch-depth: 0
     - run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
+        release_branch=$(gh variable get RELEASE_BRANCH)
+        git checkout --track origin/"$release_branch"
 
     - name: Set up Terminus
       uses: vinmassaro/terminus-github-actions@main
