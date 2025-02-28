@@ -14,7 +14,9 @@ else
   release_branch="${next_version//.}"
 fi
 
-# Set release branch and version as a variables for later access
+# Set release branch and version as a output and actions variables for later access
+echo release_branch="$release_branch" >> "$GITHUB_OUTPUT"
+
 gh variable set NEXT_RELEASE_VERSION --body "$next_version"
 gh variable set RELEASE_BRANCH --body "$release_branch"
 
