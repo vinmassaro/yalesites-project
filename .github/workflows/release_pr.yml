@@ -61,7 +61,6 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
-      PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
     - name: Checkout
