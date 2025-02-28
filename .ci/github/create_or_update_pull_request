@@ -2,6 +2,10 @@
 
 set -eo pipefail
 
+# Get updated variable values
+RELEASE_BRANCH=$(gh variable get RELEASE_BRANCH)
+NEXT_VERSION=$(gh variable get NEXT_RELEASE_VERSION)
+
 # If we aren't updating an existing pull request, create one to merge the release branch into master.
 if [[ "$PR_NUMBER" -eq "0" ]]; then
   pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
