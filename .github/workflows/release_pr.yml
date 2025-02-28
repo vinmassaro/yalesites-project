@@ -20,7 +20,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' && vars.NEXT_RELEASE_VERSION != '' }}
+    if: ${{ github.event_name != 'workflow_run' && vars.NEXT_RELEASE_VERSION != '0' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
