@@ -8,6 +8,9 @@ on:
     workflows: [Create a release]
     types:
       - completed
+defaults:
+  run:
+    shell: bash
 env:
   YALESITES_BUILD_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
   GH_TOKEN: ${{ secrets.YALESITES_BUILD_TOKEN }}
@@ -35,9 +38,10 @@ jobs:
 
     - name: Get next release number
       id: get_release_number
-      run: ./.ci/github/get_next_release_number
+      run: ./.ci/github/get_next_release_version
 
   create_pull_request:
+    needs: [get_next_release_version]
     if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
