@@ -3,7 +3,7 @@
 set -eo pipefail
 
 # If we aren't updating an existing pull request, create one to merge the release branch into master.
-if [[ -z "$PR_NUMBER" ]]; then
+if [[ "$PR_NUMBER" -eq "0" ]]; then
   pull_request_response=$(curl -s -H "Accept: application/vnd.github+json" \
     -H "Authorization: token $ACCESS_TOKEN" \
     -X POST -d '{"title": "Release '"$NEXT_VERSION"'", "head": "'"$RELEASE_BRANCH"'", "base": "master"}' \
