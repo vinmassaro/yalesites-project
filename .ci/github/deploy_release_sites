@@ -2,6 +2,9 @@
 
 set -eo pipefail
 
+# Get updated RELEASE_PR_NUMBER
+PR_NUMBER=$(gh variable get RELEASE_PR_NUMBER);
+
 push_code() {
   git_path=$(terminus connection:info "$site_machine_name".dev --field=git_url)
   git remote add "$site_machine_name" "$git_path"
