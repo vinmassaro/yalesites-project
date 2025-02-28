@@ -45,7 +45,7 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
-      NEXT_VERSION: ${{ vars.RELEASE_BRANCH }}
+      NEXT_VERSION: ${{ vars.NEXT_RELEASE_VERSION }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
