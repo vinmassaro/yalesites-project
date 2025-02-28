@@ -21,8 +21,6 @@ jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_run' }}
-    outputs:
-      release_branch: ${{ steps.get_release_number.outputs.release_branch }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -64,13 +62,18 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_run' }}
     env:
-      RELEASE_BRANCH: ${{ needs.get_next_release_version.outputs.release_branch || vars.RELEASE_BRANCH }}
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
+    - name: Get release branch name
+      id: get-release-branch
+      run: |
+        release_branch=$(gh variable get RELEASE_BRANCH)
+        echo RELEASE_BRANCH="$release_branch" >> "$GITHUB_OUTPUT"
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: ${{ env.RELEASE_BRANCH }}
+        ref: ${{ steps.get-release-branch.outputs.RELEASE_BRANCH }}
         fetch-depth: 0
     - run: |
         git config --global user.name github-actions
