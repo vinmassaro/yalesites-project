@@ -38,6 +38,7 @@ jobs:
       run: ./.ci/github/get_next_release_number
 
   create_pull_request:
+    needs: [get_next_release_version]
     if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
