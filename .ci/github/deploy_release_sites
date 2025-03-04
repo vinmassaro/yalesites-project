@@ -5,6 +5,7 @@ set -eo pipefail
 # Get updated RELEASE_PR_NUMBER, RELEASE_BRANCH
 PR_NUMBER=$(gh variable get RELEASE_PR_NUMBER);
 RELEASE_BRANCH=$(gh variable get RELEASE_BRANCH);
+export PR_NUMBER RELEASE_BRANCH
 
 push_code() {
   git_path=$(terminus connection:info "$site_machine_name".dev --field=git_url)
