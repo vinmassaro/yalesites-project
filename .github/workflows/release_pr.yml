@@ -72,7 +72,7 @@ jobs:
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
         release_branch=$(gh variable get RELEASE_BRANCH)
-        git checkout --track origin/"$release_branch"
+        git checkout "$release_branch" || git checkout --track origin/"$release_branch"
 
     - name: Set up Terminus
       uses: vinmassaro/terminus-github-actions@main
