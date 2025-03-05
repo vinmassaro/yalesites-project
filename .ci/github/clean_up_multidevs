@@ -15,5 +15,7 @@ readarray -t release_sites <<< "$(tr -d '\r' <<< "$RELEASE_SITES")"
 parallel --jobs 0 --keep-order --line-buffer clean_up_multidevs ::: "${release_sites[@]}"
 
 # Reset tracking variables for release site deployment and pull request.
-gh variable set RELEASE_SITES_DEPLOYED --body "0"
+gh variable set NEXT_RELEASE_VERSION --body "0"
+gh variable set RELEASE_BRANCH --body "0"
 gh variable set RELEASE_PR_NUMBER --body "0"
+gh variable set RELEASE_SITES_DEPLOYED --body "0"
