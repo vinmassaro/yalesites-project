@@ -111,7 +111,16 @@ jobs:
         known_hosts: "*.drush.in"
         config: ${{ secrets.SSH_CONFIG }}
 
+    - name: Check if release PR has been merged
+      id: check_release_pr
+      env:
+        PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
+      run: |
+        MERGED_STATUS=$(gh pr view "$PR_NUMBER" --jq '.state' --json state)
+        echo "release_pr_status=$MERGED_STATUS" >> $GITHUB_ENV
+
     - name: Clean up
+      if: env.release_pr_status == 'MERGED' || env.release_pr_status == 'CLOSED'
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: ./.ci/github/clean_up_multidevs
