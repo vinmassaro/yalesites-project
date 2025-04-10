@@ -1,13 +1,14 @@
 name: Release pull request
 on:
+  pull_request:
+    types: 
+      - closed
+    branches:
+      - 'master'
   push:
     branches:
       - 'v[0-9]+'
   workflow_dispatch:
-  workflow_run:
-    workflows: [Create a release]
-    types:
-      - completed
 defaults:
   run:
     shell: bash
@@ -20,7 +21,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' }}
+    if: ${{ github.event_name != 'pull_request' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -43,7 +44,7 @@ jobs:
 
   create_or_update_pull_request:
     needs: [get_next_release_version]
-    if: ${{ github.event_name != 'workflow_run' }}
+    if: ${{ github.event_name != 'pull_request' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       NEXT_VERSION: ${{ vars.NEXT_RELEASE_VERSION }}
@@ -60,7 +61,7 @@ jobs:
   release_sites:
     needs: [create_or_update_pull_request]
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'workflow_run' }}
+    if: ${{ github.event_name != 'pull_request' }}
     env:
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
@@ -90,7 +91,7 @@ jobs:
       run: ./.ci/github/deploy_release_sites
 
   clean_up_multidevs:
-    if: ${{ github.event_name == 'workflow_run' }}
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
