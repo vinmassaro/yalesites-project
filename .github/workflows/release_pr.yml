@@ -20,7 +20,7 @@ env:
 jobs:
   get_next_release_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name != 'workflow_run' }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -38,14 +38,16 @@ jobs:
 
     - name: Get next release number
       id: get_release_number
+      if: ${{ vars.NEXT_RELEASE_VERSION == '0' }}
       run: ./.ci/github/get_next_release_version
 
-  create_pull_request:
+  create_or_update_pull_request:
     needs: [get_next_release_version]
     if: ${{ github.event_name != 'workflow_run' }}
     env:
       RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       NEXT_VERSION: ${{ vars.NEXT_RELEASE_VERSION }}
+      PR_NUMBER: ${{ vars.RELEASE_PR_NUMBER }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -53,24 +55,24 @@ jobs:
 
     - name: Create pull request
       id: create_pull_request
-      run: ./.ci/github/create_release_pull_request
+      run: ./.ci/github/create_or_update_pull_request
 
   release_sites:
-    needs: [create_pull_request]
+    needs: [create_or_update_pull_request]
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'workflow_run' }}
     env:
-      RELEASE_BRANCH: ${{ vars.RELEASE_BRANCH }}
       RELEASE_SITES_DEPLOYED: ${{ vars.RELEASE_SITES_DEPLOYED }}
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        ref: ${{ env.RELEASE_BRANCH }}
         fetch-depth: 0
     - run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
+        release_branch=$(gh variable get RELEASE_BRANCH)
+        git checkout "$release_branch" || git checkout --track origin/"$release_branch"
 
     - name: Set up Terminus
       uses: vinmassaro/terminus-github-actions@main
