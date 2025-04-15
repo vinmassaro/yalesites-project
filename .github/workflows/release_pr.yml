@@ -121,7 +121,7 @@ jobs:
         echo "release_pr_status=$MERGED_STATUS" >> $GITHUB_ENV
 
     - name: Clean up
-      if: env.release_pr_status == 'MERGED' || env.release_pr_status == 'CLOSED'
+      if: github.event_name == 'pull_request' && github.event.action == 'closed' && (env.release_pr_status == 'MERGED' || env.release_pr_status == 'CLOSED')
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: ./.ci/github/clean_up_multidevs
