@@ -30,6 +30,9 @@ jobs:
       - name: Release
         run: npx semantic-release
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Backmerge master to develop
         run: |
           set -euo pipefail
