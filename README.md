@@ -20,7 +20,7 @@ This platform coordinates development across multiple repositories:
 
 ## Quick Start
 
-```bash
+```bash   
 git clone git@github.com:yalesites-org/yalesites-project
 cd yalesites-project
 npm run setup
@@ -110,3 +110,4 @@ lando xdebug-off           # Disable Xdebug
 - **Custom Modules**: Use `ys_` prefix (e.g., `ys_core`, `ys_themes`)
 - **Branch Strategy**: `develop` (primary), `master` (releases), `YALB-XXX-description` (features)
 - **Semantic Release**: Automated versioning on master branch using conventional commits
+
