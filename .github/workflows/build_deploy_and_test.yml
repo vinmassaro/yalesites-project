@@ -31,7 +31,7 @@ jobs:
             echo "::error::$unpinned_dependencies found in /web/profiles/custom/yalesites_profile/composer.json. Please switch to pinned versions." && exit 1
           fi
 
-      - name: run static tests
+      - name: Run static tests
         run: |
           ./.ci/test/static/run
 
